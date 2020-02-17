@@ -20,7 +20,6 @@
 		A6B8005B23F2EF34006613A1 /* PersonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B8005A23F2EF34006613A1 /* PersonRow.swift */; };
 		A6B8005F23F2F4E8006613A1 /* PersonDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B8005E23F2F4E8006613A1 /* PersonDetail.swift */; };
 		A6B8006123F300E9006613A1 /* PersonForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B8006023F300E9006613A1 /* PersonForm.swift */; };
-		A6CC376523FA987700C01F3D /* Persons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC376423FA987700C01F3D /* Persons.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +59,6 @@
 		A6B8005A23F2EF34006613A1 /* PersonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonRow.swift; sourceTree = "<group>"; };
 		A6B8005E23F2F4E8006613A1 /* PersonDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetail.swift; sourceTree = "<group>"; };
 		A6B8006023F300E9006613A1 /* PersonForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonForm.swift; sourceTree = "<group>"; };
-		A6CC376423FA987700C01F3D /* Persons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persons.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +116,6 @@
 				A6B8005E23F2F4E8006613A1 /* PersonDetail.swift */,
 				A6B8006023F300E9006613A1 /* PersonForm.swift */,
 				A6B8005823F2E714006613A1 /* Person.swift */,
-				A6CC376423FA987700C01F3D /* Persons.swift */,
 				A6B8002E23F2E6D4006613A1 /* Assets.xcassets */,
 				A6B8003323F2E6D4006613A1 /* LaunchScreen.storyboard */,
 				A6B8003623F2E6D4006613A1 /* Info.plist */,
@@ -288,7 +285,6 @@
 				A6B8005923F2E714006613A1 /* Person.swift in Sources */,
 				A6B8005F23F2F4E8006613A1 /* PersonDetail.swift in Sources */,
 				A6B8002B23F2E6D1006613A1 /* TP1.xcdatamodeld in Sources */,
-				A6CC376523FA987700C01F3D /* Persons.swift in Sources */,
 				A6B8005B23F2EF34006613A1 /* PersonRow.swift in Sources */,
 				A6B8002623F2E6D1006613A1 /* AppDelegate.swift in Sources */,
 				A6B8002D23F2E6D1006613A1 /* ContentView.swift in Sources */,

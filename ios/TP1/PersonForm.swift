@@ -12,7 +12,7 @@ import Combine
 
 
 struct PersonForm: View {
-    @Binding var persons : Persons
+    @Binding var persons : [Person]
     @State var name : String = ""
     @State var firstName : String = ""
     @State var dpt : String = ""
@@ -29,7 +29,11 @@ struct PersonForm: View {
                 Section {
                     Spacer()
                     Button(action: {
-                        self.persons.add(person: Person(name : self.name, firstName : self.firstName, department : self.dpt, profession: self.profession))
+                        self.persons.append(
+                            Person(name : self.name,
+                                   firstName : self.firstName,
+                                   department : self.dpt,
+                                   profession: self.profession))
                             }) {
                                 Text("Ajouter")
                             }
@@ -39,8 +43,8 @@ struct PersonForm: View {
 }
 
 struct PersonForm_Previews: PreviewProvider {
-    @ObservedObject static var persons = Persons(persons : [Person(name: "a", firstName: "b", department: "ig", profession: "student")])
+    @State static var persons : [Person]  = [Person(name: "a", firstName: "b", department: "ig", profession: "student")]
     static var previews: some View {
-        PersonForm(persons : self.persons)
+        PersonForm(persons : self.$persons)
     }
 }
