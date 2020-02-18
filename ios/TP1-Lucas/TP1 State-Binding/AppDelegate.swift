@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  TP1 State-Binding
+//  TP1
 //
-//  Created by user164568 on 2/17/20.
+//  Created by user164568 on 2/11/20.
 //  Copyright © 2020 user164568. All rights reserved.
 //
 
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentCloudKitContainer(name: "TP1_State_Binding")
+        let container = NSPersistentCloudKitContainer(name: "TP1")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.

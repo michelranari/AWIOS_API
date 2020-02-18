@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A6259EC823FC247700ECB30E /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6259EC723FC247600ECB30E /* Person.swift */; };
+		A6259ECA23FC24A500ECB30E /* PersonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6259EC923FC24A500ECB30E /* PersonRow.swift */; };
+		A6259ECC23FC24BB00ECB30E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6259ECB23FC24BB00ECB30E /* ContentView.swift */; };
+		A6259ECE23FC24C900ECB30E /* PersonDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6259ECD23FC24C800ECB30E /* PersonDetail.swift */; };
+		A6259ED023FC24D400ECB30E /* PersonForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6259ECF23FC24D300ECB30E /* PersonForm.swift */; };
 		A6CC377423FAC46900C01F3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC377323FAC46900C01F3D /* AppDelegate.swift */; };
 		A6CC377623FAC46900C01F3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC377523FAC46900C01F3D /* SceneDelegate.swift */; };
 		A6CC377923FAC46900C01F3D /* TP1_State_Binding.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A6CC377723FAC46900C01F3D /* TP1_State_Binding.xcdatamodeld */; };
@@ -15,11 +20,6 @@
 		A6CC378323FAC46B00C01F3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6CC378123FAC46B00C01F3D /* LaunchScreen.storyboard */; };
 		A6CC378E23FAC46B00C01F3D /* TP1_State_BindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC378D23FAC46B00C01F3D /* TP1_State_BindingTests.swift */; };
 		A6CC379923FAC46B00C01F3D /* TP1_State_BindingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC379823FAC46B00C01F3D /* TP1_State_BindingUITests.swift */; };
-		A6CC37A723FAC52300C01F3D /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC37A623FAC52300C01F3D /* Person.swift */; };
-		A6CC37A923FAC52900C01F3D /* PersonForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC37A823FAC52900C01F3D /* PersonForm.swift */; };
-		A6CC37AB23FAC53100C01F3D /* PersonDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC37AA23FAC53100C01F3D /* PersonDetail.swift */; };
-		A6CC37AD23FAC53D00C01F3D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC37AC23FAC53D00C01F3D /* ContentView.swift */; };
-		A6CC37AF23FAC58C00C01F3D /* PersonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6CC37AE23FAC58C00C01F3D /* PersonRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +40,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A6259EC723FC247600ECB30E /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		A6259EC923FC24A500ECB30E /* PersonRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonRow.swift; sourceTree = "<group>"; };
+		A6259ECB23FC24BB00ECB30E /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A6259ECD23FC24C800ECB30E /* PersonDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonDetail.swift; sourceTree = "<group>"; };
+		A6259ECF23FC24D300ECB30E /* PersonForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonForm.swift; sourceTree = "<group>"; };
 		A6CC377023FAC46900C01F3D /* TP1 State-Binding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TP1 State-Binding.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6CC377323FAC46900C01F3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6CC377523FAC46900C01F3D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,11 +59,6 @@
 		A6CC379423FAC46B00C01F3D /* TP1 State-BindingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TP1 State-BindingUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6CC379823FAC46B00C01F3D /* TP1_State_BindingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TP1_State_BindingUITests.swift; sourceTree = "<group>"; };
 		A6CC379A23FAC46B00C01F3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A6CC37A623FAC52300C01F3D /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Person.swift; path = ../../TP1/TP1/Person.swift; sourceTree = "<group>"; };
-		A6CC37A823FAC52900C01F3D /* PersonForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonForm.swift; path = ../../TP1/TP1/PersonForm.swift; sourceTree = "<group>"; };
-		A6CC37AA23FAC53100C01F3D /* PersonDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonDetail.swift; path = ../../TP1/TP1/PersonDetail.swift; sourceTree = "<group>"; };
-		A6CC37AC23FAC53D00C01F3D /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../../TP1/TP1/ContentView.swift; sourceTree = "<group>"; };
-		A6CC37AE23FAC58C00C01F3D /* PersonRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonRow.swift; path = ../../TP1/TP1/PersonRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,11 +111,11 @@
 			children = (
 				A6CC377323FAC46900C01F3D /* AppDelegate.swift */,
 				A6CC377523FAC46900C01F3D /* SceneDelegate.swift */,
-				A6CC37AC23FAC53D00C01F3D /* ContentView.swift */,
-				A6CC37AE23FAC58C00C01F3D /* PersonRow.swift */,
-				A6CC37A623FAC52300C01F3D /* Person.swift */,
-				A6CC37AA23FAC53100C01F3D /* PersonDetail.swift */,
-				A6CC37A823FAC52900C01F3D /* PersonForm.swift */,
+				A6259ECB23FC24BB00ECB30E /* ContentView.swift */,
+				A6259EC923FC24A500ECB30E /* PersonRow.swift */,
+				A6259EC723FC247600ECB30E /* Person.swift */,
+				A6259ECD23FC24C800ECB30E /* PersonDetail.swift */,
+				A6259ECF23FC24D300ECB30E /* PersonForm.swift */,
 				A6CC377C23FAC46B00C01F3D /* Assets.xcassets */,
 				A6CC378123FAC46B00C01F3D /* LaunchScreen.storyboard */,
 				A6CC378423FAC46B00C01F3D /* Info.plist */,
@@ -282,13 +282,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6CC37A723FAC52300C01F3D /* Person.swift in Sources */,
-				A6CC37AF23FAC58C00C01F3D /* PersonRow.swift in Sources */,
-				A6CC37AB23FAC53100C01F3D /* PersonDetail.swift in Sources */,
-				A6CC37AD23FAC53D00C01F3D /* ContentView.swift in Sources */,
+				A6259ECA23FC24A500ECB30E /* PersonRow.swift in Sources */,
 				A6CC377423FAC46900C01F3D /* AppDelegate.swift in Sources */,
 				A6CC377923FAC46900C01F3D /* TP1_State_Binding.xcdatamodeld in Sources */,
-				A6CC37A923FAC52900C01F3D /* PersonForm.swift in Sources */,
+				A6259ECE23FC24C900ECB30E /* PersonDetail.swift in Sources */,
+				A6259ED023FC24D400ECB30E /* PersonForm.swift in Sources */,
+				A6259ECC23FC24BB00ECB30E /* ContentView.swift in Sources */,
+				A6259EC823FC247700ECB30E /* Person.swift in Sources */,
 				A6CC377623FAC46900C01F3D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
