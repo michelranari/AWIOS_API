@@ -7,9 +7,6 @@
 //
 
 import SwiftUI
-import Combine
-
-
 
 struct PersonForm: View {
     @Binding var persons : [Person]
@@ -19,26 +16,26 @@ struct PersonForm: View {
     @State var profession : String = ""
     
     var body: some View {
-            Form {
-                Section(header: Text("Enter your info")){
-                    TextField("Name", text : $name)
-                    TextField("First Name",text : $firstName)
-                    TextField("Department",text: $dpt)
-                    TextField("Profession",text: $profession)
-                }
-                Section {
-                    Spacer()
-                    Button(action: {
-                        self.persons.append(
-                            Person(name : self.name,
-                                   firstName : self.firstName,
-                                   department : self.dpt,
-                                   profession: self.profession))
-                            }) {
-                                Text("Ajouter")
-                            }
+        Form {
+            Section(header: Text("Enter your info")){
+                TextField("Name", text : $name)
+                TextField("First Name",text : $firstName)
+                TextField("Department",text: $dpt)
+                TextField("Profession",text: $profession)
+            }
+            Section {
+                Spacer()
+                Button(action: {
+                    self.persons.append(
+                        Person(name : self.name,
+                               firstName : self.firstName,
+                               department : self.dpt,
+                               profession: self.profession))
+                }) {
+                    Text("Ajouter")
                 }
             }
+        }
     }
 }
 
