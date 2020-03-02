@@ -6,16 +6,29 @@
 //  Copyright © 2020 groupe3. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
-struct ListeReponses: View {
+struct ListeReponsesView: View {
+    var proposTest : Propos = Propos(userP: Utilisateur(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierP: 17, contentP: "Charlie delta commando", anonymousP: false, tagsP: [], titleP: "Titre Test")
+    
+    @ObservedObject var reponseTest1 : Reponse = Reponse(userR: Utilisateur(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 18, contentR: "Charlie delta commando", anonymousR: true, tagsR: [])
+    @ObservedObject var reponseTest2 : Reponse = Reponse(userR: Utilisateur(pseudo: "Koba", password: "root", email: "root", city: "ville"), identifierR: 19, contentR: "Ahannnnnn", anonymousR: true, tagsR: [])
+    
+    var answers : [Reponse] = [
+        Reponse(userR: Utilisateur(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 18, contentR: "Charlie delta commando", anonymousR: true, tagsR: []),
+        Reponse(userR: Utilisateur(pseudo: "Koba", password: "root", email: "root", city: "ville"), identifierR: 19, contentR: "Ahannnnnn", anonymousR: true, tagsR: [])
+    ]
+            
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Text("Fuck that...")
+        }
     }
 }
 
-struct ListeReponses_Previews: PreviewProvider {
+struct ListeReponsesView_Previews: PreviewProvider {
     static var previews: some View {
-        ListeReponses()
+        ListeReponsesView()
     }
 }
