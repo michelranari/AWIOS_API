@@ -16,13 +16,15 @@ struct ListAnswersView: View {
     @ObservedObject var reponseTest2 : Answer = Answer(userR: User(pseudo: "Koba", password: "root", email: "root", city: "ville"), identifierR: 19, contentR: "Ahannnnnn", anonymousR: true, tagsR: [])
     
     var answers : [Answer] = [
-        Answer(userR: User(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 18, contentR: "Charlie delta commando", anonymousR: true, tagsR: []),
-        Answer(userR: User(pseudo: "Koba", password: "root", email: "root", city: "ville"), identifierR: 19, contentR: "Ahannnnnn", anonymousR: true, tagsR: [])
+        Answer(userR: User(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 18, contentR: "Charlie delta commando", anonymousR: false, tagsR: []),
+        Answer(userR: User(pseudo: "Koba", password: "root", email: "root", city: "ville"), identifierR: 19, contentR: "Ahannnnnn", anonymousR: false, tagsR: [])
     ]
             
     var body: some View {
-        VStack{
-            Text("Fuck that...")
+        List{
+            //Probleme avec bouton de likes / commentaire / signalement
+            AnswerView(reponseTest : answers[0], comment: "")
+            AnswerView(reponseTest : answers[1], comment: "")
         }
     }
 }
