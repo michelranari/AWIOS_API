@@ -15,6 +15,7 @@ struct RegisterForm: View {
     @State var mail : String = ""
     
     var body: some View {
+        
         NavigationView{
             VStack{
                 Title(myTitle: "Inscription")

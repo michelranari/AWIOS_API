@@ -140,19 +140,6 @@
 				A1A5A305240D40A30015CBBE /* AppDelegate.swift */,
 				A1A5A307240D40A30015CBBE /* SceneDelegate.swift */,
 				A1A5A30C240D40A30015CBBE /* ContentView.swift */,
-				A1A5A346240D449D0015CBBE /* Login */,
-				A1A5A34D240D459F0015CBBE /* LoginPicture.swift */,
-				A1A5A33E240D42890015CBBE /* LoginButton.swift */,
-				A1A5A338240D41200015CBBE /* LoginForm.swift */,
-				A1A5A34F240D45D50015CBBE /* Register */,
-				A1A5A34B240D45810015CBBE /* RegisterForm.swift */,
-				A1A5A344240D44280015CBBE /* RegisterButton.swift */,
-				A1A5A348240D44C50015CBBE /* Tools */,
-				A1A5A33A240D41900015CBBE /* FieldGenerator.swift */,
-				A1A5A33C240D41CE0015CBBE /* Title.swift */,
-				A1A5A349240D452F0015CBBE /* ButtonGenerator.swift */,
-				A1A5A342240D42F20015CBBE /* Accueil.swift */,
-				A1A5A350240D49A50015CBBE /* BusinessClass */,
 				A1A5A30E240D40A70015CBBE /* Assets.xcassets */,
 				A1A5A313240D40A70015CBBE /* LaunchScreen.storyboard */,
 				A1A5A316240D40A70015CBBE /* Info.plist */,
@@ -191,6 +178,9 @@
 		A1A5A346240D449D0015CBBE /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				A1A5A338240D41200015CBBE /* LoginForm.swift */,
+				A1A5A33E240D42890015CBBE /* LoginButton.swift */,
+				A1A5A34D240D459F0015CBBE /* LoginPicture.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -198,6 +188,9 @@
 		A1A5A348240D44C50015CBBE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				A1A5A349240D452F0015CBBE /* ButtonGenerator.swift */,
+				A1A5A33C240D41CE0015CBBE /* Title.swift */,
+				A1A5A33A240D41900015CBBE /* FieldGenerator.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -205,20 +198,19 @@
 		A1A5A34F240D45D50015CBBE /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				A1A5A344240D44280015CBBE /* RegisterButton.swift */,
+				A1A5A34B240D45810015CBBE /* RegisterForm.swift */,
 			);
 			path = Register;
-			sourceTree = "<group>";
-		};
-		A1A5A350240D49A50015CBBE /* BusinessClass */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BusinessClass;
 			sourceTree = "<group>";
 		};
 		F016E233240D4B8B0063A034 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A1A5A342240D42F20015CBBE /* Accueil.swift */,
+				A1A5A348240D44C50015CBBE /* Tools */,
+				A1A5A34F240D45D50015CBBE /* Register */,
+				A1A5A346240D449D0015CBBE /* Login */,
 				F016E234240D4B9F0063A034 /* Reponse */,
 			);
 			path = Views;
