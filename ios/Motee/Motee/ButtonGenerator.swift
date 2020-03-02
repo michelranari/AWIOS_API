@@ -19,7 +19,7 @@ struct ButtonGenerator : View {
             .padding()
             .frame(width: 220, height: 60)
             .background(generateColor(name: myColor))
-            .cornerRadius(15.0)
+            .cornerRadius(40)
     }
 }
 

@@ -16,13 +16,13 @@ class Publication : Identifiable, ObservableObject {
     @Published var anonymous : Bool
     
     @Published var tags : [Tag]
-    @Published var owner : Utilisateur
+    @Published var owner : User
     
-    var alreadyLikedBy : [Utilisateur] = []
+    var alreadyLikedBy : [User] = []
     
     var id : Int {return idPublication}
     
-    init(user : Utilisateur, identifier : Int, content : String, anonymous : Bool, tags : [Tag]) {
+    init(user : User, identifier : Int, content : String, anonymous : Bool, tags : [Tag]) {
         self.owner = user
         self.idPublication = identifier
         self.contentPub = content
@@ -30,12 +30,12 @@ class Publication : Identifiable, ObservableObject {
         self.tags = tags
     }
     
-    func liker(userLike : Utilisateur){
+    func liker(userLike : User){
         self.nbLikes = self.nbLikes + 1
         self.alreadyLikedBy.append(userLike)
     }
     
-    func disliker(userDislike : Utilisateur){
+    func disliker(userDislike : User){
         self.nbLikes = self.nbLikes - 1
         for i in 0..<self.alreadyLikedBy.count {
             if self.alreadyLikedBy[i].id == userDislike.id {
@@ -44,7 +44,7 @@ class Publication : Identifiable, ObservableObject {
         }
     }
     
-    func estProprietaire(utilisateur: Utilisateur)->Bool{
+    func estProprietaire(utilisateur: User)->Bool{
         if utilisateur.equals(utilisateur: self.owner) {
             return true
         }else {
@@ -52,7 +52,7 @@ class Publication : Identifiable, ObservableObject {
         }
     }
     
-    func peutSupprimer(utilisateur: Utilisateur) -> Bool {
+    func peutSupprimer(utilisateur: User) -> Bool {
         if(self.estProprietaire(utilisateur: utilisateur) || utilisateur.admin){
             return true
         }else{
@@ -60,7 +60,7 @@ class Publication : Identifiable, ObservableObject {
         }
     }
     
-    func supprimer(utilisateur: Utilisateur)->Bool {
+    func supprimer(utilisateur: User)->Bool {
         if self.peutSupprimer(utilisateur: utilisateur){
             for it in 0..<owner.publications.count {
                 if owner.publications[it].id == self.idPublication {
@@ -74,7 +74,7 @@ class Publication : Identifiable, ObservableObject {
         }
     }
     
-    func revelerIdentitePublication(utilisateur : Utilisateur)->Utilisateur?{
+    func revelerIdentitePublication(utilisateur : User)->User?{
         if utilisateur.admin && self.anonymous {
             return self.owner
         } else {
@@ -82,7 +82,7 @@ class Publication : Identifiable, ObservableObject {
         }
     }
     
-    func estLikee(utilisateur: Utilisateur)->Bool{
+    func estLikee(utilisateur: User)->Bool{
         var isLiked : Bool = false
         for it in 0..<alreadyLikedBy.count {
             if alreadyLikedBy[it].equals(utilisateur: utilisateur){

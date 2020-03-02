@@ -1,5 +1,5 @@
 //
-//  AffichageReponse.swift
+//  AffichageAnswer.swift
 //  Motee
 //
 //  Created by Amjad Menouer on 02/03/2020.
@@ -10,13 +10,13 @@ import Combine
 import SwiftUI
 import UserNotifications
 
-struct AffichageView: View {
+struct AnswerView: View {
     
-    @ObservedObject var utilisateurTest : Utilisateur = Utilisateur(pseudo: "root", password: "root", email: "root", city: "ville")
+    @ObservedObject var utilisateurTest : User = User(pseudo: "root", password: "root", email: "root", city: "ville")
     
-    @ObservedObject var proposTest : Reponse = Reponse(userR: Utilisateur(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 17, contentR: "J'étais dans la rue et on m'a montré du doigt en criant : '...'", anonymousR: false, tagsR: [])
+    @ObservedObject var proposTest : Answer = Answer(userR: User(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 17, contentR: "J'étais dans la rue et on m'a montré du doigt en criant : '...'", anonymousR: false, tagsR: [])
     
-    @ObservedObject var reponseTest : Reponse
+    @ObservedObject var reponseTest : Answer
     
     @State var isNotHide : Bool = false
     @State var comment : String
@@ -109,10 +109,10 @@ struct AffichageView: View {
     
 }
 
-struct AffichageView_Previews: PreviewProvider {
-    var reponseTest : Reponse = Reponse(userR: Utilisateur(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 18, contentR: "Charlie delta commando", anonymousR: true, tagsR: [])
+struct AnswerView_Previews: PreviewProvider {
+    var reponseTest : Answer = Answer(userR: User(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 18, contentR: "Charlie delta commando", anonymousR: true, tagsR: [])
     
     static var previews: some View {
-        AffichageView(reponseTest: Reponse(userR: Utilisateur(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 18, contentR: "J'étais dans la rue et on m'a montré du doigt en criant : 'Bendo na bendo'", anonymousR: false, tagsR: []),comment: "")
+        AnswerView(reponseTest: Answer(userR: User(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 18, contentR: "J'étais dans la rue et on m'a montré du doigt en criant : 'Bendo na bendo'", anonymousR: false, tagsR: []),comment: "")
     }
 }

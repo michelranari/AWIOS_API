@@ -9,26 +9,30 @@
 import Combine
 import Foundation
 
-class Propos : Publication {
+class Proposition : Publication {
     @Published var title : String
     
-    @Published var answers : [Reponse] = []
+    @Published var answers : [Answer] = []
     
-    init(userP : Utilisateur, identifierP : Int, contentP : String, anonymousP : Bool, tagsP : [Tag], titleP : String) {
+    init(userP : User, identifierP : Int, contentP : String, anonymousP : Bool, tagsP : [Tag], titleP : String) {
         self.title = titleP
         super.init(user: userP, identifier: identifierP, content: contentP, anonymous: anonymousP, tags: tagsP)
     }
     
-    func addReponse(newAnswer: Reponse)->Bool{
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+    
+    func addAnswer(newAnswer: Answer)->Bool{
         self.answers.append(newAnswer)
         return true
     }
     
-    override func liker(userLike : Utilisateur){
+    override func liker(userLike : User){
         super.liker(userLike: userLike)
     }
     
-    override func disliker(userDislike : Utilisateur){
+    override func disliker(userDislike : User){
         super.disliker(userDislike: userDislike)
     }
 }

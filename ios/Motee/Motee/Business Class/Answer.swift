@@ -9,20 +9,24 @@
 import Combine
 import Foundation
 
-class Reponse : Publication {
-    init(userR : Utilisateur, identifierR : Int, contentR : String, anonymousR : Bool, tagsR : [Tag]) {
+class Answer : Publication {
+    init(userR : User, identifierR : Int, contentR : String, anonymousR : Bool, tagsR : [Tag]) {
         super.init(user: userR, identifier: identifierR, content: contentR, anonymous: anonymousR, tags: tagsR)
     }
     
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
     func getContent() -> String {
         return super.contentPub
     }
     
-    override func liker(userLike : Utilisateur){
+    override func liker(userLike : User){
         super.liker(userLike: userLike)
     }
     
-    override func disliker(userDislike : Utilisateur){
+    override func disliker(userDislike : User){
         super.disliker(userDislike: userDislike)
     }
 }

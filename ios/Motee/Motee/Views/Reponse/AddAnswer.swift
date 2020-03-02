@@ -1,5 +1,5 @@
 //
-//  AjoutReponse.swift
+//  AjoutAnswer.swift
 //  Motee
 //
 //  Created by Amjad Menouer on 02/03/2020.
@@ -9,14 +9,14 @@
 import Combine
 import SwiftUI
 
-struct AjoutView: View {
-    //@ObservedObject var propos : Propos
+struct AddAnswerView: View {
+    //@ObservedObject var propos : Proposition
     @State var newContent : String
     @State var alertEmptyAnswer : Bool = false
-    @State var newAnswer : Reponse
+    @State var newAnswer : Answer
     
-    var utilisateurTest : Utilisateur = Utilisateur(pseudo: "root", password: "root", email: "root", city: "ville")
-    var proposTest : Propos = Propos(userP: Utilisateur(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierP: 17, contentP: "Charlie delta commando", anonymousP: false, tagsP: [], titleP: "Titre Test")
+    var utilisateurTest : User = User(pseudo: "root", password: "root", email: "root", city: "ville")
+    var proposTest : Proposition = Proposition(userP: User(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierP: 17, contentP: "Charlie delta commando", anonymousP: false, tagsP: [], titleP: "Titre Test")
     
     var body: some View {
         VStack(alignment:HorizontalAlignment.center,spacing: 15){
@@ -37,8 +37,8 @@ struct AjoutView: View {
                 } else{
                     //
                     self.alertEmptyAnswer = false
-                    self.newAnswer = Reponse.init(userR: self.utilisateurTest, identifierR: self.proposTest.answers.count+1, contentR: self.newContent, anonymousR: false, tagsR: self.proposTest.tags)
-                    if self.proposTest.addReponse(newAnswer: self.newAnswer){
+                    self.newAnswer = Answer.init(userR: self.utilisateurTest, identifierR: self.proposTest.answers.count+1, contentR: self.newContent, anonymousR: false, tagsR: self.proposTest.tags)
+                    if self.proposTest.addAnswer(newAnswer: self.newAnswer){
                         //Renvoie la liste de reponses ensuite
                     }
                 }
@@ -53,8 +53,8 @@ struct AjoutView: View {
                 } else{
                     //
                     self.alertEmptyAnswer = false
-                    self.newAnswer = Reponse.init(userR: self.utilisateurTest, identifierR: self.proposTest.answers.count+1, contentR: self.newContent, anonymousR: true, tagsR: self.proposTest.tags)
-                    if self.proposTest.addReponse(newAnswer: self.newAnswer){
+                    self.newAnswer = Answer.init(userR: self.utilisateurTest, identifierR: self.proposTest.answers.count+1, contentR: self.newContent, anonymousR: true, tagsR: self.proposTest.tags)
+                    if self.proposTest.addAnswer(newAnswer: self.newAnswer){
                         //Renvoie la liste de reponses ensuite
                     }
                 }
@@ -68,10 +68,10 @@ struct AjoutView: View {
     }
 }
 
-struct AjoutView_Previews: PreviewProvider {
+struct AddAnswerView_Previews: PreviewProvider {
     //ajouter un propos test...
     
     static var previews: some View {
-        AjoutView(newContent: "",newAnswer: Reponse(userR: Utilisateur(pseudo: "", password: "", email: "", city: ""), identifierR: 0, contentR: "", anonymousR: true, tagsR: []))
+        AddAnswerView(newContent: "",newAnswer: Answer(userR: User(pseudo: "", password: "", email: "", city: ""), identifierR: 0, contentR: "", anonymousR: true, tagsR: []))
     }
 }

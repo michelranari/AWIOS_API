@@ -20,18 +20,17 @@
 		A1A5A33B240D41900015CBBE /* FieldGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A33A240D41900015CBBE /* FieldGenerator.swift */; };
 		A1A5A33D240D41CE0015CBBE /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A33C240D41CE0015CBBE /* Title.swift */; };
 		A1A5A33F240D42890015CBBE /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A33E240D42890015CBBE /* LoginButton.swift */; };
-		A1A5A341240D42B80015CBBE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A340240D42B80015CBBE /* User.swift */; };
 		A1A5A343240D42F20015CBBE /* Accueil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A342240D42F20015CBBE /* Accueil.swift */; };
 		A1A5A345240D44280015CBBE /* RegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A344240D44280015CBBE /* RegisterButton.swift */; };
 		A1A5A34A240D452F0015CBBE /* ButtonGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A349240D452F0015CBBE /* ButtonGenerator.swift */; };
 		A1A5A34C240D45810015CBBE /* RegisterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A34B240D45810015CBBE /* RegisterForm.swift */; };
 		A1A5A34E240D459F0015CBBE /* LoginPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A34D240D459F0015CBBE /* LoginPicture.swift */; };
-		F016E236240D4BD40063A034 /* AffichageReponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E235240D4BD40063A034 /* AffichageReponse.swift */; };
-		F016E238240D4BF00063A034 /* AjoutReponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E237240D4BF00063A034 /* AjoutReponse.swift */; };
-		F016E23A240D4C050063A034 /* ListeReponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E239240D4C050063A034 /* ListeReponses.swift */; };
-		F016E23D240D4C310063A034 /* Propos.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E23C240D4C310063A034 /* Propos.swift */; };
-		F016E23F240D4C3E0063A034 /* Reponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E23E240D4C3E0063A034 /* Reponse.swift */; };
-		F016E241240D4C4A0063A034 /* Utilisateur.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E240240D4C4A0063A034 /* Utilisateur.swift */; };
+		F016E236240D4BD40063A034 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E235240D4BD40063A034 /* AnswerView.swift */; };
+		F016E238240D4BF00063A034 /* AddAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E237240D4BF00063A034 /* AddAnswer.swift */; };
+		F016E23A240D4C050063A034 /* ListAnswers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E239240D4C050063A034 /* ListAnswers.swift */; };
+		F016E23D240D4C310063A034 /* Proposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E23C240D4C310063A034 /* Proposition.swift */; };
+		F016E23F240D4C3E0063A034 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E23E240D4C3E0063A034 /* Answer.swift */; };
+		F016E241240D4C4A0063A034 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E240240D4C4A0063A034 /* User.swift */; };
 		F016E243240D4C550063A034 /* Publication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E242240D4C550063A034 /* Publication.swift */; };
 		F016E245240D4C690063A034 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E244240D4C690063A034 /* Tag.swift */; };
 /* End PBXBuildFile section */
@@ -73,18 +72,17 @@
 		A1A5A33A240D41900015CBBE /* FieldGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldGenerator.swift; sourceTree = "<group>"; };
 		A1A5A33C240D41CE0015CBBE /* Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
 		A1A5A33E240D42890015CBBE /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
-		A1A5A340240D42B80015CBBE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A1A5A342240D42F20015CBBE /* Accueil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accueil.swift; sourceTree = "<group>"; };
 		A1A5A344240D44280015CBBE /* RegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterButton.swift; sourceTree = "<group>"; };
 		A1A5A349240D452F0015CBBE /* ButtonGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGenerator.swift; sourceTree = "<group>"; };
 		A1A5A34B240D45810015CBBE /* RegisterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterForm.swift; sourceTree = "<group>"; };
 		A1A5A34D240D459F0015CBBE /* LoginPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPicture.swift; sourceTree = "<group>"; };
-		F016E235240D4BD40063A034 /* AffichageReponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffichageReponse.swift; sourceTree = "<group>"; };
-		F016E237240D4BF00063A034 /* AjoutReponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutReponse.swift; sourceTree = "<group>"; };
-		F016E239240D4C050063A034 /* ListeReponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeReponses.swift; sourceTree = "<group>"; };
-		F016E23C240D4C310063A034 /* Propos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Propos.swift; sourceTree = "<group>"; };
-		F016E23E240D4C3E0063A034 /* Reponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reponse.swift; sourceTree = "<group>"; };
-		F016E240240D4C4A0063A034 /* Utilisateur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilisateur.swift; sourceTree = "<group>"; };
+		F016E235240D4BD40063A034 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
+		F016E237240D4BF00063A034 /* AddAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnswer.swift; sourceTree = "<group>"; };
+		F016E239240D4C050063A034 /* ListAnswers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAnswers.swift; sourceTree = "<group>"; };
+		F016E23C240D4C310063A034 /* Proposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposition.swift; sourceTree = "<group>"; };
+		F016E23E240D4C3E0063A034 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
+		F016E240240D4C4A0063A034 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F016E242240D4C550063A034 /* Publication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publication.swift; sourceTree = "<group>"; };
 		F016E244240D4C690063A034 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,7 +153,6 @@
 				A1A5A349240D452F0015CBBE /* ButtonGenerator.swift */,
 				A1A5A342240D42F20015CBBE /* Accueil.swift */,
 				A1A5A350240D49A50015CBBE /* BusinessClass */,
-				A1A5A340240D42B80015CBBE /* User.swift */,
 				A1A5A30E240D40A70015CBBE /* Assets.xcassets */,
 				A1A5A313240D40A70015CBBE /* LaunchScreen.storyboard */,
 				A1A5A316240D40A70015CBBE /* Info.plist */,
@@ -230,9 +227,9 @@
 		F016E234240D4B9F0063A034 /* Reponse */ = {
 			isa = PBXGroup;
 			children = (
-				F016E235240D4BD40063A034 /* AffichageReponse.swift */,
-				F016E237240D4BF00063A034 /* AjoutReponse.swift */,
-				F016E239240D4C050063A034 /* ListeReponses.swift */,
+				F016E235240D4BD40063A034 /* AnswerView.swift */,
+				F016E237240D4BF00063A034 /* AddAnswer.swift */,
+				F016E239240D4C050063A034 /* ListAnswers.swift */,
 			);
 			path = Reponse;
 			sourceTree = "<group>";
@@ -240,9 +237,9 @@
 		F016E23B240D4C0C0063A034 /* Business Class */ = {
 			isa = PBXGroup;
 			children = (
-				F016E23C240D4C310063A034 /* Propos.swift */,
-				F016E23E240D4C3E0063A034 /* Reponse.swift */,
-				F016E240240D4C4A0063A034 /* Utilisateur.swift */,
+				F016E23C240D4C310063A034 /* Proposition.swift */,
+				F016E23E240D4C3E0063A034 /* Answer.swift */,
+				F016E240240D4C4A0063A034 /* User.swift */,
 				F016E242240D4C550063A034 /* Publication.swift */,
 				F016E244240D4C690063A034 /* Tag.swift */,
 			);
@@ -385,20 +382,19 @@
 				A1A5A33B240D41900015CBBE /* FieldGenerator.swift in Sources */,
 				A1A5A33F240D42890015CBBE /* LoginButton.swift in Sources */,
 				A1A5A339240D41200015CBBE /* LoginForm.swift in Sources */,
-				F016E23D240D4C310063A034 /* Propos.swift in Sources */,
+				F016E23D240D4C310063A034 /* Proposition.swift in Sources */,
 				F016E245240D4C690063A034 /* Tag.swift in Sources */,
 				A1A5A34E240D459F0015CBBE /* LoginPicture.swift in Sources */,
-				F016E23A240D4C050063A034 /* ListeReponses.swift in Sources */,
-				F016E241240D4C4A0063A034 /* Utilisateur.swift in Sources */,
-				F016E236240D4BD40063A034 /* AffichageReponse.swift in Sources */,
+				F016E23A240D4C050063A034 /* ListAnswers.swift in Sources */,
+				F016E241240D4C4A0063A034 /* User.swift in Sources */,
+				F016E236240D4BD40063A034 /* AnswerView.swift in Sources */,
 				A1A5A33D240D41CE0015CBBE /* Title.swift in Sources */,
-				F016E23F240D4C3E0063A034 /* Reponse.swift in Sources */,
+				F016E23F240D4C3E0063A034 /* Answer.swift in Sources */,
 				A1A5A34C240D45810015CBBE /* RegisterForm.swift in Sources */,
 				A1A5A306240D40A30015CBBE /* AppDelegate.swift in Sources */,
-				A1A5A341240D42B80015CBBE /* User.swift in Sources */,
 				A1A5A30B240D40A30015CBBE /* Motee.xcdatamodeld in Sources */,
 				A1A5A30D240D40A30015CBBE /* ContentView.swift in Sources */,
-				F016E238240D4BF00063A034 /* AjoutReponse.swift in Sources */,
+				F016E238240D4BF00063A034 /* AddAnswer.swift in Sources */,
 				A1A5A345240D44280015CBBE /* RegisterButton.swift in Sources */,
 				A1A5A308240D40A30015CBBE /* SceneDelegate.swift in Sources */,
 				A1A5A34A240D452F0015CBBE /* ButtonGenerator.swift in Sources */,

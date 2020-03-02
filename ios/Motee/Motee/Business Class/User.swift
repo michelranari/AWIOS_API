@@ -9,7 +9,7 @@
 import Combine
 import Foundation
 
-class Utilisateur : Identifiable, ObservableObject {
+class User : Identifiable, ObservableObject {
     @Published var pseudo : String
     private var password : String
     @Published var email : String
@@ -37,7 +37,7 @@ class Utilisateur : Identifiable, ObservableObject {
         self.city = city
     }
     
-    func bannirUtilisateur(utilisateurABannir : Utilisateur)->Bool{
+    func bannirUtilisateur(utilisateurABannir : User)->Bool{
         if self.admin {
             utilisateurABannir.banned = true
             return true
@@ -46,7 +46,7 @@ class Utilisateur : Identifiable, ObservableObject {
         }
     }
     
-    func equals(utilisateur: Utilisateur)->Bool{
+    func equals(utilisateur: User)->Bool{
         if(utilisateur.id == self.id) {
             return true
         }else{

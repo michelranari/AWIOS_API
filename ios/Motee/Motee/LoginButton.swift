@@ -10,8 +10,8 @@ import SwiftUI
 
 
 var users = [
-    User(id: 1, pseudo: "Pseudo", mail: "b", mdp: "a"),
-    User(id: 2, pseudo: "Pseudo2", mail: "lucas@gmail.com", mdp: "b")
+    User(pseudo: "Pseudo", password: "a", email: "b", city: ""),
+    User(pseudo: "Pseudo", password: "a", email: "b", city: ""),
 ]
 
 struct LoginButton: View {
@@ -34,7 +34,7 @@ struct LoginButton: View {
 
 func findConnexion(pseudo : String, mdp : String) -> Bool {
     for u in users {
-        if(u.pseudo == pseudo && u.mdp == mdp){
+        if(u.pseudo == pseudo && u.passwordProperties == mdp){
             return true
         }
     }
