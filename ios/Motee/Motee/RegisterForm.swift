@@ -23,7 +23,7 @@ struct RegisterForm: View {
                 FieldGenerator.secure(label: "Mot de passe :",field: "Mot de passe", text: $mdp)
                 FieldGenerator.secure(label: "Confirmation mot de passe :",field: "Confirmation du mot de passe", text: $mdp2)
                 RegisterButton(pseudo : $pseudo, mail : $mail, mdp : $mdp, mdp2 : $mdp2)
-            }.padding(20)
+            }
         }
     }
 }

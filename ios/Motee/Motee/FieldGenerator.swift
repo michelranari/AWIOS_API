@@ -26,7 +26,7 @@ struct FieldGenerator<FieldView>: View where FieldView : View {
             .background(lightGreyColor)
             .cornerRadius(5.0)
             .padding(.bottom, 20)
-        }
+        }.padding(.horizontal,10)
         
     }
     
