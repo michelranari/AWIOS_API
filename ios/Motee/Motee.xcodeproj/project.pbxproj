@@ -1,0 +1,682 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1A5A306240D40A30015CBBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A305240D40A30015CBBE /* AppDelegate.swift */; };
+		A1A5A308240D40A30015CBBE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A307240D40A30015CBBE /* SceneDelegate.swift */; };
+		A1A5A30B240D40A30015CBBE /* Motee.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A309240D40A30015CBBE /* Motee.xcdatamodeld */; };
+		A1A5A30D240D40A30015CBBE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A30C240D40A30015CBBE /* ContentView.swift */; };
+		A1A5A30F240D40A70015CBBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A5A30E240D40A70015CBBE /* Assets.xcassets */; };
+		A1A5A312240D40A70015CBBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A5A311240D40A70015CBBE /* Preview Assets.xcassets */; };
+		A1A5A315240D40A70015CBBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1A5A313240D40A70015CBBE /* LaunchScreen.storyboard */; };
+		A1A5A320240D40A70015CBBE /* MoteeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A31F240D40A70015CBBE /* MoteeTests.swift */; };
+		A1A5A32B240D40A70015CBBE /* MoteeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A32A240D40A70015CBBE /* MoteeUITests.swift */; };
+		A1A5A339240D41200015CBBE /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A338240D41200015CBBE /* LoginForm.swift */; };
+		A1A5A33B240D41900015CBBE /* FieldGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A33A240D41900015CBBE /* FieldGenerator.swift */; };
+		A1A5A33D240D41CE0015CBBE /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A33C240D41CE0015CBBE /* Title.swift */; };
+		A1A5A33F240D42890015CBBE /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A33E240D42890015CBBE /* LoginButton.swift */; };
+		A1A5A341240D42B80015CBBE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A340240D42B80015CBBE /* User.swift */; };
+		A1A5A343240D42F20015CBBE /* Accueil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A342240D42F20015CBBE /* Accueil.swift */; };
+		A1A5A345240D44280015CBBE /* RegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A344240D44280015CBBE /* RegisterButton.swift */; };
+		A1A5A34A240D452F0015CBBE /* ButtonGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A349240D452F0015CBBE /* ButtonGenerator.swift */; };
+		A1A5A34C240D45810015CBBE /* RegisterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A34B240D45810015CBBE /* RegisterForm.swift */; };
+		A1A5A34E240D459F0015CBBE /* LoginPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A34D240D459F0015CBBE /* LoginPicture.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A1A5A31C240D40A70015CBBE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1A5A2FA240D40A20015CBBE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1A5A301240D40A30015CBBE;
+			remoteInfo = Motee;
+		};
+		A1A5A327240D40A70015CBBE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1A5A2FA240D40A20015CBBE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1A5A301240D40A30015CBBE;
+			remoteInfo = Motee;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A1A5A302240D40A30015CBBE /* Motee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Motee.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1A5A305240D40A30015CBBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A1A5A307240D40A30015CBBE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A1A5A30A240D40A30015CBBE /* Motee.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Motee.xcdatamodel; sourceTree = "<group>"; };
+		A1A5A30C240D40A30015CBBE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A1A5A30E240D40A70015CBBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1A5A311240D40A70015CBBE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A1A5A314240D40A70015CBBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A1A5A316240D40A70015CBBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1A5A31B240D40A70015CBBE /* MoteeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoteeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1A5A31F240D40A70015CBBE /* MoteeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoteeTests.swift; sourceTree = "<group>"; };
+		A1A5A321240D40A70015CBBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1A5A326240D40A70015CBBE /* MoteeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoteeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1A5A32A240D40A70015CBBE /* MoteeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoteeUITests.swift; sourceTree = "<group>"; };
+		A1A5A32C240D40A70015CBBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1A5A338240D41200015CBBE /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
+		A1A5A33A240D41900015CBBE /* FieldGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldGenerator.swift; sourceTree = "<group>"; };
+		A1A5A33C240D41CE0015CBBE /* Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
+		A1A5A33E240D42890015CBBE /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
+		A1A5A340240D42B80015CBBE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A1A5A342240D42F20015CBBE /* Accueil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accueil.swift; sourceTree = "<group>"; };
+		A1A5A344240D44280015CBBE /* RegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterButton.swift; sourceTree = "<group>"; };
+		A1A5A349240D452F0015CBBE /* ButtonGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGenerator.swift; sourceTree = "<group>"; };
+		A1A5A34B240D45810015CBBE /* RegisterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterForm.swift; sourceTree = "<group>"; };
+		A1A5A34D240D459F0015CBBE /* LoginPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPicture.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1A5A2FF240D40A30015CBBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1A5A318240D40A70015CBBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1A5A323240D40A70015CBBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1A5A2F9240D40A20015CBBE = {
+			isa = PBXGroup;
+			children = (
+				A1A5A304240D40A30015CBBE /* Motee */,
+				A1A5A31E240D40A70015CBBE /* MoteeTests */,
+				A1A5A329240D40A70015CBBE /* MoteeUITests */,
+				A1A5A303240D40A30015CBBE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A1A5A303240D40A30015CBBE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1A5A302240D40A30015CBBE /* Motee.app */,
+				A1A5A31B240D40A70015CBBE /* MoteeTests.xctest */,
+				A1A5A326240D40A70015CBBE /* MoteeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A1A5A304240D40A30015CBBE /* Motee */ = {
+			isa = PBXGroup;
+			children = (
+				A1A5A305240D40A30015CBBE /* AppDelegate.swift */,
+				A1A5A307240D40A30015CBBE /* SceneDelegate.swift */,
+				A1A5A30C240D40A30015CBBE /* ContentView.swift */,
+				A1A5A346240D449D0015CBBE /* Login */,
+				A1A5A34D240D459F0015CBBE /* LoginPicture.swift */,
+				A1A5A33E240D42890015CBBE /* LoginButton.swift */,
+				A1A5A338240D41200015CBBE /* LoginForm.swift */,
+				A1A5A34F240D45D50015CBBE /* Register */,
+				A1A5A34B240D45810015CBBE /* RegisterForm.swift */,
+				A1A5A344240D44280015CBBE /* RegisterButton.swift */,
+				A1A5A348240D44C50015CBBE /* Tools */,
+				A1A5A33A240D41900015CBBE /* FieldGenerator.swift */,
+				A1A5A33C240D41CE0015CBBE /* Title.swift */,
+				A1A5A349240D452F0015CBBE /* ButtonGenerator.swift */,
+				A1A5A342240D42F20015CBBE /* Accueil.swift */,
+				A1A5A350240D49A50015CBBE /* BusinessClass */,
+				A1A5A340240D42B80015CBBE /* User.swift */,
+				A1A5A30E240D40A70015CBBE /* Assets.xcassets */,
+				A1A5A313240D40A70015CBBE /* LaunchScreen.storyboard */,
+				A1A5A316240D40A70015CBBE /* Info.plist */,
+				A1A5A309240D40A30015CBBE /* Motee.xcdatamodeld */,
+				A1A5A310240D40A70015CBBE /* Preview Content */,
+			);
+			path = Motee;
+			sourceTree = "<group>";
+		};
+		A1A5A310240D40A70015CBBE /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				A1A5A311240D40A70015CBBE /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A1A5A31E240D40A70015CBBE /* MoteeTests */ = {
+			isa = PBXGroup;
+			children = (
+				A1A5A31F240D40A70015CBBE /* MoteeTests.swift */,
+				A1A5A321240D40A70015CBBE /* Info.plist */,
+			);
+			path = MoteeTests;
+			sourceTree = "<group>";
+		};
+		A1A5A329240D40A70015CBBE /* MoteeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A1A5A32A240D40A70015CBBE /* MoteeUITests.swift */,
+				A1A5A32C240D40A70015CBBE /* Info.plist */,
+			);
+			path = MoteeUITests;
+			sourceTree = "<group>";
+		};
+		A1A5A346240D449D0015CBBE /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		A1A5A348240D44C50015CBBE /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		A1A5A34F240D45D50015CBBE /* Register */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		A1A5A350240D49A50015CBBE /* BusinessClass */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BusinessClass;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1A5A301240D40A30015CBBE /* Motee */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1A5A32F240D40A70015CBBE /* Build configuration list for PBXNativeTarget "Motee" */;
+			buildPhases = (
+				A1A5A2FE240D40A30015CBBE /* Sources */,
+				A1A5A2FF240D40A30015CBBE /* Frameworks */,
+				A1A5A300240D40A30015CBBE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Motee;
+			productName = Motee;
+			productReference = A1A5A302240D40A30015CBBE /* Motee.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A1A5A31A240D40A70015CBBE /* MoteeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1A5A332240D40A70015CBBE /* Build configuration list for PBXNativeTarget "MoteeTests" */;
+			buildPhases = (
+				A1A5A317240D40A70015CBBE /* Sources */,
+				A1A5A318240D40A70015CBBE /* Frameworks */,
+				A1A5A319240D40A70015CBBE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1A5A31D240D40A70015CBBE /* PBXTargetDependency */,
+			);
+			name = MoteeTests;
+			productName = MoteeTests;
+			productReference = A1A5A31B240D40A70015CBBE /* MoteeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A1A5A325240D40A70015CBBE /* MoteeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1A5A335240D40A70015CBBE /* Build configuration list for PBXNativeTarget "MoteeUITests" */;
+			buildPhases = (
+				A1A5A322240D40A70015CBBE /* Sources */,
+				A1A5A323240D40A70015CBBE /* Frameworks */,
+				A1A5A324240D40A70015CBBE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1A5A328240D40A70015CBBE /* PBXTargetDependency */,
+			);
+			name = MoteeUITests;
+			productName = MoteeUITests;
+			productReference = A1A5A326240D40A70015CBBE /* MoteeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1A5A2FA240D40A20015CBBE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = groupe3;
+				TargetAttributes = {
+					A1A5A301240D40A30015CBBE = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					A1A5A31A240D40A70015CBBE = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = A1A5A301240D40A30015CBBE;
+					};
+					A1A5A325240D40A70015CBBE = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = A1A5A301240D40A30015CBBE;
+					};
+				};
+			};
+			buildConfigurationList = A1A5A2FD240D40A20015CBBE /* Build configuration list for PBXProject "Motee" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A1A5A2F9240D40A20015CBBE;
+			productRefGroup = A1A5A303240D40A30015CBBE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A1A5A301240D40A30015CBBE /* Motee */,
+				A1A5A31A240D40A70015CBBE /* MoteeTests */,
+				A1A5A325240D40A70015CBBE /* MoteeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A1A5A300240D40A30015CBBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1A5A315240D40A70015CBBE /* LaunchScreen.storyboard in Resources */,
+				A1A5A312240D40A70015CBBE /* Preview Assets.xcassets in Resources */,
+				A1A5A30F240D40A70015CBBE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1A5A319240D40A70015CBBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1A5A324240D40A70015CBBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A1A5A2FE240D40A30015CBBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1A5A343240D42F20015CBBE /* Accueil.swift in Sources */,
+				A1A5A33B240D41900015CBBE /* FieldGenerator.swift in Sources */,
+				A1A5A33F240D42890015CBBE /* LoginButton.swift in Sources */,
+				A1A5A339240D41200015CBBE /* LoginForm.swift in Sources */,
+				A1A5A34E240D459F0015CBBE /* LoginPicture.swift in Sources */,
+				A1A5A33D240D41CE0015CBBE /* Title.swift in Sources */,
+				A1A5A34C240D45810015CBBE /* RegisterForm.swift in Sources */,
+				A1A5A306240D40A30015CBBE /* AppDelegate.swift in Sources */,
+				A1A5A341240D42B80015CBBE /* User.swift in Sources */,
+				A1A5A30B240D40A30015CBBE /* Motee.xcdatamodeld in Sources */,
+				A1A5A30D240D40A30015CBBE /* ContentView.swift in Sources */,
+				A1A5A345240D44280015CBBE /* RegisterButton.swift in Sources */,
+				A1A5A308240D40A30015CBBE /* SceneDelegate.swift in Sources */,
+				A1A5A34A240D452F0015CBBE /* ButtonGenerator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1A5A317240D40A70015CBBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1A5A320240D40A70015CBBE /* MoteeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1A5A322240D40A70015CBBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1A5A32B240D40A70015CBBE /* MoteeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A1A5A31D240D40A70015CBBE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1A5A301240D40A30015CBBE /* Motee */;
+			targetProxy = A1A5A31C240D40A70015CBBE /* PBXContainerItemProxy */;
+		};
+		A1A5A328240D40A70015CBBE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1A5A301240D40A30015CBBE /* Motee */;
+			targetProxy = A1A5A327240D40A70015CBBE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A1A5A313240D40A70015CBBE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A1A5A314240D40A70015CBBE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A1A5A32D240D40A70015CBBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A1A5A32E240D40A70015CBBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A1A5A330240D40A70015CBBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Motee/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Motee/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = g3.Motee;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A1A5A331240D40A70015CBBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Motee/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Motee/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = g3.Motee;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A1A5A333240D40A70015CBBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MoteeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = g3.MoteeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Motee.app/Motee";
+			};
+			name = Debug;
+		};
+		A1A5A334240D40A70015CBBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MoteeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = g3.MoteeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Motee.app/Motee";
+			};
+			name = Release;
+		};
+		A1A5A336240D40A70015CBBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MoteeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = g3.MoteeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Motee;
+			};
+			name = Debug;
+		};
+		A1A5A337240D40A70015CBBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MoteeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = g3.MoteeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Motee;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A1A5A2FD240D40A20015CBBE /* Build configuration list for PBXProject "Motee" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1A5A32D240D40A70015CBBE /* Debug */,
+				A1A5A32E240D40A70015CBBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1A5A32F240D40A70015CBBE /* Build configuration list for PBXNativeTarget "Motee" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1A5A330240D40A70015CBBE /* Debug */,
+				A1A5A331240D40A70015CBBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1A5A332240D40A70015CBBE /* Build configuration list for PBXNativeTarget "MoteeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1A5A333240D40A70015CBBE /* Debug */,
+				A1A5A334240D40A70015CBBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1A5A335240D40A70015CBBE /* Build configuration list for PBXNativeTarget "MoteeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1A5A336240D40A70015CBBE /* Debug */,
+				A1A5A337240D40A70015CBBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A1A5A309240D40A30015CBBE /* Motee.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A1A5A30A240D40A30015CBBE /* Motee.xcdatamodel */,
+			);
+			currentVersion = A1A5A30A240D40A30015CBBE /* Motee.xcdatamodel */;
+			path = Motee.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = A1A5A2FA240D40A20015CBBE /* Project object */;
+}
