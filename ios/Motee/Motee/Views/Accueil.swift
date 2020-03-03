@@ -9,30 +9,19 @@
 import SwiftUI
 
 struct Accueil: View {
+    @State var filtred : Bool
+    var filter1 = "date"
+    var filter2 = "like"
     var body: some View {
-    
-        NavigationView {
-            Text("homePage")
-            .navigationBarItems(leading:
-                HStack {
-                    Button(action: {}) {
-                        Image(systemName: "minus.square.fill")
-                            .font(.largeTitle)
-                    }.foregroundColor(.pink)
-                }, trailing:
-                HStack {
-                    Button(action: {}) {
-                        Image(systemName: "plus.square.fill")
-                            .font(.largeTitle)
-                    }.foregroundColor(.blue)
-            })
-            
+        VStack{
+            Filtre(filtred: $filtred, filter1: filter1, filter2: filter2)
         }
     }
 }
-
-struct Accueil_Previews: PreviewProvider {
-    static var previews: some View {
-        Accueil()
-    }
+    
+    struct Accueil_Previews: PreviewProvider {
+        @State static var filtre = false
+        static var previews: some View {
+            Accueil(filtred: true)
+        }
 }

@@ -25,6 +25,7 @@
 		A1A5A34A240D452F0015CBBE /* ButtonGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A349240D452F0015CBBE /* ButtonGenerator.swift */; };
 		A1A5A34C240D45810015CBBE /* RegisterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A34B240D45810015CBBE /* RegisterForm.swift */; };
 		A1A5A34E240D459F0015CBBE /* LoginPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A34D240D459F0015CBBE /* LoginPicture.swift */; };
+		A1B5EADD240D77E4001824C6 /* Filtre.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B5EADC240D77E4001824C6 /* Filtre.swift */; };
 		F016E236240D4BD40063A034 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E235240D4BD40063A034 /* AnswerView.swift */; };
 		F016E238240D4BF00063A034 /* AddAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E237240D4BF00063A034 /* AddAnswer.swift */; };
 		F016E23A240D4C050063A034 /* ListAnswers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E239240D4C050063A034 /* ListAnswers.swift */; };
@@ -77,6 +78,7 @@
 		A1A5A349240D452F0015CBBE /* ButtonGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGenerator.swift; sourceTree = "<group>"; };
 		A1A5A34B240D45810015CBBE /* RegisterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterForm.swift; sourceTree = "<group>"; };
 		A1A5A34D240D459F0015CBBE /* LoginPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPicture.swift; sourceTree = "<group>"; };
+		A1B5EADC240D77E4001824C6 /* Filtre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filtre.swift; sourceTree = "<group>"; };
 		F016E235240D4BD40063A034 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
 		F016E237240D4BF00063A034 /* AddAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnswer.swift; sourceTree = "<group>"; };
 		F016E239240D4C050063A034 /* ListAnswers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAnswers.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				A1A5A342240D42F20015CBBE /* Accueil.swift */,
+				A1B5EADC240D77E4001824C6 /* Filtre.swift */,
 				A1A5A348240D44C50015CBBE /* Tools */,
 				A1A5A34F240D45D50015CBBE /* Register */,
 				A1A5A346240D449D0015CBBE /* Login */,
@@ -382,6 +385,7 @@
 				F016E236240D4BD40063A034 /* AnswerView.swift in Sources */,
 				A1A5A33D240D41CE0015CBBE /* Title.swift in Sources */,
 				F016E23F240D4C3E0063A034 /* Answer.swift in Sources */,
+				A1B5EADD240D77E4001824C6 /* Filtre.swift in Sources */,
 				A1A5A34C240D45810015CBBE /* RegisterForm.swift in Sources */,
 				A1A5A306240D40A30015CBBE /* AppDelegate.swift in Sources */,
 				A1A5A30B240D40A30015CBBE /* Motee.xcdatamodeld in Sources */,

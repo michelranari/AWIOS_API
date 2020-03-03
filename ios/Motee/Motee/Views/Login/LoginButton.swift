@@ -20,7 +20,7 @@ struct LoginButton: View {
     var body: some View {
         VStack{
             if(findConnexion(pseudo: pseudo, mdp: mdp)){
-                NavigationLink(destination : Accueil()){
+                NavigationLink(destination : Accueil(filtred :true)){
                     ButtonGenerator(myText: "Se connecter", myColor: "green")
                 }
             }
