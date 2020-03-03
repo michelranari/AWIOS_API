@@ -10,22 +10,11 @@ import SwiftUI
 
 struct Filtre: View {
     
-    func getActual() -> String {
-        if (filtred){
-            return filter1
-        }
-        return filter2
-    }
     @Binding var filtred : Bool
     var filter1 : String
     var filter2 : String
     var body: some View {
         VStack{
-            if(self.filtred){
-                Title(myTitle: "Les derniers propos")
-            }else{
-                Title(myTitle: "Les meilleurs propos")
-            }
             HStack{
                 Text("Filtré par")
                 if(self.filtred){
@@ -34,11 +23,9 @@ struct Filtre: View {
                     Text(filter2)
                 }
                 Button(action : { self.filtred = !self.filtred}){
-                    Image(systemName: "line.horizontal.3.decrease.circle")
-                        .font(.largeTitle).foregroundColor(.gray)
+                    SymbolGenerator(mySymbol: "line.horizontal.3.decrease.circle", myColor: "gray")
                 }
             }
-            
         }
     }
 }
