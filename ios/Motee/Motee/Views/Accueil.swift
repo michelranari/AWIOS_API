@@ -9,33 +9,50 @@
 import SwiftUI
 
 struct Accueil: View {
-    @State var filtred : Bool
-    var filter1 = "date"
-    var filter2 = "like"
+    @State var filter : String = "all"
     var body: some View {
         NavigationView{
-            VStack{
-                if(self.filtred){
-                    Title(myTitle: "Les derniers propos")
-                }else{
-                    Title(myTitle: "Les meilleurs propos")
-                }
+            VStack(){
+                Title(myTitle:"Accueil").padding(.vertical)
                 HStack{
-                    NavigationLink(destination : { AddProposition(newProposition: "", newAnswer: "") }() ){
-                        SymbolGenerator(mySymbol :"plus.square.fill", myColor: "blue")
-                        Text("Ajouter").foregroundColor(.blue).bold()
+                    ButtonGenerator(myText: "Mes propos", myColor: "red")
+                    ButtonGenerator(myText: "Mes réponses", myColor: "orange")
+                }
+                if(filter.elementsEqual("all")){
+                    Title(myTitle: "Tous les propos")
+                }else if filter.elementsEqual("like"){
+                    Title(myTitle: "Les meilleurs propos")
+                }else if filter.elementsEqual("dateDesc"){
+                    Title(myTitle: "Les plus récents propos")
+                }else if filter.elementsEqual("dateAsc"){
+                    Title(myTitle: "Les plus anciens propos")
+                }
+                NavigationLink(destination : { AddProposition(newProposition: "", newAnswer: "") }() ){
+                    SymbolGenerator(mySymbol :"plus.square.fill", myColor: "blue")
+                    Text("Ajouter").foregroundColor(.blue).bold()
+                }
+                Filter(filter: $filter)
+                ScrollView {
+                    VStack{
+                        Title(myTitle: "Scroll it baby")
+                        Title(myTitle: "Just Scroll")
+                        Title(myTitle: "put the mouse on me")
+                        Title(myTitle: "and ScrooOoOOoll")
+                        Title(myTitle: "Yeaaah")
+                        Title(myTitle: "you")
+                        Title(myTitle: "like")
+                        Title(myTitle: "it")
                     }
-                    Spacer()
-                    Filtre(filtred: $filtred, filter1: filter1, filter2: filter2)
-                }.padding(.horizontal,10)
+                    
+                }
+                Spacer()
             }
         }
     }
 }
 
 struct Accueil_Previews: PreviewProvider {
-    @State static var filtre = false
     static var previews: some View {
-        Accueil(filtred: true)
+        Accueil()
     }
 }

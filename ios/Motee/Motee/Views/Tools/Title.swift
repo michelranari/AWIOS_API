@@ -14,7 +14,7 @@ struct Title: View {
         Text(myTitle)
             .bold()
             .font(.largeTitle)
-            .padding(.bottom, 20)
+            .padding(.vertical, 20)
     }
 }
 
