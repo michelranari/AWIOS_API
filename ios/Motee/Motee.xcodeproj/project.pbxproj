@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A14296CD2412AFE0005E73B5 /* PropositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14296CC2412AFE0005E73B5 /* PropositionView.swift */; };
+		A14296CF2412BB73005E73B5 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14296CE2412BB73005E73B5 /* Report.swift */; };
+		A14296D12412BD57005E73B5 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14296D02412BD57005E73B5 /* Comment.swift */; };
+		A14296D32412C3D7005E73B5 /* PublicationLiked.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14296D22412C3D7005E73B5 /* PublicationLiked.swift */; };
+		A14296D52412CFA7005E73B5 /* PublicationFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14296D42412CFA7005E73B5 /* PublicationFooter.swift */; };
 		A1A5A306240D40A30015CBBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A305240D40A30015CBBE /* AppDelegate.swift */; };
 		A1A5A308240D40A30015CBBE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A307240D40A30015CBBE /* SceneDelegate.swift */; };
 		A1A5A30B240D40A30015CBBE /* Motee.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1A5A309240D40A30015CBBE /* Motee.xcdatamodeld */; };
@@ -56,6 +61,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A14296CC2412AFE0005E73B5 /* PropositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropositionView.swift; sourceTree = "<group>"; };
+		A14296CE2412BB73005E73B5 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		A14296D02412BD57005E73B5 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		A14296D22412C3D7005E73B5 /* PublicationLiked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationLiked.swift; sourceTree = "<group>"; };
+		A14296D42412CFA7005E73B5 /* PublicationFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationFooter.swift; sourceTree = "<group>"; };
 		A1A5A302240D40A30015CBBE /* Motee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Motee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A5A305240D40A30015CBBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1A5A307240D40A30015CBBE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -198,6 +208,10 @@
 				A1B5EAE0240ED06D001824C6 /* SymbolGenerator.swift */,
 				A1A5A33C240D41CE0015CBBE /* Title.swift */,
 				A1A5A33A240D41900015CBBE /* FieldGenerator.swift */,
+				A14296CE2412BB73005E73B5 /* Report.swift */,
+				A14296D02412BD57005E73B5 /* Comment.swift */,
+				A14296D22412C3D7005E73B5 /* PublicationLiked.swift */,
+				A14296D42412CFA7005E73B5 /* PublicationFooter.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -251,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				F016E247240D723B0063A034 /* AddProposition.swift */,
+				A14296CC2412AFE0005E73B5 /* PropositionView.swift */,
 			);
 			path = Proposition;
 			sourceTree = "<group>";
@@ -391,11 +406,13 @@
 				A1A5A343240D42F20015CBBE /* Accueil.swift in Sources */,
 				F016E248240D723B0063A034 /* AddProposition.swift in Sources */,
 				A1A5A33B240D41900015CBBE /* FieldGenerator.swift in Sources */,
+				A14296CF2412BB73005E73B5 /* Report.swift in Sources */,
 				A1A5A33F240D42890015CBBE /* LoginButton.swift in Sources */,
 				A1A5A339240D41200015CBBE /* LoginForm.swift in Sources */,
 				F016E23D240D4C310063A034 /* Proposition.swift in Sources */,
 				F016E245240D4C690063A034 /* Tag.swift in Sources */,
 				A1A5A34E240D459F0015CBBE /* LoginPicture.swift in Sources */,
+				A14296D52412CFA7005E73B5 /* PublicationFooter.swift in Sources */,
 				A1B5EAE1240ED06D001824C6 /* SymbolGenerator.swift in Sources */,
 				F016E23A240D4C050063A034 /* ListAnswers.swift in Sources */,
 				F016E241240D4C4A0063A034 /* User.swift in Sources */,
@@ -405,10 +422,13 @@
 				A1A5A34C240D45810015CBBE /* RegisterForm.swift in Sources */,
 				A1A5A306240D40A30015CBBE /* AppDelegate.swift in Sources */,
 				A1A5A30B240D40A30015CBBE /* Motee.xcdatamodeld in Sources */,
+				A14296D32412C3D7005E73B5 /* PublicationLiked.swift in Sources */,
 				A1A5A30D240D40A30015CBBE /* ContentView.swift in Sources */,
 				F016E238240D4BF00063A034 /* AddAnswer.swift in Sources */,
 				A1A5A345240D44280015CBBE /* RegisterButton.swift in Sources */,
+				A14296CD2412AFE0005E73B5 /* PropositionView.swift in Sources */,
 				A1A5A308240D40A30015CBBE /* SceneDelegate.swift in Sources */,
+				A14296D12412BD57005E73B5 /* Comment.swift in Sources */,
 				A1A5A34A240D452F0015CBBE /* ButtonGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,6 +17,7 @@ var users = [
 struct LoginButton: View {
     @Binding var pseudo : String
     @Binding var mdp : String
+    @State var canConnect = false
     var body: some View {
         VStack{
             if(findConnexion(pseudo: pseudo, mdp: mdp)){
@@ -25,7 +26,10 @@ struct LoginButton: View {
                 }
             }
             else{
+                Button(action : { self.canConnect.toggle()}){
                 ButtonGenerator(myText: "Se connecter", myColor: "red")
+                   .offset(x: canConnect ? -10 : 0) .animation(Animation.default.repeatCount(5))
+                }
             }
         }.padding(.bottom , 10)
             .padding(.top , 30)

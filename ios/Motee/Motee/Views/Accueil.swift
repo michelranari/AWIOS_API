@@ -13,11 +13,11 @@ struct Accueil: View {
     var body: some View {
         NavigationView{
             VStack(){
-                Title(myTitle:"Accueil").padding(.vertical)
                 HStack{
                     ButtonGenerator(myText: "Mes propos", myColor: "red")
                     ButtonGenerator(myText: "Mes réponses", myColor: "orange")
                 }
+                
                 if(filter.elementsEqual("all")){
                     Title(myTitle: "Tous les propos")
                 }else if filter.elementsEqual("like"){
@@ -34,14 +34,11 @@ struct Accueil: View {
                 Filter(filter: $filter)
                 ScrollView {
                     VStack{
-                        Title(myTitle: "Scroll it baby")
-                        Title(myTitle: "Just Scroll")
-                        Title(myTitle: "put the mouse on me")
-                        Title(myTitle: "and ScrooOoOOoll")
-                        Title(myTitle: "Yeaaah")
-                        Title(myTitle: "you")
-                        Title(myTitle: "like")
-                        Title(myTitle: "it")
+                        PropositionView()
+                        PropositionView()
+                        PropositionView()
+                        PropositionView()
+                        PropositionView()
                     }
                     
                 }
