@@ -13,6 +13,7 @@ struct Comment: View {
     @State var comment = ""
     var body: some View {
         VStack{
+            VStack{
             Button(action:{
                 self.isNotHide.toggle()
             }){
@@ -25,6 +26,7 @@ struct Comment: View {
                 .foregroundColor(.white)
                 .background(Color.blue).cornerRadius(40)
             }
+        }
             if isNotHide {
                 HStack{
                     TextField("Commentaire...", text: $comment).cornerRadius(40)
@@ -37,12 +39,10 @@ struct Comment: View {
                 }.padding()
             }
         }
-        
     }
 }
 
 struct Comment_Previews: PreviewProvider {
-    @State static var filtre = "all"
     static var previews: some View {
         Comment()
     }

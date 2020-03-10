@@ -14,11 +14,6 @@ struct Accueil: View {
         NavigationView{
             ScrollView{
                 VStack(){
-                    HStack{
-                        ButtonGenerator(myText: "Mes propos", myColor: "red")
-                        ButtonGenerator(myText: "Mes réponses", myColor: "orange")
-                    }
-                    
                     if(filter.elementsEqual("all")){
                         Title(myTitle: "Tous les propos")
                     }else if filter.elementsEqual("like"){
@@ -33,7 +28,6 @@ struct Accueil: View {
                             SymbolGenerator(mySymbol :"plus.square.fill", myColor: "blue")
                             Text("Ajouter").foregroundColor(.blue).bold()
                         }
-                        Filter(filter: $filter)
                     }
                     PropositionView()
                     PropositionView()

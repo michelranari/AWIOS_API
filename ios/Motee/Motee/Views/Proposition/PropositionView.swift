@@ -10,30 +10,42 @@ import SwiftUI
 
 struct PropositionView : View {
     
-     @State var text = "Oh je suis outrée aujourd'hui on m'a dit \"elle est bonne sa mère elle twerk sur la pisteuuuh\" "
-    // TODO
+     @State var text = "Ceci est un propos test \" \" "
+     @State var showAnswers = false
     //utilisé un objet Proposition
     
     var body: some View {
         VStack{
-            HStack{
-                Text("Pseudo").bold()
-                Spacer()
-                Text(getDate())
-                Spacer()
-                Text("like")
-            }
-            .padding(.horizontal)
-        Spacer()
-            Text(text)
+            VStack{
+                HStack{
+                    Text("Pseudo").bold()
+                    Spacer()
+                    Text(getDate())
+                    Spacer()
+                    Text("like")
+                }
                 .padding(.horizontal)
-        Spacer()
-            PublicationFooter().padding()
-            Text("Todo proposer affichage réponses")
-        }.frame(width: 380, height : 220 , alignment: .leading)
-        .background(lightGreyColor)
-        .cornerRadius(20).shadow(radius: 20)
-        .padding()
+            Spacer()
+                Text(text)
+                    .padding(.horizontal)
+            Spacer()
+                PublicationFooter().padding()
+                Button(
+                    action : {
+                        self.showAnswers.toggle()
+                    }){
+                       Text("afficher les réponses")
+                }
+                
+            }.frame(width: 380, height : 220 , alignment: .leading)
+            .background(lightGreyColor)
+            .cornerRadius(20).shadow(radius: 20)
+            .padding()
+            if (showAnswers){
+                Text("la réponse")
+            }
+        }
+        
     }
 }
 
