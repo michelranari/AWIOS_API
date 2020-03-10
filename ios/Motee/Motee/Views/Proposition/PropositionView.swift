@@ -12,19 +12,27 @@ struct PropositionView : View {
     
      @State var text = "Ceci est un propos test \" \" "
      @State var showAnswers = false
-    //utilisé un objet Proposition
+    @State var colorIfClicked = "white"
+    //utiliser un objet Proposition
+    func toggleColor(){
+        if showAnswers{
+            colorIfClicked = "pink"
+        }else{
+            colorIfClicked = "white"
+        }
+    }
     
     var body: some View {
         VStack{
             VStack{
                 HStack{
+                    
+                    
                     Text("Pseudo").bold()
                     Spacer()
-                    Text(getDate())
-                    Spacer()
-                    Text("like")
-                }
-                .padding(.horizontal)
+                    Text(getDate()).bold()
+                }.padding()
+                    .padding(.horizontal).background(generateColor(name: self.colorIfClicked))
             Spacer()
                 Text(text)
                     .padding(.horizontal)
@@ -33,11 +41,13 @@ struct PropositionView : View {
                 Button(
                     action : {
                         self.showAnswers.toggle()
+                        self.toggleColor()
                     }){
-                       Text("afficher les réponses")
+                       Text("Afficher les réponses")
                 }
+                Spacer()
                 
-            }.frame(width: 380, height : 220 , alignment: .leading)
+                }.frame(maxWidth: 380, maxHeight : 220 , alignment: .leading).edgesIgnoringSafeArea(.all)
             .background(lightGreyColor)
             .cornerRadius(20).shadow(radius: 20)
             .padding()
@@ -48,6 +58,7 @@ struct PropositionView : View {
         
     }
 }
+
 
 func getDate() -> String {
     return "28 juin 2020"

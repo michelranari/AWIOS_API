@@ -37,6 +37,10 @@ func generateColor(name : String) -> Color {
         return Color.orange
     case "black" :
         return Color.black
+    case "pink" :
+        return Color.pink
+    case "white" :
+        return Color.white
         
     default:
         return Color.purple

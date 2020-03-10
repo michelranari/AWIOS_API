@@ -15,7 +15,7 @@ struct PublicationFooter : View {
     
     @State var reponseTest : Answer = Answer(userR: User(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 18, contentR: "Charlie delta commando", anonymousR: true, tagsR: [])
     
-    @State var isNotHide = false
+    @State var isNotHide :Bool = false
     @State var comment = ""
     var body: some View {
         
@@ -36,7 +36,7 @@ struct PublicationFooter : View {
                         }
                         .padding(7)
                         .foregroundColor(.white)
-                        .background(Color.blue).cornerRadius(40)
+                        .background(Color.blue).cornerRadius(20)
                     }
                     Spacer()
                     Report()
@@ -44,7 +44,7 @@ struct PublicationFooter : View {
             }
             if isNotHide {
                 HStack{
-                    TextField("Commentaire...", text: $comment).cornerRadius(40)
+                    TextField("Commentaire...", text: $comment).cornerRadius(20)
                     Button(action:{
                         // TODO
                         //Envoyer le commentaire
