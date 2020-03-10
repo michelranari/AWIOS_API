@@ -12,7 +12,7 @@ struct PropositionView : View {
     
      @State var text = "Ceci est un propos test \" \" "
      @State var showAnswers = false
-    @State var colorIfClicked = "white"
+     @State var colorIfClicked = "white"
     //utiliser un objet Proposition
     func toggleColor(){
         if showAnswers{
