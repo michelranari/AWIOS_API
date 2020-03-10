@@ -46,6 +46,7 @@
 		F016E245240D4C690063A034 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E244240D4C690063A034 /* Tag.swift */; };
 		F016E248240D723B0063A034 /* AddProposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E247240D723B0063A034 /* AddProposition.swift */; };
 		F02350B92417C86B0069AB06 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02350B82417C86B0069AB06 /* Root.swift */; };
+		F0C203E72417EC8000189E6A /* AnswerFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C203E62417EC8000189E6A /* AnswerFooter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		F016E244240D4C690063A034 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		F016E247240D723B0063A034 /* AddProposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProposition.swift; sourceTree = "<group>"; };
 		F02350B82417C86B0069AB06 /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
+		F0C203E62417EC8000189E6A /* AnswerFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFooter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 				A14296D02412BD57005E73B5 /* Comment.swift */,
 				A14296D22412C3D7005E73B5 /* PublicationLiked.swift */,
 				A14296D42412CFA7005E73B5 /* PublicationFooter.swift */,
+				F0C203E62417EC8000189E6A /* AnswerFooter.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				A14296CF2412BB73005E73B5 /* Report.swift in Sources */,
 				A1A5A33F240D42890015CBBE /* LoginButton.swift in Sources */,
 				A1A5A339240D41200015CBBE /* LoginForm.swift in Sources */,
+				F0C203E72417EC8000189E6A /* AnswerFooter.swift in Sources */,
 				F016E23D240D4C310063A034 /* Proposition.swift in Sources */,
 				F016E245240D4C690063A034 /* Tag.swift in Sources */,
 				A1A5A34E240D459F0015CBBE /* LoginPicture.swift in Sources */,
