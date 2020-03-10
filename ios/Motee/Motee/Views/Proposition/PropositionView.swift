@@ -23,7 +23,7 @@ struct PropositionView : View {
     }
     
     var body: some View {
-        NavigationView{
+        //NavigationView{
             VStack{
             VStack{
                 HStack{
@@ -52,12 +52,12 @@ struct PropositionView : View {
             .padding()
             if (showAnswers){
                 AnswerView() //TODO : On montre la meilleure réponse
-                NavigationLink(destination: {ListAnswersView()}() ){
+                /*NavigationLink(destination: {ListAnswersView()}() ){
                     ButtonGenerator(myText: "Toutes les réponses", myColor: "blue")
-                }.padding()
+                }.padding()*/
             }
         }
-        }
+        //}
     }
 }
 
