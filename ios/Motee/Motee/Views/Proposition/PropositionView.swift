@@ -23,11 +23,9 @@ struct PropositionView : View {
     }
     
     var body: some View {
-        VStack{
+        NavigationView{
             VStack{
                 HStack{
-                    
-                    
                     Text("Pseudo").bold()
                     Spacer()
                     Text(getDate()).bold()
@@ -43,7 +41,7 @@ struct PropositionView : View {
                         self.showAnswers.toggle()
                         self.toggleColor()
                     }){
-                       Text("Afficher les réponses")
+                       Text("Voir la meilleure réponse")
                 }
                 Spacer()
                 
@@ -52,10 +50,14 @@ struct PropositionView : View {
             .cornerRadius(20).shadow(radius: 20)
             .padding()
             if (showAnswers){
-                ListAnswersView()
+                AnswerView() //TODO : On montre la meilleure réponse
+                HStack{
+                    NavigationLink(destination: {ListAnswersView()}() ){
+                        ButtonGenerator(myText: "Toutes les réponses", myColor: "blue")
+                    }
+                }.padding()
             }
         }
-        
     }
 }
 

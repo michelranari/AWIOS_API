@@ -32,8 +32,6 @@ struct Accueil: View {
                     PropositionView()
                     PropositionView()
                     PropositionView()
-                    PropositionView()
-                    PropositionView()
                 }
                 Spacer()
             }

@@ -13,7 +13,6 @@ import UserNotifications
 struct AnswerView: View {
     
     @State var textA = "Ceci est une reponse test \" \" "
-    @State var comment : String
         
     var body: some View {
         VStack{
@@ -43,6 +42,6 @@ struct AnswerView: View {
 struct AnswerView_Previews: PreviewProvider {
     
     static var previews: some View {
-        AnswerView(comment: "")
+        AnswerView()
     }
 }
