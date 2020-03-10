@@ -16,7 +16,7 @@ struct PropositionView : View {
     //utiliser un objet Proposition
     func toggleColor(){
         if showAnswers{
-            colorIfClicked = "pink"
+            colorIfClicked = "blue"
         }else{
             colorIfClicked = "white"
         }
@@ -52,7 +52,7 @@ struct PropositionView : View {
             .cornerRadius(20).shadow(radius: 20)
             .padding()
             if (showAnswers){
-                Text("la réponse")
+                ListAnswersView()
             }
         }
         
