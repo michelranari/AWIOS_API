@@ -13,6 +13,7 @@ struct Accueil: View {
     var body: some View {
         NavigationView{
             ScrollView{
+            VStack{
                 VStack(){
                     if(filter.elementsEqual("all")){
                         Title(myTitle: "Tous les propos")
@@ -29,12 +30,15 @@ struct Accueil: View {
                             Text("Ajouter").foregroundColor(.blue).bold()
                         }
                     }
+                    
+                    //TODO Proposition view ne s'affichent pas !!! (Mais fonctionnent quand même séparément
                     PropositionView()
                     PropositionView()
                     PropositionView()
                 }
                 Spacer()
             }
+        }
         }
     }
 }
