@@ -19,7 +19,6 @@ struct AnswerFooter: View {
     var body: some View {
         VStack{
             VStack{
-                
                 HStack {
                     Spacer()
                     AnswerLiked(answer: reponseTest, user: utilisateurTest)

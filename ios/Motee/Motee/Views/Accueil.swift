@@ -14,33 +14,30 @@ struct Accueil: View {
     var body: some View {
         NavigationView{
             ScrollView{
-            VStack{
-                VStack(){
-                    if(filter.elementsEqual("all")){
-                        Title(myTitle: "Tous les propos")
-                    }else if filter.elementsEqual("like"){
-                        Title(myTitle: "Les meilleurs propos")
-                    }else if filter.elementsEqual("dateDesc"){
-                        Title(myTitle: "Les plus récents propos")
-                    }else if filter.elementsEqual("dateAsc"){
-                        Title(myTitle: "Les plus anciens propos")
-                    }
-                    HStack{
-                        NavigationLink(destination : { AddProposition(newProposition: "", newAnswer: "") }() ){
-                            SymbolGenerator(mySymbol :"plus.square.fill", myColor: "pink")
-                            Text("Ajouter").foregroundColor(.black).bold()
+                VStack{
+                    VStack(){
+                        if(filter.elementsEqual("all")){
+                            Title(myTitle: "Tous les propos")
+                        }else if filter.elementsEqual("like"){
+                            Title(myTitle: "Les meilleurs propos")
+                        }else if filter.elementsEqual("dateDesc"){
+                            Title(myTitle: "Les plus récents propos")
+                        }else if filter.elementsEqual("dateAsc"){
+                            Title(myTitle: "Les plus anciens propos")
                         }
-                        
+                        HStack{
+                            NavigationLink(destination : { AddProposition() }() ){
+                                SymbolGenerator(mySymbol :"plus.square.fill", myColor: "pink")
+                                Text("Ajouter").foregroundColor(.black).bold()
+                            }
+                        }
+                        PropositionView()
+                        PropositionView()
+                        PropositionView()
                     }
-                    
-                    //TODO Proposition view ne s'affichent pas !!! (Mais fonctionnent quand même séparément
-                    PropositionView()
-                    PropositionView()
-                    PropositionView()                    
+                    Spacer()
                 }
-                Spacer()
             }
-        }
         }
     }
 }
