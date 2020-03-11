@@ -26,15 +26,15 @@ struct Accueil: View {
                     }
                     HStack{
                         NavigationLink(destination : { AddProposition(newProposition: "", newAnswer: "") }() ){
-                            SymbolGenerator(mySymbol :"plus.square.fill", myColor: "blue")
-                            Text("Ajouter").foregroundColor(.blue).bold()
+                            SymbolGenerator(mySymbol :"plus.square.fill", myColor: "pink")
+                            Text("Ajouter").foregroundColor(.black).bold()
                         }
                     }
                     
                     //TODO Proposition view ne s'affichent pas !!! (Mais fonctionnent quand même séparément
                     PropositionView()
                     PropositionView()
-                    PropositionView()
+                    PropositionView()                    
                 }
                 Spacer()
             }

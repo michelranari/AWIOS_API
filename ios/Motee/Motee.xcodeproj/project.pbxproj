@@ -46,6 +46,7 @@
 		F016E245240D4C690063A034 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E244240D4C690063A034 /* Tag.swift */; };
 		F016E248240D723B0063A034 /* AddProposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016E247240D723B0063A034 /* AddProposition.swift */; };
 		F02350B92417C86B0069AB06 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02350B82417C86B0069AB06 /* Root.swift */; };
+		F0A77C962418EB8000C5F3AA /* AnswerLiked.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A77C952418EB8000C5F3AA /* AnswerLiked.swift */; };
 		F0C203E72417EC8000189E6A /* AnswerFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C203E62417EC8000189E6A /* AnswerFooter.swift */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +113,7 @@
 		F016E244240D4C690063A034 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		F016E247240D723B0063A034 /* AddProposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProposition.swift; sourceTree = "<group>"; };
 		F02350B82417C86B0069AB06 /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
+		F0A77C952418EB8000C5F3AA /* AnswerLiked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLiked.swift; sourceTree = "<group>"; };
 		F0C203E62417EC8000189E6A /* AnswerFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFooter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -236,6 +238,7 @@
 				A14296D22412C3D7005E73B5 /* PublicationLiked.swift */,
 				A14296D42412CFA7005E73B5 /* PublicationFooter.swift */,
 				F0C203E62417EC8000189E6A /* AnswerFooter.swift */,
+				F0A77C952418EB8000C5F3AA /* AnswerLiked.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				A1B5EAE324100D00001824C6 /* Filter.swift in Sources */,
 				A1A5A343240D42F20015CBBE /* Accueil.swift in Sources */,
 				A14A254924140DE80030039B /* NavbarView.swift in Sources */,
+				F0A77C962418EB8000C5F3AA /* AnswerLiked.swift in Sources */,
 				F016E248240D723B0063A034 /* AddProposition.swift in Sources */,
 				A1A5A33B240D41900015CBBE /* FieldGenerator.swift in Sources */,
 				A14296CF2412BB73005E73B5 /* Report.swift in Sources */,

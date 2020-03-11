@@ -16,7 +16,7 @@ struct Filter: View {
         ZStack {
             VStack() {
                 Button(action: { self.showingModal = true}) {
-                    SymbolGenerator(mySymbol: "line.horizontal.3.decrease.circle.fill", myColor: "green")
+                    SymbolGenerator(mySymbol: "line.horizontal.3.decrease.circle.fill", myColor: "pink")
                 }
             }
             if $showingModal.wrappedValue {

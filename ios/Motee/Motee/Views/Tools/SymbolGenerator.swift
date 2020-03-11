@@ -35,7 +35,7 @@ func generateSymbolColor(name : String) -> Color {
         return .black
         
     default:
-        return Color.purple
+        return Color.pink
     }
 }
 

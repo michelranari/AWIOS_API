@@ -18,13 +18,13 @@ struct AnswerView: View {
         VStack{
             VStack{
                 HStack{
-                    Text("Pseudo").bold()
+                    Text("Pseudo").bold().foregroundColor(.white)
                     Spacer()
-                    Text(getDate()).bold()
+                    Text(getDate()).bold().foregroundColor(.white)
                 }.padding()
                     .padding(.horizontal)
             Spacer()
-                Text(textA)
+                Text(textA).foregroundColor(.white)
                     .padding(.horizontal)
             Spacer()
                 AnswerFooter()
@@ -32,7 +32,7 @@ struct AnswerView: View {
                 Spacer()
                 
                 }.frame(maxWidth: 380, maxHeight : 150 , alignment: .leading).edgesIgnoringSafeArea(.all)
-                .background(Color.white)
+                .background(Color.black)
             .cornerRadius(20).shadow(radius: 20)
             .padding()
         }

@@ -13,12 +13,16 @@ struct PropositionView : View {
      @State var text = "Ceci est un propos test \" \" "
      @State var showAnswers = false
      @State var colorIfClicked = "white"
+    @State var colorIfClicked2 = "black"
     //utiliser un objet Proposition
     func toggleColor(){
         if showAnswers{
-            colorIfClicked = "blue"
+            colorIfClicked = "black"
+            colorIfClicked2 = "white"
         }else{
             colorIfClicked = "white"
+            colorIfClicked2 = "black"
+
         }
     }
     
@@ -27,9 +31,9 @@ struct PropositionView : View {
             VStack{
             VStack{
                 HStack{
-                    Text("Pseudo").bold()
+                    Text("Pseudo").bold().foregroundColor(generateColor(name: self.colorIfClicked2))
                     Spacer()
-                    Text(getDate()).bold()
+                    Text(getDate()).bold().foregroundColor(generateColor(name: self.colorIfClicked2))
                 }.padding()
                     .padding(.horizontal).background(generateColor(name: self.colorIfClicked))
             Spacer()

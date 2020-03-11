@@ -22,7 +22,7 @@ struct AnswerFooter: View {
                 
                 HStack {
                     Spacer()
-                    PublicationLiked(answer: reponseTest, user: utilisateurTest)
+                    AnswerLiked(answer: reponseTest, user: utilisateurTest)
                     Spacer()
                     Report()
                     Spacer()
