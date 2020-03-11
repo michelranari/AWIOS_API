@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E6E4D8A2418EC1B00517EC6 /* TrailingNavbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6E4D892418EC1B00517EC6 /* TrailingNavbar.swift */; };
 		A14296CD2412AFE0005E73B5 /* PropositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14296CC2412AFE0005E73B5 /* PropositionView.swift */; };
 		A14296CF2412BB73005E73B5 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14296CE2412BB73005E73B5 /* Report.swift */; };
 		A14296D12412BD57005E73B5 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14296D02412BD57005E73B5 /* Comment.swift */; };
@@ -68,6 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8E6E4D892418EC1B00517EC6 /* TrailingNavbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingNavbar.swift; sourceTree = "<group>"; };
 		A14296CC2412AFE0005E73B5 /* PropositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropositionView.swift; sourceTree = "<group>"; };
 		A14296CE2412BB73005E73B5 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		A14296D02412BD57005E73B5 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				A14A254624140D810030039B /* MenuView.swift */,
 				A14A254E241477390030039B /* SingleLinkNavBar.swift */,
 				A14A254824140DE80030039B /* NavbarView.swift */,
+				8E6E4D892418EC1B00517EC6 /* TrailingNavbar.swift */,
 				F02350B82417C86B0069AB06 /* Root.swift */,
 			);
 			path = Navbar;
@@ -462,6 +465,7 @@
 				A1A5A345240D44280015CBBE /* RegisterButton.swift in Sources */,
 				A14A254724140D810030039B /* MenuView.swift in Sources */,
 				F02350B92417C86B0069AB06 /* Root.swift in Sources */,
+				8E6E4D8A2418EC1B00517EC6 /* TrailingNavbar.swift in Sources */,
 				A14296CD2412AFE0005E73B5 /* PropositionView.swift in Sources */,
 				A1A5A308240D40A30015CBBE /* SceneDelegate.swift in Sources */,
 				A14296D12412BD57005E73B5 /* Comment.swift in Sources */,

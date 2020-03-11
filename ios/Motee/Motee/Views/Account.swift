@@ -46,7 +46,6 @@ struct Account: View {
                         .background(generateColor(name: "blue"))
                         .cornerRadius(40)
                 }
-                
                 Spacer()
             }
         }

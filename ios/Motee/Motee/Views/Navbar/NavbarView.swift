@@ -13,6 +13,7 @@ struct NavbarView: View {
     @State var showMenu = false
     @State var filter = "all"
     @State var currentPage = "Accueil"
+    @State var showingModal = false
     var body: some View {
         let drag = DragGesture()
             .onEnded {
@@ -24,11 +25,14 @@ struct NavbarView: View {
             }
         
         return NavigationView {
+            if self.showingModal {
+                Filter2(filter: self.$filter, showingModal: self.$showingModal)
+            }
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     Root(currentPage: self.currentPage)
                     if self.showMenu {
-                        MenuView(currentPage : self.$currentPage)
+                        MenuView(currentPage : self.$currentPage, showMenu: self.$showMenu)
                             .frame(width: geometry.size.width/2)
                             .transition(.move(edge: .leading))
                     }
@@ -44,7 +48,9 @@ struct NavbarView: View {
                     SymbolGenerator(mySymbol: "line.horizontal.3", myColor: "black")
                         .imageScale(.large)
                 })
-                , trailing : Filter(filter: $filter))
+                , trailing :
+                TrailingNavbar(currentPage: self.$currentPage, filter: self.$filter, showingModal: self.$showingModal)
+            )
         }
     }
 }

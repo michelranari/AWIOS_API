@@ -10,6 +10,7 @@ import SwiftUI
 
 struct Accueil: View {
     @State var filter : String = "all"
+    @State var showingModal = false
     var body: some View {
         NavigationView{
             ScrollView{
@@ -29,6 +30,7 @@ struct Accueil: View {
                             SymbolGenerator(mySymbol :"plus.square.fill", myColor: "pink")
                             Text("Ajouter").foregroundColor(.black).bold()
                         }
+                        
                     }
                     
                     //TODO Proposition view ne s'affichent pas !!! (Mais fonctionnent quand même séparément
