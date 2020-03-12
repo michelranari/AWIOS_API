@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var filterKit : FilterKit
     var body: some View {
         ZStack{
             NavbarView()

@@ -11,9 +11,8 @@ import SwiftUI
 struct NavbarView: View {
     
     @State var showMenu = false
-    @State var filter = "all"
+    @EnvironmentObject var fk : FilterKit
     @State var currentPage = "Accueil"
-    @State var showingModal = false
     var body: some View {
         let drag = DragGesture()
             .onEnded {
@@ -25,8 +24,8 @@ struct NavbarView: View {
             }
         
         return NavigationView {
-            if self.showingModal {
-                Filter2(filter: self.$filter, showingModal: self.$showingModal)
+            if self.fk.showFilters {
+                Filter()
             }
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
@@ -49,7 +48,7 @@ struct NavbarView: View {
                         .imageScale(.large)
                 })
                 , trailing :
-                TrailingNavbar(currentPage: self.$currentPage, filter: self.$filter, showingModal: self.$showingModal)
+                TrailingNavbar(currentPage: self.$currentPage)
             )
         }
     }
@@ -57,6 +56,6 @@ struct NavbarView: View {
 
 struct NavbarView_Previews: PreviewProvider {
     static var previews: some View {
-        NavbarView()
+        NavbarView().environmentObject(FilterKit())
     }
 }

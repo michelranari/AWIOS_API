@@ -9,28 +9,30 @@
 import SwiftUI
 
 struct Accueil: View {
-    @State var filter : String = "all"
-    @State var showingModal = false
+    
+    @EnvironmentObject var fk : FilterKit
     var body: some View {
         NavigationView{
             ScrollView{
                 VStack{
+                    
+                    HStack{
+                        NavigationLink(destination : { AddProposition() }() ){
+                            SymbolGenerator(mySymbol :"plus.square.fill", myColor: "pink")
+                            Text("Ajouter").foregroundColor(.black).bold()
+                        }
+                    }
                     VStack(){
-                        if(filter.elementsEqual("all")){
+                        if(self.fk.filtered.elementsEqual("all")){
                             Title(myTitle: "Tous les propos")
-                        }else if filter.elementsEqual("like"){
+                        }else if self.fk.filtered.elementsEqual("like"){
                             Title(myTitle: "Les meilleurs propos")
-                        }else if filter.elementsEqual("dateDesc"){
+                        }else if self.fk.filtered.elementsEqual("dateDesc"){
                             Title(myTitle: "Les plus récents propos")
-                        }else if filter.elementsEqual("dateAsc"){
+                        }else if self.fk.filtered.elementsEqual("dateAsc"){
                             Title(myTitle: "Les plus anciens propos")
                         }
-                        HStack{
-                            NavigationLink(destination : { AddProposition() }() ){
-                                SymbolGenerator(mySymbol :"plus.square.fill", myColor: "pink")
-                                Text("Ajouter").foregroundColor(.black).bold()
-                            }
-                        }
+                        
                         PropositionView()
                         PropositionView()
                         PropositionView()
@@ -44,6 +46,6 @@ struct Accueil: View {
 
 struct Accueil_Previews: PreviewProvider {
     static var previews: some View {
-        Accueil()
+        Accueil().environmentObject(FilterKit())
     }
 }

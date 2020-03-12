@@ -10,13 +10,13 @@ import SwiftUI
 
 struct TrailingNavbar : View {
     @Binding var currentPage : String
-    @Binding var filter : String
-    @Binding var showingModal : Bool
-
+    @EnvironmentObject var fk : FilterKit
     var body: some View {
         ZStack{
             if(currentPage == "Accueil"){
-                Filter(showingModal : $showingModal,filter: $filter)
+                Button(action: { self.fk.showFilters = true}) {
+                    SymbolGenerator(mySymbol: "line.horizontal.3.decrease.circle.fill", myColor: "pink")
+                }
             }else{
                 SymbolGenerator(mySymbol: "person", myColor: "blue")
             }
