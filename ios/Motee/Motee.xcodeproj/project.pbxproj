@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E18B31D241A7B4F00F495BF /* FilterKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18B31C241A7B4F00F495BF /* FilterKit.swift */; };
+		8E6E4D8A2418EC1B00517EC6 /* TrailingNavbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6E4D892418EC1B00517EC6 /* TrailingNavbar.swift */; };
+		8ECD8A4B241AA6C7007F2879 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECD8A4A241AA6C7007F2879 /* TagView.swift */; };
 		A14296CD2412AFE0005E73B5 /* PropositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14296CC2412AFE0005E73B5 /* PropositionView.swift */; };
 		A14296CF2412BB73005E73B5 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14296CE2412BB73005E73B5 /* Report.swift */; };
 		A14296D12412BD57005E73B5 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14296D02412BD57005E73B5 /* Comment.swift */; };
@@ -72,6 +75,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8E18B31C241A7B4F00F495BF /* FilterKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterKit.swift; sourceTree = "<group>"; };
+		8E6E4D892418EC1B00517EC6 /* TrailingNavbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingNavbar.swift; sourceTree = "<group>"; };
+		8ECD8A4A241AA6C7007F2879 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		A14296CC2412AFE0005E73B5 /* PropositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropositionView.swift; sourceTree = "<group>"; };
 		A14296CE2412BB73005E73B5 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		A14296D02412BD57005E73B5 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -150,12 +156,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8ECD8A49241AA6B1007F2879 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				8ECD8A4A241AA6C7007F2879 /* TagView.swift */,
+			);
+			path = Tag;
+			sourceTree = "<group>";
+		};
 		A14A254524140C4C0030039B /* Navbar */ = {
 			isa = PBXGroup;
 			children = (
 				A14A254624140D810030039B /* MenuView.swift */,
 				A14A254E241477390030039B /* SingleLinkNavBar.swift */,
 				A14A254824140DE80030039B /* NavbarView.swift */,
+				8E6E4D892418EC1B00517EC6 /* TrailingNavbar.swift */,
 				F02350B82417C86B0069AB06 /* Root.swift */,
 			);
 			path = Navbar;
@@ -184,7 +199,9 @@
 		A1A5A304240D40A30015CBBE /* Motee */ = {
 			isa = PBXGroup;
 			children = (
+
 				F0A3DD9B241A53D20088F7A7 /* DAO */,
+				8E18B31C241A7B4F00F495BF /* FilterKit.swift */,
 				F016E23B240D4C0C0063A034 /* Business Class */,
 				F016E233240D4B8B0063A034 /* Views */,
 				A1A5A305240D40A30015CBBE /* AppDelegate.swift */,
@@ -264,6 +281,7 @@
 		F016E233240D4B8B0063A034 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8ECD8A49241AA6B1007F2879 /* Tag */,
 				A14A254C241474650030039B /* Account.swift */,
 				A14A254524140C4C0030039B /* Navbar */,
 				F016E246240D72260063A034 /* Proposition */,
@@ -462,6 +480,7 @@
 				A1A5A33B240D41900015CBBE /* FieldGenerator.swift in Sources */,
 				A14296CF2412BB73005E73B5 /* Report.swift in Sources */,
 				A1A5A33F240D42890015CBBE /* LoginButton.swift in Sources */,
+				8E18B31D241A7B4F00F495BF /* FilterKit.swift in Sources */,
 				A1A5A339240D41200015CBBE /* LoginForm.swift in Sources */,
 				F0C203E72417EC8000189E6A /* AnswerFooter.swift in Sources */,
 				F016E23D240D4C310063A034 /* Proposition.swift in Sources */,
@@ -485,7 +504,9 @@
 				F016E238240D4BF00063A034 /* AddAnswer.swift in Sources */,
 				A1A5A345240D44280015CBBE /* RegisterButton.swift in Sources */,
 				A14A254724140D810030039B /* MenuView.swift in Sources */,
+				8ECD8A4B241AA6C7007F2879 /* TagView.swift in Sources */,
 				F02350B92417C86B0069AB06 /* Root.swift in Sources */,
+				8E6E4D8A2418EC1B00517EC6 /* TrailingNavbar.swift in Sources */,
 				A14296CD2412AFE0005E73B5 /* PropositionView.swift in Sources */,
 				A1A5A308240D40A30015CBBE /* SceneDelegate.swift in Sources */,
 				A14296D12412BD57005E73B5 /* Comment.swift in Sources */,

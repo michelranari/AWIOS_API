@@ -11,7 +11,7 @@ import SwiftUI
 struct NavbarView: View {
     
     @State var showMenu = false
-    @State var filter = "all"
+    @EnvironmentObject var fk : FilterKit
     @State var currentPage = "Accueil"
     var body: some View {
         let drag = DragGesture()
@@ -24,11 +24,14 @@ struct NavbarView: View {
             }
         
         return NavigationView {
+            if self.fk.showFilters {
+                Filter()
+            }
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     Root(currentPage: self.currentPage)
                     if self.showMenu {
-                        MenuView(currentPage : self.$currentPage)
+                        MenuView(currentPage : self.$currentPage, showMenu: self.$showMenu)
                             .frame(width: geometry.size.width/2)
                             .transition(.move(edge: .leading))
                     }
@@ -44,13 +47,15 @@ struct NavbarView: View {
                     SymbolGenerator(mySymbol: "line.horizontal.3", myColor: "black")
                         .imageScale(.large)
                 })
-                , trailing : Filter(filter: $filter))
+                , trailing :
+                TrailingNavbar(currentPage: self.$currentPage)
+            )
         }
     }
 }
 
 struct NavbarView_Previews: PreviewProvider {
     static var previews: some View {
-        NavbarView()
+        NavbarView().environmentObject(FilterKit())
     }
 }

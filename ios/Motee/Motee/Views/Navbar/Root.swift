@@ -15,7 +15,7 @@ struct Root : View {
                 Accueil()
             }else if currentPage == "Login" {
                 LoginForm()
-            }else if currentPage == "Account"{
+            }else if currentPage == "Compte"{
                 Account()
             }
             else{
@@ -27,6 +27,7 @@ struct Root : View {
 
 struct Root_Previews: PreviewProvider {
     @State static var page = "login"
+    @State static var filter = "all"
     static var previews: some View {
         Root(currentPage: page)
     }

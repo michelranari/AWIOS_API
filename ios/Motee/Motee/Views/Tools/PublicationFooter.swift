@@ -21,7 +21,6 @@ struct PublicationFooter : View {
         
         VStack{
             VStack{
-                
                 HStack {
                     PublicationLiked(answer: reponseTest, user: utilisateurTest)
                     Spacer()
@@ -29,9 +28,8 @@ struct PublicationFooter : View {
                     Button(action:{
                         self.isNotHide.toggle()
                     }){
-                        
                         HStack{
-                            Text("Commenter")
+                            Text("Contribuer")
                             Image(systemName: "message.fill")
                         }
                         .padding(7)

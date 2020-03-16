@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct AddProposition: View {
-    @State var newProposition : String
-    @State var newAnswer : String
+    @State var newProposition : String = ""
+    @State var newAnswer : String = ""
     
     @State var anonymousProposition : Bool = false
     @State var answerAdding : Bool = false
@@ -51,6 +51,6 @@ struct AddProposition: View {
 
 struct AddProposition_Previews: PreviewProvider {
     static var previews: some View {
-        AddProposition(newProposition: "", newAnswer: "")
+        AddProposition()
     }
 }

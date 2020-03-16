@@ -9,42 +9,43 @@
 import SwiftUI
 
 struct Accueil: View {
-    @State var filter : String = "all"
+    
+    @EnvironmentObject var fk : FilterKit
     var body: some View {
         NavigationView{
             ScrollView{
-            VStack{
-                VStack(){
-                    if(filter.elementsEqual("all")){
-                        Title(myTitle: "Tous les propos")
-                    }else if filter.elementsEqual("like"){
-                        Title(myTitle: "Les meilleurs propos")
-                    }else if filter.elementsEqual("dateDesc"){
-                        Title(myTitle: "Les plus récents propos")
-                    }else if filter.elementsEqual("dateAsc"){
-                        Title(myTitle: "Les plus anciens propos")
-                    }
+                VStack{
+                    
                     HStack{
-                        NavigationLink(destination : { AddProposition(newProposition: "", newAnswer: "") }() ){
+                        NavigationLink(destination : { AddProposition() }() ){
                             SymbolGenerator(mySymbol :"plus.square.fill", myColor: "pink")
                             Text("Ajouter").foregroundColor(.black).bold()
                         }
                     }
-                    
-                    //TODO Proposition view ne s'affichent pas !!! (Mais fonctionnent quand même séparément
-                    PropositionView()
-                    PropositionView()
-                    PropositionView()                    
+                    VStack(){
+                        if(self.fk.filtered.elementsEqual("all")){
+                            Title(myTitle: "Tous les propos")
+                        }else if self.fk.filtered.elementsEqual("like"){
+                            Title(myTitle: "Les meilleurs propos")
+                        }else if self.fk.filtered.elementsEqual("dateDesc"){
+                            Title(myTitle: "Les plus récents propos")
+                        }else if self.fk.filtered.elementsEqual("dateAsc"){
+                            Title(myTitle: "Les plus anciens propos")
+                        }
+                        
+                        PropositionView()
+                        PropositionView()
+                        PropositionView()
+                    }
+                    Spacer()
                 }
-                Spacer()
             }
-        }
         }
     }
 }
 
 struct Accueil_Previews: PreviewProvider {
     static var previews: some View {
-        Accueil()
+        Accueil().environmentObject(FilterKit())
     }
 }
