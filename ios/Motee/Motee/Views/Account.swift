@@ -32,8 +32,8 @@ struct Account: View {
                 }
                 Title(myTitle: "Mes contributions").padding(.vertical)
                 
-                if (user.publications.count>0){
-                    Text("\(user.pseudo) merci pour vos \(user.publications.count) réponses").padding(.vertical)
+                if (user.idPropositions.count>0 || user.idAnswers.count>0){
+                    Text("\(user.pseudo) merci pour vos \(user.idPropositions.count+user.idAnswers.count) réponses").padding(.vertical)
                 }else{
                     Text("\(user.pseudo) ! vous n'avez pas encore contribué à l'application.. et si c'était le moment de nous partager votre expérience ? ").padding(.all)
                 }
@@ -43,7 +43,7 @@ struct Account: View {
                         .foregroundColor(.white)
                         .padding(.vertical)
                         .frame(width: 320, height: 60)
-                        .background(generateColor(name: "blue"))
+                        .background(generateColor(name: "pink"))
                         .cornerRadius(40)
                 }
                 

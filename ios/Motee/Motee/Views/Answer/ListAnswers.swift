@@ -26,7 +26,7 @@ struct ListAnswersView: View {
                         Title(myTitle: "Les plus anciennes réponses")
                     }
                     HStack{
-                        NavigationLink(destination : { AddAnswerView(newContent: "",newAnswer: Answer(userR: User(pseudo: "", password: "", email: "", city: ""), identifierR: 0, contentR: "", anonymousR: true, tagsR: [])) }() ){
+                        NavigationLink(destination : { AddAnswerView(newContent: "",newAnswer: Answer() }() ){
                             SymbolGenerator(mySymbol :"plus.square.fill", myColor: "blue")
                             Text("Ajouter").foregroundColor(.blue).bold()
                         }

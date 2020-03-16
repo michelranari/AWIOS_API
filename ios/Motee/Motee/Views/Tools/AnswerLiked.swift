@@ -34,7 +34,7 @@ struct AnswerLiked : View {
 
 struct AnswerLiked_Previews: PreviewProvider {
     static var previews: some View {
-        AnswerLiked(answer: Answer(userR: User(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierR: 18, contentR: "Charlie delta commando", anonymousR: true, tagsR: [])
-            , user: User(pseudo: "root", password: "root", email: "root", city: "ville"))
+        AnswerLiked(answer: Answer(from: Decoder)
+            , user: User(from: Decoder))
     }
 }

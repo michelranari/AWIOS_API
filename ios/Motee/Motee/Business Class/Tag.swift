@@ -9,14 +9,43 @@
 import Combine
 import Foundation
 
-class Tag : Identifiable, ObservableObject {
+class Tag : Identifiable, ObservableObject, Codable {
+    private var idTag : String = "" //Object Id
     @Published var label : String
     @Published var nbOccurences : Int = 0
     
-    var id : String {return self.label}
+    var id : String {return self.idTag}
     
-    private var publications : [Publication] = []
+    private var idPropositions : [Int] = []
+    private var idAnswers : [Int] = []
     
+    //Enumeration utile pour l'encodage en JSON
+    enum TagEncodingKeys : CodingKey {
+        case _id
+        case label
+        case nbOccurence
+        case idProps
+        case idAnswers
+    }
+    
+    //Encoder
+    func encode(to encoder : Encoder) throws{
+        var container = encoder.container(keyedBy: TagEncodingKeys.self)
+        try container.encode(idPropositions, forKey: .idProps)
+        try container.encode(idAnswers, forKey: .idAnswers)
+    }
+    
+    //Decoder by require init
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: TagEncodingKeys.self)
+        self.idTag = try container.decode(String.self, forKey: ._id)
+        self.label = try container.decode(String.self, forKey: .label)
+        self.nbOccurences = try container.decode(Int.self, forKey: .nbOccurence)
+        self.idPropositions = try container.decode(Array.self, forKey: .idProps)
+        self.idAnswers = try container.decode(Array.self, forKey: .idAnswers)
+    }
+    
+    //Main initializer
     init(label : String) {
         self.label = label
     }

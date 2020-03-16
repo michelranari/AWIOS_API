@@ -15,8 +15,8 @@ struct AddAnswerView: View {
     @State var alertEmptyAnswer : Bool = false
     @State var newAnswer : Answer
     
-    var utilisateurTest : User = User(pseudo: "root", password: "root", email: "root", city: "ville")
-    var proposTest : Proposition = Proposition(userP: User(pseudo: "Niska", password: "root", email: "root", city: "ville"), identifierP: 17, contentP: "Charlie delta commando", anonymousP: false, tagsP: [], titleP: "Titre Test")
+    var utilisateurTest : User = User(from:)
+    var proposTest : Proposition = Proposition(from: Decoder)
     
     var body: some View {
         VStack(alignment:HorizontalAlignment.center,spacing: 15){
@@ -37,7 +37,7 @@ struct AddAnswerView: View {
                 } else{
                     //
                     self.alertEmptyAnswer = false
-                    self.newAnswer = Answer.init(userR: self.utilisateurTest, identifierR: self.proposTest.answers.count+1, contentR: self.newContent, anonymousR: false, tagsR: self.proposTest.tags)
+                    self.newAnswer = Answer(from: Decoder)
                     if self.proposTest.addAnswer(newAnswer: self.newAnswer){
                         //Renvoie la liste de reponses ensuite
                     }
@@ -53,7 +53,7 @@ struct AddAnswerView: View {
                 } else{
                     //
                     self.alertEmptyAnswer = false
-                    self.newAnswer = Answer.init(userR: self.utilisateurTest, identifierR: self.proposTest.answers.count+1, contentR: self.newContent, anonymousR: true, tagsR: self.proposTest.tags)
+                    self.newAnswer = Answer(from: Decoder)
                     if self.proposTest.addAnswer(newAnswer: self.newAnswer){
                         //Renvoie la liste de reponses ensuite
                     }
@@ -69,9 +69,8 @@ struct AddAnswerView: View {
 }
 
 struct AddAnswerView_Previews: PreviewProvider {
-    //ajouter un propos test...
-    
+
     static var previews: some View {
-        AddAnswerView(newContent: "",newAnswer: Answer(userR: User(pseudo: "", password: "", email: "", city: ""), identifierR: 0, contentR: "", anonymousR: true, tagsR: []))
+        AddAnswerView(newContent: "",newAnswer: Answer(from: Decoder))
     }
 }
