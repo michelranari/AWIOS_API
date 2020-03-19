@@ -10,7 +10,18 @@ import SwiftUI
 
 
 struct Account: View {
-    @State var user = getUserConnected()
+    let dateFormatter = DateFormatter()
+    var currentUser = (UIApplication.shared.delegate as! AppDelegate).currentUser
+    
+    var nbProposition : String
+    var nbAnswer : String
+    
+    init(){
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        nbProposition = String(PropositionDAO.getAll().count)
+        nbAnswer = String(AnswerDAO.getAll().count)
+    }
     
     var body: some View {
         NavigationView{
@@ -19,23 +30,23 @@ struct Account: View {
                 VStack(alignment: .leading){
                     HStack(alignment: .center){
                         SymbolGenerator(mySymbol: "person", myColor: "black")
-                        Text(user.pseudo).padding(.vertical)
+                        Text(""+currentUser!.pseudo).padding(.vertical)
                     }
                     HStack{
                         SymbolGenerator(mySymbol: "envelope", myColor: "black")
-                        Text(user.email).padding(.vertical)
+                        Text(currentUser!.email).padding(.vertical)
                     }
                     HStack{
                         SymbolGenerator(mySymbol: "location", myColor: "black")
-                        Text(user.city).padding(.vertical)
+                        Text(currentUser!.city).padding(.vertical)
                     }
                 }
                 Title(myTitle: "Mes contributions").padding(.vertical)
                 
-                if (user.idPropositions.count>0 || user.idAnswers.count>0){
-                    Text("\(user.pseudo) merci pour vos \(user.idPropositions.count+user.idAnswers.count) réponses").padding(.vertical)
+                if (currentUser!.idPropositions.count>0 || currentUser!.idAnswers.count>0){
+                    Text("\(currentUser!.pseudo) merci pour vos \(currentUser!.idPropositions.count+currentUser!.idAnswers.count) réponses").padding(.vertical)
                 }else{
-                    Text("\(user.pseudo) ! vous n'avez pas encore contribué à l'application.. et si c'était le moment de nous partager votre expérience ? ").padding(.all)
+                    Text("\(currentUser!.pseudo) ! vous n'avez pas encore contribué à l'application.. et si c'était le moment de nous partager votre expérience ? ").padding(.all)
                 }
                 NavigationLink(destination: Accueil()){
                     Text("Je contribue tout de suite !")
@@ -50,12 +61,6 @@ struct Account: View {
             }
         }
     }
-}
-func getUserConnected() -> User {
-    return User(pseudo: "Niska",
-                password: "root",
-                email: "niska@gmail.com",
-                city: "Dijon")
 }
 
 struct Account_Previews: PreviewProvider {

@@ -9,32 +9,36 @@
 import SwiftUI
 
 struct AnswerLiked : View {
-    @ObservedObject var answer : Answer
-    @ObservedObject var user : User
+    var answer : Answer
+    var currentUser = (UIApplication.shared.delegate as! AppDelegate).currentUser
+    
+    init(answer : Answer){
+        self.answer = answer
+    }
     
     var body: some View {
         Button(action:{
-            if self.answer.estLikee(utilisateur: self.user){
-                self.answer.disliker(userDislike: self.user)
+            if self.answer.estLikee(utilisateur: self.currentUser){
+                self.answer.disliker(userDislike: self.currentUser)
             }else{
-                self.answer.liker(userLike: self.user)
+                self.answer.liker(userLike: self.currentUser)
             }
         }){
             HStack{
-                if self.answer.estLikee(utilisateur: user){
+                if self.answer.estLikee(utilisateur: self.currentUser){
                     Image(systemName: "heart.fill").foregroundColor(Color.red)
                 } else {
                     Image(systemName: "heart").foregroundColor(Color.pink)
                 }
-                Text(String(answer.nbLikes)).foregroundColor(.pink)
+                Text(String(answer.idLikesAnswer.count)).foregroundColor(.pink)
             }
         }
     }
 }
-
+/*
 struct AnswerLiked_Previews: PreviewProvider {
     static var previews: some View {
-        AnswerLiked(answer: Answer(from: Decoder)
-            , user: User(from: Decoder))
+        AnswerLiked()
     }
 }
+*/

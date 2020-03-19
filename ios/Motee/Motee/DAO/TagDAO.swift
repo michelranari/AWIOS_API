@@ -6,10 +6,13 @@
 //  Copyright © 2020 groupe3. All rights reserved.
 //
 
+// That's a light okay... maybe we need more properties for ou DAO
+import SwiftUI
 import Foundation
 
 class TagDAO {
     
+    static var currentUser = (UIApplication.shared.delegate as! AppDelegate).currentUser
     let rootURI : String = "https://..."
     
     //------------------

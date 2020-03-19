@@ -10,11 +10,21 @@ import SwiftUI
 
 struct PropositionView : View {
     
-     @State var text = "Ceci est un propos test \" \" "
-     @State var showAnswers = false
-     @State var colorIfClicked = "white"
+    var currentUser = (UIApplication.shared.delegate as! AppDelegate).currentUser
+    var proposition : Proposition
+    let dateFormatter = DateFormatter()
+    
+    @State var showAnswers = false
+    @State var colorIfClicked = "white"
     @State var colorIfClicked2 = "black"
+    
     //utiliser un objet Proposition
+    init(proposition : Proposition){
+        self.proposition = proposition
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+    }
+    
     func toggleColor(){
         if showAnswers{
             colorIfClicked = "black"
@@ -24,6 +34,14 @@ struct PropositionView : View {
             colorIfClicked2 = "black"
 
         }
+    }
+    
+    func getDate() -> String {
+        return dateFormatter.string(from: proposition.datePublication)
+    }
+    
+    func getLike() -> String {
+        return String(proposition.idLikesProp.count)
     }
     
     var body: some View {
@@ -37,10 +55,10 @@ struct PropositionView : View {
                 }.padding()
                     .padding(.horizontal).background(generateColor(name: self.colorIfClicked))
             Spacer()
-                Text(text)
+                Text(proposition.contentPub)
                     .padding(.horizontal)
             Spacer()
-                PublicationFooter().padding()
+                PropositionFooter(proposition: proposition).padding()
                 Button(
                     action : {
                         self.showAnswers.toggle()
@@ -55,26 +73,16 @@ struct PropositionView : View {
             .cornerRadius(20).shadow(radius: 20)
             .padding()
             if (showAnswers){
-                AnswerView() //TODO : On montre la meilleure réponse
-                /*NavigationLink(destination: {ListAnswersView()}() ){
-                    ButtonGenerator(myText: "Toutes les réponses", myColor: "blue")
-                }.padding()*/
+                ListAnswersView(proposition: proposition)
             }
         }
         //}
     }
 }
-
-
-func getDate() -> String {
-    return "28 juin 2020"
-}
-
-func getLike() -> String {
-    return "100"
-}
+/*
 struct PropositionView_Previews: PreviewProvider {
     static var previews: some View {
         PropositionView()
     }
 }
+*/

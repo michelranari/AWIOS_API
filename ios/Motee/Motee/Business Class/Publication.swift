@@ -11,17 +11,15 @@ import Foundation
 
 protocol Publication {
 
-    func liker(userLike : User)
+    func liker(userLike : User?)
     
-    func disliker(userDislike : User)
+    func disliker(userDislike : User?)
     
     func estProprietaire(utilisateur: User)->Bool
     
     func peutSupprimer(utilisateur: User) -> Bool
     
-    func supprimer(utilisateur: User)->Bool
-    
     func revelerIdentitePublication(utilisateur : User)->User?
     
-    func estLikee(utilisateur: User)->Bool
+    func estLikee(utilisateur: User?)->Bool
 }

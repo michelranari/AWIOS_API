@@ -8,21 +8,23 @@
 
 import SwiftUI
 
-struct PublicationFooter : View {
-    @ObservedObject var utilisateurTest : User = User(from: Decoder)
-    
-    @State var proposTest : Answer = Answer(from: Decoder)
-    
-    @State var reponseTest : Answer = Answer(from: Decoder)
+struct PropositionFooter : View {
+    var currentUser = (UIApplication.shared.delegate as! AppDelegate).currentUser
+    var proposition : Proposition
     
     @State var isNotHide :Bool = false
     @State var comment = ""
+    
+    init(proposition : Proposition){
+        self.proposition = proposition
+    }
+    
     var body: some View {
         
         VStack{
             VStack{
                 HStack {
-                    PublicationLiked(answer: reponseTest, user: utilisateurTest)
+                    PropositionLiked(proposition: proposition)
                     Spacer()
                     
                     Button(action:{
@@ -54,9 +56,9 @@ struct PublicationFooter : View {
         }.padding()
     }
 }
-
-struct PublicationFooter_Previews: PreviewProvider {
+/*
+struct PropositionFooter_Previews: PreviewProvider {
     static var previews: some View {
-        PublicationFooter()
+        PropositionFooter(proposition: Proposition)
     }
-}
+}*/

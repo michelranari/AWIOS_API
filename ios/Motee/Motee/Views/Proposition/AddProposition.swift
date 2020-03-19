@@ -9,12 +9,15 @@
 import SwiftUI
 
 struct AddProposition: View {
-    @State var newProposition : String = ""
-    @State var newAnswer : String = ""
+    
+    var currentUser = (UIApplication.shared.delegate as! AppDelegate).currentUser
+    @State var newPropositionContent : String = ""
+    @State var newAnswerContent : String = ""
     
     @State var anonymousProposition : Bool = false
-    @State var answerAdding : Bool = false
     @State var anonymousAnswer : Bool = false
+
+    @State var answerAdding : Bool = false
     
     var body: some View {
         VStack{
@@ -22,7 +25,7 @@ struct AddProposition: View {
             Divider()
             ScrollView{
                 Text("Votre Propos").font(.system(size: 18)).bold().foregroundColor(.blue).padding()
-                TextField("Ecrivez votre propos", text: $newProposition).padding()
+                TextField("Ecrivez votre propos", text: $newPropositionContent).padding()
                 Toggle(isOn : $anonymousProposition){
                     Text("Propos anonyme")
                 }
@@ -32,14 +35,21 @@ struct AddProposition: View {
                 }
                 if answerAdding {
                     Text("Votre Reponse").font(.system(size: 18)).bold().foregroundColor(.blue).padding()
-                    TextField("Ecrivez votre reponse", text: $newAnswer).padding()
+                    TextField("Ecrivez votre reponse", text: $newAnswerContent).padding()
                     Toggle(isOn : $anonymousAnswer){
                         Text("Propos anonyme")
                     }
                 }
                 Divider().padding()
+                //Should be replaced by nav link
                 Button(action:{
-                    
+                    //We have to put the Proposition (and the Answer) into the database
+                    if self.answerAdding {
+                        //AnswerDAO.putAnswer(idAnswer: "", token: "")
+                        //PropositionDAO.putProps()
+                    } else {
+                        //PropositionDAO.putProps()
+                    }
                 }){
                     Text("Envoyer").bold().padding(15)
                     

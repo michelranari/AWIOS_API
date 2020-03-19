@@ -10,18 +10,20 @@ import SwiftUI
 
 struct AnswerFooter: View {
     @State var isNotHide :Bool = false
-    @ObservedObject var utilisateurTest : User = User(pseudo: "root", password: "root", email: "root", city: "ville")
+    var currentUser = (UIApplication.shared.delegate as! AppDelegate).currentUser
     
-    @State var proposTest : Answer = Answer()
+    var answer : Answer
     
-    @State var reponseTest : Answer = Answer()
+    init(answer : Answer){
+        self.answer = answer
+    }
     
     var body: some View {
         VStack{
             VStack{
                 HStack {
                     Spacer()
-                    AnswerLiked(answer: reponseTest, user: utilisateurTest)
+                    AnswerLiked(answer: answer)
                     Spacer()
                     Report()
                     Spacer()
@@ -30,9 +32,10 @@ struct AnswerFooter: View {
         }.padding()
     }
 }
-
+/*
 struct AnswerFooter_Previews: PreviewProvider {
     static var previews: some View {
         AnswerFooter()
     }
 }
+*/
