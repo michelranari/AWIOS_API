@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct LoginForm: View {
+    
     @State var pseudo : String = ""
     @State var mdp : String = ""
     var body: some View {
@@ -18,7 +19,7 @@ struct LoginForm: View {
                 LoginPicture()
                 FieldGenerator.plain(label: "",field: "Pseudo", text: $pseudo)
                 FieldGenerator.secure(label: "",field: "Mot de passe", text: $mdp)
-                LoginButton(pseudo: $pseudo,mdp: $mdp)
+                LoginButton(pseudo: pseudo,mdp: mdp)
                 NavigationLink(destination : RegisterForm()){
                     ButtonGenerator(myText: "S'inscrire", myColor: "blue")
                 }

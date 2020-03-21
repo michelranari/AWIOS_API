@@ -14,22 +14,19 @@ class Answer : Publication, Identifiable, Codable {
     private var idPublication : String = "0"
     var datePublication : Date = Date()
     @Published var contentPub : String = ""
-    @Published var nbLikes : Int = 0
+    @Published var idLikesAnswer : [String] = [] //Array d'object ID de User
     @Published var anonymous : Bool = false
     @Published var owner : User
     @Published var tags : [Tag] = []
-
     var idProposition : Proposition
-    
-    var alreadyLikedBy : [User] = [] //just for the business logic, no need to put it on a database now
-    
+        
     var id : String {return idPublication}
     
     enum AnswerEncodingKeys : CodingKey {
         case _id
         case dateAnswer
         case contentAnswer
-        case nbLikesAnswer
+        case idLikesAnswer
         case isAnonymous
         case ownerAnswer
         case tagAnswer
@@ -47,7 +44,7 @@ class Answer : Publication, Identifiable, Codable {
         self.idPublication = try container.decode(String.self, forKey: ._id)
         self.datePublication = try container.decode(Date.self, forKey: .dateAnswer)
         self.contentPub = try container.decode(String.self, forKey: .contentAnswer)
-        self.nbLikes = try container.decode(Int.self, forKey: .nbLikesAnswer)
+        self.idLikesAnswer = try container.decode(Array.self, forKey: .idLikesAnswer)
         self.anonymous = try container.decode(Bool.self, forKey: .isAnonymous)
         self.owner = try container.decode(User.self, forKey: .ownerAnswer)
         self.tags = try container.decode(Array.self, forKey: .tagAnswer)
@@ -56,16 +53,14 @@ class Answer : Publication, Identifiable, Codable {
     
     //methods
     
-    func liker(userLike : User){
-        self.nbLikes = self.nbLikes + 1
-        self.alreadyLikedBy.append(userLike)
+    func liker(userLike : User?){
+        self.idLikesAnswer.append(userLike!.id)
     }
     
-    func disliker(userDislike : User){
-        self.nbLikes = self.nbLikes - 1
-        for i in 0..<self.alreadyLikedBy.count {
-            if self.alreadyLikedBy[i].id == userDislike.id {
-                self.alreadyLikedBy.remove(at: i)
+    func disliker(userDislike : User?){
+        for i in 0..<self.idLikesAnswer.count {
+            if self.idLikesAnswer[i] == userDislike!.id {
+                self.idLikesAnswer.remove(at: i)
             }
         }
     }
@@ -86,26 +81,6 @@ class Answer : Publication, Identifiable, Codable {
         }
     }
     
-    func supprimer(utilisateur: User)->Bool {
-        if self.peutSupprimer(utilisateur: utilisateur){
-            for it in 0..<owner.idPropositions.count {
-                if owner.idPropositions[it].id == self.idPublication {
-                    owner.idPropositions.remove(at: it)
-                    return true //case : publication was genuinely deleted :D
-                }
-            }
-            for it in 0..<owner.idAnswers.count {
-                if owner.idAnswers[it].id == self.idPublication {
-                    owner.idAnswers.remove(at: it)
-                    return true //case : publication was genuinely deleted :D
-                }
-            }
-            return false //case : nothing was deleted
-        } else {
-            return false //case : cannot delete the publication
-        }
-    }
-    
     func revelerIdentitePublication(utilisateur : User)->User?{
         if utilisateur.admin && self.anonymous {
             return self.owner
@@ -114,10 +89,13 @@ class Answer : Publication, Identifiable, Codable {
         }
     }
     
-    func estLikee(utilisateur: User)->Bool{
+    func estLikee(utilisateur: User?)->Bool{
+        if utilisateur == nil {
+            return false
+        }
         var isLiked : Bool = false
-        for it in 0..<alreadyLikedBy.count {
-            if alreadyLikedBy[it].equals(utilisateur: utilisateur){
+        for it in 0..<idLikesAnswer.count {
+            if idLikesAnswer[it] == utilisateur!.id {
                 isLiked = true
             }
         }

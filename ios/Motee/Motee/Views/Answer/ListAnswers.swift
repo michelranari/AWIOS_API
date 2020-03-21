@@ -10,7 +10,13 @@ import Combine
 import SwiftUI
 
 struct ListAnswersView: View {
+    var currentUser = (UIApplication.shared.delegate as! AppDelegate).currentUser
+    var proposition : Proposition
     @State var filter : String = "all"
+    
+    init(proposition : Proposition){
+        self.proposition = proposition
+    }
 
     var body: some View {
         NavigationView{
@@ -26,25 +32,26 @@ struct ListAnswersView: View {
                         Title(myTitle: "Les plus anciennes réponses")
                     }
                     HStack{
-                        NavigationLink(destination : { AddAnswerView(newContent: "",newAnswer: Answer() }() ){
+                        NavigationLink(destination : { AddAnswerView(propos: proposition) }() ){
                             SymbolGenerator(mySymbol :"plus.square.fill", myColor: "blue")
                             Text("Ajouter").foregroundColor(.blue).bold()
                         }
                     }
-                    AnswerView()
-                    AnswerView()
-                    AnswerView()
-                    AnswerView()
-                    AnswerView()
+                    List{
+                        ForEach(AnswerDAO.getAnswersByPropId(propId : proposition.id)){ answer in
+                            AnswerView(answer: answer)
+                        }
+                    }
                 }
                 Spacer()
             }
         }
     }
 }
-
+/*
 struct ListAnswersView_Previews: PreviewProvider {
     static var previews: some View {
         ListAnswersView()
     }
 }
+*/

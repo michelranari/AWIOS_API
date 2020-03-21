@@ -12,7 +12,15 @@ import UserNotifications
 
 struct AnswerView: View {
     
-    @State var textA = "Ceci est une reponse test \" \" "
+    var answer : Answer
+    let dateFormatter = DateFormatter()
+    var currentUser = (UIApplication.shared.delegate as! AppDelegate).currentUser
+    
+    init(answer : Answer){
+        self.answer = answer
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+    }
         
     var body: some View {
         VStack{
@@ -20,16 +28,18 @@ struct AnswerView: View {
                 HStack{
                     Text("Pseudo").bold().foregroundColor(.white)
                     Spacer()
-                    Text(getDate()).bold().foregroundColor(.white)
+                    Text(self.dateFormatter.string(from: answer.datePublication)).bold().foregroundColor(.white)
                 }.padding()
                     .padding(.horizontal)
             Spacer()
-                Text(textA).foregroundColor(.white)
+                Text(answer.contentPub).foregroundColor(.white)
                     .padding(.horizontal)
             Spacer()
-                AnswerFooter()
                 
-                Spacer()
+                if (currentUser != nil){
+                    AnswerFooter(answer: answer)
+                    Spacer()
+                }
                 
                 }.frame(maxWidth: 380, maxHeight : 150 , alignment: .leading).edgesIgnoringSafeArea(.all)
                 .background(Color.black)
@@ -38,10 +48,10 @@ struct AnswerView: View {
         }
     }
 }
-
+/*
 struct AnswerView_Previews: PreviewProvider {
     
     static var previews: some View {
-        AnswerView()
+        AnswerView(answer: <#Answer#>)
     }
-}
+}*/

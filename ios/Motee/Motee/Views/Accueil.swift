@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct Accueil: View {
-    
     @EnvironmentObject var fk : FilterKit
+    
     var body: some View {
         NavigationView{
             ScrollView{
@@ -32,10 +32,11 @@ struct Accueil: View {
                         }else if self.fk.filtered.elementsEqual("dateAsc"){
                             Title(myTitle: "Les plus anciens propos")
                         }
-                        
-                        PropositionView()
-                        PropositionView()
-                        PropositionView()
+                        List{
+                            ForEach(PropositionDAO.getAll()){ prop in
+                                PropositionView(proposition: prop)
+                            }
+                        }
                     }
                     Spacer()
                 }

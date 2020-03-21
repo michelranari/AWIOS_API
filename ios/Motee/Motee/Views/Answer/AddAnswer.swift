@@ -10,22 +10,24 @@ import Combine
 import SwiftUI
 
 struct AddAnswerView: View {
-    //@ObservedObject var propos : Proposition
-    @State var newContent : String
+    @State var newContent : String = ""
     @State var alertEmptyAnswer : Bool = false
-    @State var newAnswer : Answer
+    var propos : Proposition
     
-    var utilisateurTest : User = User(from:)
-    var proposTest : Proposition = Proposition(from: Decoder)
+    var user = (UIApplication.shared.delegate as! AppDelegate).currentUser
+
+    init(propos : Proposition){
+        self.propos = propos
+    }
     
     var body: some View {
         VStack(alignment:HorizontalAlignment.center,spacing: 15){
-            if proposTest.anonymous {
+            if propos.anonymous {
                 Text("Répondre à Anonyme").font(.system(size: 18)).bold().foregroundColor(.blue)
             } else {
-                Text("Répondre à \(proposTest.owner.pseudo)").font(.system(size: 18)).bold().foregroundColor(.blue)
+                Text("Répondre à \(propos.owner.pseudo)").font(.system(size: 18)).bold().foregroundColor(.blue)
             }
-            Text(proposTest.contentPub).font(.system(size: 18))
+            Text(propos.contentPub).font(.system(size: 18))
             Divider()
             TextField("Ecrivez votre réponse", text: $newContent)
             Divider()
@@ -37,9 +39,9 @@ struct AddAnswerView: View {
                 } else{
                     //
                     self.alertEmptyAnswer = false
-                    self.newAnswer = Answer(from: Decoder)
-                    if self.proposTest.addAnswer(newAnswer: self.newAnswer){
+                    if AnswerDAO.putAnswer(idAnswer: "testId", token: self.newContent){
                         //Renvoie la liste de reponses ensuite
+                        
                     }
                 }
             }){
@@ -53,8 +55,7 @@ struct AddAnswerView: View {
                 } else{
                     //
                     self.alertEmptyAnswer = false
-                    self.newAnswer = Answer(from: Decoder)
-                    if self.proposTest.addAnswer(newAnswer: self.newAnswer){
+                    if AnswerDAO.putAnswer(idAnswer: "testId", token: self.newContent){
                         //Renvoie la liste de reponses ensuite
                     }
                 }
@@ -68,9 +69,11 @@ struct AddAnswerView: View {
     }
 }
 
+/*
 struct AddAnswerView_Previews: PreviewProvider {
 
     static var previews: some View {
-        AddAnswerView(newContent: "",newAnswer: Answer(from: Decoder))
+        AddAnswerView()
     }
 }
+*/

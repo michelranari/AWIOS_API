@@ -30,22 +30,38 @@ struct RegisterButton: View {
 
 func availableRegistration(pseudo : String, mail : String, mdp : String, mdp2 : String ) -> Bool {
     return(isAvailablePseudo(pseudo : pseudo)
-        && isSamePasword(mdp1: mdp, mdp2: mdp2)
+        && isSamePasword(mdp1: mdp, mdp2: mdp2) && isAvailablePassword(mdp : mdp)
         && isAvailableMail(mail : mail)
     )
 }
 
 func isAvailablePseudo(pseudo : String) -> Bool{
-    //TO DO
+    for user in UserDAO.getAll() {
+        if user.pseudo == pseudo {
+            return false
+        }
+    }
     return true
 }
 
+func isAvailablePassword(mdp : String)->Bool {
+    for user in UserDAO.getAll() {
+        if user.passwordProperties == mdp {
+            return false
+        }
+    }
+    return true
+}
 func isSamePasword(mdp1 : String ,mdp2 : String) -> Bool{
-    return (mdp1 == mdp2 && mdp1.count > 0)
+    return (mdp1 == mdp2 && mdp1.count > 3)
 }
 
 func isAvailableMail(mail : String) -> Bool {
-    //TO DO
+    for user in UserDAO.getAll() {
+        if user.email == mail {
+            return false
+        }
+    }
     return true
 }
 
