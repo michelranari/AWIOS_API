@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 const users = require('./router/users')
 const propositions = require('./router/propositions')
+const answers = require('./router/answers')
 const database = require('./database')
 const dotenv = require('dotenv')
 dotenv.config();
@@ -19,12 +20,5 @@ app.use(express.json())
 app.use(logInfo)
 app.use('/users',users)
 app.use('/propositions',propositions)
+app.use('/answers',answers)
 app.listen(port, () => console.log(`App listening on port ${port}`))
-
-
-const db = {
-    users : [
-        { id : 1, pseudo : 'michel', mdp : 'michelmdp', mail : 'michel@gmail.com' },
-        { id : 2, pseudo : 'lucas', mdp : 'lucasmdp', mail : 'lucas@gmail.com' }
-    ]
-}
