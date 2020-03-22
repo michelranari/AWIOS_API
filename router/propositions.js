@@ -40,7 +40,7 @@ router.get('/sort/:sort', async (req,res) =>{
     for (var i = 0; i < proposition.length; i++) {
       prop[i].ownerAnswer = "michel";
       console.log("here");
-      console.log("here";)
+      console.log("here")
     }
 
     console.log(prop)
