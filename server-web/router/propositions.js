@@ -25,6 +25,29 @@ router.get('/', (req,res) =>{
   })
 });
 
+// all proposition sorted by ascending or descending
+router.get('/sort/:sort', async (req,res) =>{
+  try {
+    var userId = [];
+    var prop = [];
+    var proposition = await propositionModel.find({}).sort({"dateProp" : "desc"}).exec();
+    for (var i = 0; i < proposition.length; i++) {
+      var user = await userModel.findById(proposition[i].ownerProp);
+      userId.push(user.pseudo);
+      prop.push(proposition[i]);
+    }
+    console.log(prop);
+    for (var i = 0; i < proposition.length; i++) {
+      prop[i].ownerAnswer = "michel";
+      console.log("here");
+    }
+
+    console.log(prop)
+  }catch(error){
+    console.log(error);
+  }
+});
+
 
 // return proposition by id
 router.get('/:id_proposition', async (req,res) =>{
@@ -296,7 +319,7 @@ router.post('/delete', (req, res) => {
       return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
 
-    // check if update is own propostion
+    // check if delete is own propostion
     const user = decoded.result._id;
     if(user != req.body.ownerProp){
       return res.status(403).send({ errors: 'Forbidden' });
