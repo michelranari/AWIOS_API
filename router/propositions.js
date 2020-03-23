@@ -29,18 +29,15 @@ router.get('/', (req,res) =>{
 router.get('/sort/:sort', async (req,res) =>{
   try {
     var userId = [];
-    var prop = [];
+    var prop = {};
     var proposition = await propositionModel.find({}).sort({"dateProp" : "desc"}).exec();
+    console.log(proposition)
     for (var i = 0; i < proposition.length; i++) {
       var user = await userModel.findById(proposition[i].ownerProp);
-      userId.push(user.pseudo);
-      prop.push(proposition[i]);
-    }
-    console.log(prop);
-    for (var i = 0; i < proposition.length; i++) {
-      prop[i].ownerAnswer = "michel";
-      console.log("here");
-      console.log("here")
+
+      var id = proposition[i]._id
+      prop[id] = proposition[i]
+      prop[id].pseudo = user.pseudo
     }
 
     console.log(prop)
@@ -96,9 +93,7 @@ router.post('/newProposition', (req, res) => {
     proposition.isAnonymous = req.body.isAnonymous;
     proposition.ownerProp = decoded.user._id;
 
-    // prepare tag for insert
-    var tagsReq = req.body.tagsProp;
-    var tagsArray = tagsReq.split(' ');
+
 
     //save proposition in database collection
     proposition.save(function (err, prop) {
@@ -118,45 +113,53 @@ router.post('/newProposition', (req, res) => {
         console.log("user propostion Array updated");
       });
 
-      // counter for tag
-      var counter = 0;
+      // if tag exist
+      if(req.body.tagsProp){
+        // prepare tag for insert
+        var tagsReq = req.body.tagsProp;
+        var tagsArray = tagsReq.split(' ');
 
-      // insert each tags or update if exist
-      for (var i = 0; i < tagsArray.length; i++) {
-        var query = {"label" : tagsArray[i]},
-        update = { "label": tagsArray[i],
-                    $inc : { "nbOccurence" : 1},
-                    $push : { "idProps" : prop._id}},
-        options = { upsert: true, new: true, setDefaultsOnInsert: true };
+        // counter for tag
+        var counter = 0;
 
-        //insert tag in database
-        tagModel.findOneAndUpdate(query,update,options, function(err,tagRes){
-          if(err){
-            console.log(err);
-            return res.status(500).json(err);
-          }
+        // insert each tags or update if exist
+        for (var i = 0; i < tagsArray.length; i++) {
+          var query = {"label" : tagsArray[i]},
+          update = { "label": tagsArray[i],
+                      $inc : { "nbOccurence" : 1},
+                      $push : { "idProps" : prop._id}},
+          options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-          console.log("tags insered !")
-
-          // update tag array in proposition collection
-          propositionModel.findOneAndUpdate({ _id : prop.id},{$push : { "tagsProp" : tagRes.id}},{new: true}, function(err,propU){
+          //insert tag in database
+          tagModel.findOneAndUpdate(query,update,options, function(err,tagRes){
             if(err){
               console.log(err);
               return res.status(500).json(err);
             }
 
-            console.log("Array of tag ID updated in propostion collection")
-            counter++;
+            console.log("tags insered !")
 
-            // return the added proposition at the end of the loop
-            if(counter == tagsArray.length){
-              result = {};
-              result[propU._id] = propU;
-              return res.status(201).json(result);
-            }
+            // update tag array in proposition collection
+            propositionModel.findOneAndUpdate({ _id : prop.id},{$push : { "tagsProp" : tagRes.id}},{new: true}, function(err,propU){
+              if(err){
+                console.log(err);
+                return res.status(500).json(err);
+              }
 
-          })
-        });
+              console.log("Array of tag ID updated in propostion collection")
+              counter++;
+
+              // return the added proposition at the end of the loop
+              if(counter == tagsArray.length){
+                result = {};
+                result[propU._id] = propU;
+                return res.status(201).json(result);
+              }
+            })
+          });
+        }
+      }else{
+        return res.status(201).json(prop);
       }
     });
   });
