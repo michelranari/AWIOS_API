@@ -21,7 +21,7 @@ router.get('/', (req,res) =>{
     for (var i = 0; i < query.length; i++) {
       result[query[i]._id] = query[i];
     }
-    res.status(200).json(result);
+    return res.status(200).json(result);
   })
 });
 
@@ -48,19 +48,19 @@ router.get('/sort/:sort', async (req,res) =>{
 
 
 // return proposition by id
-router.get('/:id_proposition', async (req,res) =>{
+router.get('/:id_proposition', (req,res) =>{
   propositionModel.findOne({ _id : req.params.id_proposition}, function(err,query){
     if (err){
       return res.status(500).send(err);
     }
     // no proposition found
     if(query.length === 0) {
-      res.status(204).send({errors : "No proposition found"});
+      return res.status(204).send({errors : "No proposition found"});
     }
      // format the query
      result = {};
      result[query._id] = query;
-     res.status(200).json(result);
+     return res.status(200).json(result);
   })
 });
 
@@ -92,8 +92,6 @@ router.post('/newProposition', (req, res) => {
     proposition.contentProp = req.body.contentProp;
     proposition.isAnonymous = req.body.isAnonymous;
     proposition.ownerProp = decoded.user._id;
-
-
 
     //save proposition in database collection
     proposition.save(function (err, prop) {

@@ -23,7 +23,7 @@ router.get('/', (req,res) =>{
     for (var i = 0; i < query.length; i++) {
       result[query[i]._id] = query[i];
     }
-    res.status(200).json(result);
+    return res.status(200).json(result);
   })
 });
 
@@ -36,15 +36,91 @@ router.get('/:id_answer', async (req,res) =>{
 
     console.log(query.length)
     // no proposition found
-    if(query.length === 0) {
-      res.status(204).send({errors : "No answers found"});
+    if(!query) {
+      return res.status(204).send({errors : "No answers found"});
     }
      // format the query
      result = {};
      result[query._id] = query;
-     res.status(200).json(result);
+     return res.status(200).json(result);
   })
 });
+
+router.post('/delete', async (req, res) => {
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
+  var token  = authorizationHeader.split(' ')[1];
+
+  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
+    if (err){
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
+    }
+
+    answerModel.findByIdAndRemove(req.body.id_answer,function(err1,deleted){
+      if (err1){
+        console.log(err)
+        return res.status(500).send(err1);
+      }
+
+      if(deleted){
+        // update array of idAnswers in answer model
+        userModel.findById({_id : deleted.ownerAnswer},function(err2,user){
+          if(err2){
+            console.log(err2);
+            return res.status(500).json(err2);
+          }
+          var contentProp = user.idAnswers.filter(id => id != req.body.id_answer);
+          var update = {"idAnswers" : contentProp }
+          userModel.findOneAndUpdate({_id : deleted.ownerAnswer},update,{new: true},function(err3,user1){
+            if(err3){
+              console.log(err3);
+              return res.status(500).json(err3);
+            }
+            console.log("field idAnswers in Answer model modified")
+          });
+        });
+
+        //update array of idAnswers in proposition model
+        propositionModel.findById({_id : deleted.idProp},function(err2,prop){
+          if(err2){
+            console.log(err2);
+            return res.status(500).json(err2);
+          }
+          var contentProp = prop.idAnswers.filter(id => id != req.body.id_answer);
+          var update = {"idAnswers" : contentProp }
+          proposition.findOneAndUpdate({_id : deleted.idProp},update,{new: true},function(err3,prop1){
+            if(err3){
+              console.log(err3);
+              return res.status(500).json(err3);
+            }
+            console.log("field idAnswers in proposition model modified")
+          });
+        });
+
+        // delete all tag in answers
+        var myHeaders = new Headers();
+        myHeaders.append('Content-Type','application/json');
+        myHeaders.append('Authorization',token);
+
+        for (var i = 0; i < deleted.tagsAnswer.length; i++) {
+          var myInit = { method: 'POST',
+                         headers: myHeaders,
+                         body : { id_tag: deleted.tagsAnswer[i],id_toDelete : deleted._id}
+                       };
+          fetch().then(response => console.log(response));
+        }
+
+
+
+      }else{
+
+      }
+    })
+  })
+})
+
 
 router.post('/newAnswer', (req, res) => {
 
@@ -102,7 +178,7 @@ router.post('/newAnswer', (req, res) => {
         }
         console.log("user answer id update in proposition");
       })
-      
+
       // counter for tag
       var counter = 0;
 

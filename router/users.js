@@ -16,7 +16,7 @@ router.get('/', (req,res) =>{
      // format the query
     result = {};
     for (var i = 0; i < query.length; i++) {
-      query[i].password = null;
+      query[i].password = "";
       result[query[i]._id] = query[i];
     }
     res.status(200).json(result);
@@ -32,7 +32,7 @@ router.get('/:id_user', async (req,res) =>{
     // no proposition found
     if(query) {
       // format the query
-      query.password = null;
+      query.password = "";
       result = {};
       result[query._id] = query;
       res.status(200).json(result);
@@ -60,7 +60,6 @@ router.post('/authenticate', (req, res) => {
 
     if(user){
       // check poassword
-      console.log(user)
       bcrypt.compare(password, user.password, function(err, result) {
         if (err){
           console.log(err)
@@ -78,7 +77,7 @@ router.post('/authenticate', (req, res) => {
           });
 
           // format user and create token
-          user.password = null;
+          user.password = "";
           user.isConnected = true;
           var token = jwt.sign({user}, process.env.JWT_KEY, {expiresIn: 86400});
           res.status(200).json({token: token});

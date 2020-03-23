@@ -11,6 +11,39 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 
+// Return all tags
+router.get('/', (req,res) =>{
+  tagModel.find({}, function(err,query){
+    if (err){
+      return res.status(500).send(err);
+    }
+
+     // format the query
+    result = {};
+    for (var i = 0; i < query.length; i++) {
+      result[query[i]._id] = query[i];
+    }
+    return res.status(200).json(result);
+  })
+});
+
+// get tag by id
+router.get('/:id_tag', (req,res) =>{
+  tagModel.findOne({ _id : req.params.id_tag}, function(err,query){
+    if (err){
+      return res.status(500).send(err);
+    }
+    // no proposition found
+    if(!query) {
+      return res.status(204).send({errors : "No tag found"});
+    }
+     // format the query
+     result = {};
+     result[query._id] = query;
+     return res.status(200).json(result);
+  })
+});
+
 // get 9 best tags
 router.get('/bestTags', (req,res) =>{
   tagModel.find({}).sort({"nbOccurence" : "desc"}).limit(9).exec(function(err, tags) {
@@ -31,6 +64,7 @@ router.get('/bestTags', (req,res) =>{
     }
   })
 })
+
 
 // delete a tag / called from a proposition or answer
 router.post('/delete', (req,res) =>{
