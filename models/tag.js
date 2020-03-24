@@ -11,10 +11,12 @@ const TagSchema = new mongoose.Schema({
     default : 1
   },
   idProps:{
-    type: [mongoose.ObjectId]
+    type: [mongoose.Schema.Types.ObjectId],
+    ref : 'Proposition'
   },
   idAnswers:{
-    type: [mongoose.ObjectId]
+    type: [mongoose.Schema.Types.ObjectId],
+    ref : 'Answer'
   }
 });
 

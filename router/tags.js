@@ -66,7 +66,6 @@ router.post('/delete', (req,res) =>{
       return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
 
-
     tagModel.findById(req.body.id_tag, function(err1,tag){
       if (err1){
         return res.status(500).send(err1);
@@ -133,6 +132,8 @@ router.post('/delete', (req,res) =>{
               console.log(err6);
               return res.status(500).json(err6);
             }
+            console.log(prop3)
+            console.log(toDelete)
             var contentProp = prop3.tagsAnswer.filter(id => id != req.body.id_tag);
             var update = {"tagsAnswer" : contentProp }
             answerModel.findOneAndUpdate({_id : toDelete},update,{new: true},function(err7,prop4){

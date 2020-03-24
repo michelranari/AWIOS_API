@@ -10,7 +10,8 @@ const PropositionSchema = new mongoose.Schema({
     required: true
   },
   idLikesProp:{
-    type: [mongoose.Schema.Types.ObjectId]
+    type: [mongoose.Schema.Types.ObjectId],
+    ref : 'User'
   },
   isAnonymous:{
     type: Boolean,
@@ -18,14 +19,22 @@ const PropositionSchema = new mongoose.Schema({
   },
   ownerProp:{
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref : 'User'
   },
   tagsProp:{
-    type: [mongoose.Schema.Types.ObjectId]
+    type: [mongoose.Schema.Types.ObjectId],
+    ref : 'Tag'
   },
   idAnswers:{
-    type: [mongoose.Schema.Types.ObjectId]
+    type: [mongoose.Schema.Types.ObjectId],
+    ref : 'Answer'
   }
+});
+
+// Create a virtual property like to sort by like
+PropositionSchema.virtual('nbLikes').get(function() {
+  return idLikesProp.length;
 });
 
 // le 3eme parametre est le nom de la collection dans la base

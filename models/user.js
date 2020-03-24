@@ -32,10 +32,12 @@ const UserSchema = new mongoose.Schema({
     default : false
   },
   idPropositions:{
-    type: [mongoose.Schema.Types.ObjectId]
+    type: [mongoose.Schema.Types.ObjectId],
+    ref : 'Proposition'
   },
   idAnswers:{
-    type: [mongoose.Schema.Types.ObjectId]
+    type: [mongoose.Schema.Types.ObjectId],
+    ref : 'Answer'
   }
 });
 

@@ -10,6 +10,7 @@ const propositionModel = require('../models/proposition')
 const userModel = require('../models/user')
 const tagModel = require('../models/tag')
 dotenv.config();
+global.Headers = fetch.Headers;
 
 
 // return all answers
@@ -47,86 +48,94 @@ router.get('/:id_answer', async (req,res) =>{
   })
 });
 
-router.post('/delete', async (req, res) => {
-  // get the token
-  var authorizationHeader = req.headers.authorization;
-  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
-  var token  = authorizationHeader.split(' ')[1];
-
-  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
-    if (err){
-      console.log(err)
-      return res.status(500).send({ errors: 'Failed to authenticate token.' });
-    }
-
-    console.log(typeof req.body.id_answer)
-    answerModel.findByIdAndRemove(req.body.id_answer, async function(err1,deleted){
-
-      if (err1){
-        console.log(err1)
-        return res.status(500).send(err1);
-      }
-
-      if(deleted){
-        // update array of idAnswers in answer model
-        userModel.findById(deleted.ownerAnswer,function(err2,user){
-          if(err2){
-            console.log(err2);
-            return res.status(500).json(err2);
-          }
-          var contentProp = user.idAnswers.filter(id => id != req.body.id_answer);
-          var update = {"idAnswers" : contentProp }
-          userModel.findOneAndUpdate({_id : deleted.ownerAnswer},update,{new: true},function(err3,user1){
-            if(err3){
-              console.log(err3);
-              return res.status(500).json(err3);
-            }
-            console.log("field idAnswers in Answer model modified")
-          });
-        });
-
-        //update array of idAnswers in proposition model
-        propositionModel.findById(deleted.idProp,function(err4,prop){
-          if(err4){
-            console.log(err2);
-            return res.status(500).json(err4);
-          }
-          var contentProp = prop.idAnswers.filter(id => id != req.body.id_answer);
-          var update = {"idAnswers" : contentProp }
-          propositionModel.findOneAndUpdate({_id : deleted.idProp},update,{new: true},function(err5,prop1){
-            if(err5){
-              console.log(err5);
-              return res.status(500).json(err5);
-            }
-            console.log("field idAnswers in proposition model modified")
-          });
-        });
-
-        // delete all tag in answers
-        var myHeaders = new Headers();
-        myHeaders.append('Content-Type','application/json');
-        myHeaders.append('Authorization',token);
-
-        for (var i = 0; i < deleted.tagsAnswer.length; i++) {
-          var myInit = { method: 'POST',
-                         headers: myHeaders,
-                         body : { id_tag: deleted.tagsAnswer[i],id_toDelete : deleted._id}
-                       };
-          console.log("here")
-          try{
-          await fetch("localhost:3001/tags/delete").then(response => console.log(response));
-          return res.status(200).json("answer deleted succesfuly");
-        }catch(error){console.log(error)}
-
-        }
-
-      // if delete fail
-      }else{
-        return res.status(500)
-      }
-    })
-  })
-})
+// router.post('/delete', async (req, res) => {
+//   // get the token
+//   var authorizationHeader = req.headers.authorization;
+//   if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
+//   var token  = authorizationHeader.split(' ')[1];
+//
+//   jwt.verify(token, process.env.JWT_KEY , async function(err, decoded) {
+//     if (err){
+//       console.log(err)
+//       return res.status(500).send({ errors: 'Failed to authenticate token.' });
+//     }
+//
+//     await answerModel.findById(req.body.id_answer, async function(err1,answer){
+//
+//       if (err1){
+//         console.log(err1)
+//         return res.status(500).send(err1);
+//       }
+//       // delete all tag in answers
+//       var myHeaders = new Headers();
+//       myHeaders.append('Content-Type','application/json');
+//       myHeaders.append('Authorization',authorizationHeader);
+//       myHeaders.append('Accept','application/json');
+//       for (var i = 0; i < answer.tagsAnswer.length; i++) {
+//         console.log(typeof answer.tagsAnswer[i])
+//         console.log(typeof answer._id)
+//         var myInit = { method: 'POST',
+//                        headers: myHeaders,
+//                        body : JSON.stringify({ id_tag: answer.tagsAnswer[i],id_toDelete : answer._id})
+//                      };
+//         console.log("here")
+//         try{
+//         await fetch("http://localhost:3001/tags/delete",myInit).then(response => console.log(response)).catch(function(error) {console.log(error)});
+//         console.log("delete answer done")
+//         //return res.status(200).json("answer deleted succesfuly");
+//       }catch(error){console.log(error)}
+//
+//       }
+//     })
+//
+//     await answerModel.findByIdAndRemove(req.body.id_answer,function(err1,deleted){
+//       if (err1){
+//         console.log(err1)
+//         return res.status(500).send(err1);
+//       }
+//
+//       if(deleted){
+//         // update array of idAnswers in answer model
+//         userModel.findById(deleted.ownerAnswer,function(err2,user){
+//           if(err2){
+//             console.log(err2);
+//             return res.status(500).json(err2);
+//           }
+//           var contentProp = user.idAnswers.filter(id => id != req.body.id_answer);
+//           var update = {"idAnswers" : contentProp }
+//           userModel.findOneAndUpdate({_id : deleted.ownerAnswer},update,{new: true},function(err3,user1){
+//             if(err3){
+//               console.log(err3);
+//               return res.status(500).json(err3);
+//             }
+//             console.log("field idAnswers in Answer model modified")
+//           });
+//         });
+//
+//         //update array of idAnswers in proposition model
+//         propositionModel.findById(deleted.idProp,function(err4,prop){
+//           if(err4){
+//             console.log(err2);
+//             return res.status(500).json(err4);
+//           }
+//           var contentProp = prop.idAnswers.filter(id => id != req.body.id_answer);
+//           var update = {"idAnswers" : contentProp }
+//           propositionModel.findOneAndUpdate({_id : deleted.idProp},update,{new: true},function(err5,prop1){
+//             if(err5){
+//               console.log(err5);
+//               return res.status(500).json(err5);
+//             }
+//             console.log("field idAnswers in proposition model modified")
+//           });
+//         });
+//
+//       // if delete fail
+//       }else{
+//         return res.status(500)
+//       }
+//     })
+//   })
+// })
 
 
 router.post('/newAnswer', (req, res) => {

@@ -9,20 +9,24 @@ const AnswerSchema = new mongoose.Schema({
     type:String
   },
   idLikesAnswer:{
-    type: [mongoose.Schema.Types.ObjectId]
+    type: [mongoose.Schema.Types.ObjectId],
+    ref : 'User'
   },
   isAnonymous:{
     type: Boolean,
     default: false
   },
   ownerAnswer:{
-    type: mongoose.ObjectId
+    type: mongoose.ObjectId,
+    ref : 'User'
   },
   tagsAnswer:{
-    type: [ mongoose.ObjectId]
+    type: [ mongoose.ObjectId],
+    ref : 'Tag'
   },
   idProp:{
-    type: mongoose.ObjectId
+    type: mongoose.ObjectId,
+    ref : 'Proposition'
   }
 });
 
