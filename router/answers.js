@@ -1,4 +1,5 @@
 const express = require('express');
+const fetch = require('node-fetch');
 const router = express.Router();
 const database = require('../database')
 const jwt = require('jsonwebtoken');
@@ -58,15 +59,17 @@ router.post('/delete', async (req, res) => {
       return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
 
-    answerModel.findByIdAndRemove(req.body.id_answer,function(err1,deleted){
+    console.log(typeof req.body.id_answer)
+    answerModel.findByIdAndRemove(req.body.id_answer, async function(err1,deleted){
+
       if (err1){
-        console.log(err)
+        console.log(err1)
         return res.status(500).send(err1);
       }
 
       if(deleted){
         // update array of idAnswers in answer model
-        userModel.findById({_id : deleted.ownerAnswer},function(err2,user){
+        userModel.findById(deleted.ownerAnswer,function(err2,user){
           if(err2){
             console.log(err2);
             return res.status(500).json(err2);
@@ -83,17 +86,17 @@ router.post('/delete', async (req, res) => {
         });
 
         //update array of idAnswers in proposition model
-        propositionModel.findById({_id : deleted.idProp},function(err2,prop){
-          if(err2){
+        propositionModel.findById(deleted.idProp,function(err4,prop){
+          if(err4){
             console.log(err2);
-            return res.status(500).json(err2);
+            return res.status(500).json(err4);
           }
           var contentProp = prop.idAnswers.filter(id => id != req.body.id_answer);
           var update = {"idAnswers" : contentProp }
-          proposition.findOneAndUpdate({_id : deleted.idProp},update,{new: true},function(err3,prop1){
-            if(err3){
-              console.log(err3);
-              return res.status(500).json(err3);
+          propositionModel.findOneAndUpdate({_id : deleted.idProp},update,{new: true},function(err5,prop1){
+            if(err5){
+              console.log(err5);
+              return res.status(500).json(err5);
             }
             console.log("field idAnswers in proposition model modified")
           });
@@ -109,13 +112,17 @@ router.post('/delete', async (req, res) => {
                          headers: myHeaders,
                          body : { id_tag: deleted.tagsAnswer[i],id_toDelete : deleted._id}
                        };
-          fetch().then(response => console.log(response));
+          console.log("here")
+          try{
+          await fetch("localhost:3001/tags/delete").then(response => console.log(response));
+          return res.status(200).json("answer deleted succesfuly");
+        }catch(error){console.log(error)}
+
         }
 
-
-
+      // if delete fail
       }else{
-
+        return res.status(500)
       }
     })
   })

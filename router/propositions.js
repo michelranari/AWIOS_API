@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose')
 const router = express.Router();
 const propositionModel = require('../models/proposition')
 const userModel = require('../models/user')
@@ -25,27 +26,31 @@ router.get('/', (req,res) =>{
   })
 });
 
-// all proposition sorted by ascending or descending
+// all proposition sorted by ascending or descending date with tag
 router.get('/sort/:sort', async (req,res) =>{
   try {
-    var userId = [];
-    var prop = {};
-    var proposition = await propositionModel.find({}).sort({"dateProp" : "desc"}).exec();
-    console.log(proposition)
-    for (var i = 0; i < proposition.length; i++) {
-      var user = await userModel.findById(proposition[i].ownerProp);
 
-      var id = proposition[i]._id
-      prop[id] = proposition[i]
-      prop[id].pseudo = user.pseudo
+    var tags = req.query; // {} when empty
+    var tagsArray = []
+    var prop;
+
+    // if the tags are not empty
+    if(!(Object.keys(tags).length === 0 && tags.constructor === Object)){
+      for (t in tags){
+        tagsArray.push(new mongoose.Types.ObjectId(tags[t]))
+      }
+      prop = await propositionModel.find({tagsProp : {"$in" : tagsArray}}).sort({"dateProp" : req.params.sort}).exec();
+    }
+    else{
+      prop = await propositionModel.find({}).sort({"dateProp" : req.params.sort}).exec();
     }
 
-    console.log(prop)
+    return res.status(200).json(prop);
+
   }catch(error){
     console.log(error);
   }
 });
-
 
 // return proposition by id
 router.get('/:id_proposition', (req,res) =>{
@@ -327,13 +332,8 @@ router.post('/delete', (req, res) => {
       return res.status(403).send({ errors: 'Forbidden' });
     }
 
-
-
   });
 
-
 });
-
-
 
 module.exports = router

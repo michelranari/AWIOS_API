@@ -11,38 +11,22 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 
-// Return all tags
-router.get('/', (req,res) =>{
-  tagModel.find({}, function(err,query){
-    if (err){
-      return res.status(500).send(err);
-    }
-
-     // format the query
-    result = {};
-    for (var i = 0; i < query.length; i++) {
-      result[query[i]._id] = query[i];
-    }
-    return res.status(200).json(result);
-  })
-});
-
-// get tag by id
-router.get('/:id_tag', (req,res) =>{
-  tagModel.findOne({ _id : req.params.id_tag}, function(err,query){
-    if (err){
-      return res.status(500).send(err);
-    }
-    // no proposition found
-    if(!query) {
-      return res.status(204).send({errors : "No tag found"});
-    }
-     // format the query
-     result = {};
-     result[query._id] = query;
-     return res.status(200).json(result);
-  })
-});
+// // Return all tags
+// router.get('/', (req,res) =>{
+//   tagModel.find({}, function(err,query){
+//     if (err){
+//       return res.status(500).send(err);
+//     }
+//
+//      // format the query
+//     result = {};
+//     for (var i = 0; i < query.length; i++) {
+//       result[query[i]._id] = query[i];
+//     }
+//     return res.status(200).json(result);
+//   })
+// });
+//
 
 // get 9 best tags
 router.get('/bestTags', (req,res) =>{
@@ -51,9 +35,11 @@ router.get('/bestTags', (req,res) =>{
       console.log(err)
       return res.status(500).send(err);
     }
+
+    console.log("here")
     // if resource exist
     if(tags){
-      // format the query
+    //format the query
      result = {};
      for (var i = 0; i < tags.length; i++) {
        result[tags[i]._id] = tags[i];
@@ -209,5 +195,22 @@ router.post('/delete', (req,res) =>{
     });
   })
 })
+
+// get tag by id
+router.get('/:id_tag', (req,res) =>{
+  tagModel.findById(req.params.id_tag, function(err,query){
+    if (err){
+      return res.status(500).send(err);
+    }
+    // no proposition found
+    if(!query) {
+      return res.status(204).send({errors : "No tag found"});
+    }
+     // format the query
+     result = {};
+     result[query._id] = query;
+     return res.status(200).json(result);
+  })
+});
 
 module.exports = router
