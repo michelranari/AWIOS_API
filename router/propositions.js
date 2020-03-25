@@ -169,11 +169,11 @@ router.put('/like', (req, res) => {
       }
 
       // check if proposition is already liked
-      var find = prop.idLikesProp.includes(decoded.result._id)
+      var find = prop.idLikesProp.includes(decoded.user._id)
       if(!find){
 
         //update tag in proposition collection
-        var update = {$push : { "idLikesProp" : decoded.result._id}}
+        var update = {$push : { "idLikesProp" : decoded.user._id}}
         propositionModel.findOneAndUpdate({"_id" : req.body._id},update,{new: true}, function(err,prop1){
           if(err){
             console.log(err);
@@ -218,11 +218,11 @@ router.put('/dislike', (req, res) => {
       }
 
       // check if proposition is not liked or if it has 0 like
-      var find = prop.idLikesProp.includes(decoded.result._id)
+      var find = prop.idLikesProp.includes(decoded.user._id)
       if(find && (prop.idLikesProp.length != 0)){
 
         //update tag in proposition collection
-        var content = prop.idLikesProp.filter(id => id != decoded.result._id);
+        var content = prop.idLikesProp.filter(id => id != decoded.user._id);
         var update = {"idLikesProp" : content};
         propositionModel.findOneAndUpdate({"_id" : req.body._id},update,{new: true}, function(err,prop1){
           if(err){

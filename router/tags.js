@@ -11,23 +11,6 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 
-// // Return all tags
-// router.get('/', (req,res) =>{
-//   tagModel.find({}, function(err,query){
-//     if (err){
-//       return res.status(500).send(err);
-//     }
-//
-//      // format the query
-//     result = {};
-//     for (var i = 0; i < query.length; i++) {
-//       result[query[i]._id] = query[i];
-//     }
-//     return res.status(200).json(result);
-//   })
-// });
-//
-
 // get 9 best tags
 router.get('/bestTags', (req,res) =>{
   tagModel.find({}).sort({"nbOccurence" : "desc"}).limit(9).exec(function(err, tags) {
@@ -50,7 +33,6 @@ router.get('/bestTags', (req,res) =>{
     }
   })
 })
-
 
 // delete a tag / called from a proposition or answer
 router.post('/delete', (req,res) =>{
@@ -127,7 +109,7 @@ router.post('/delete', (req,res) =>{
           });
 
           // update id tag in answer model
-          answerModel.findById({_id : toDelete},function(err6,prop3){
+          answerModel.findById(toDelete,function(err6,prop3){
             if(err6){
               console.log(err6);
               return res.status(500).json(err6);
@@ -213,5 +195,24 @@ router.get('/:id_tag', (req,res) =>{
      return res.status(200).json(result);
   })
 });
+
+// Return all tags
+router.get('/', (req,res) =>{
+  tagModel.find({}, function(err,query){
+    if (err){
+      return res.status(500).send(err);
+    }
+
+     // format the query
+    result = {};
+    for (var i = 0; i < query.length; i++) {
+      result[query[i]._id] = query[i];
+    }
+    return res.status(200).json(result);
+  })
+});
+
+
+
 
 module.exports = router
