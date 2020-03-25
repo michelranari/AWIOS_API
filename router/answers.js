@@ -110,40 +110,46 @@ router.put('/dislike', (req, res) => {
   });
 });
 
+// update answer
+// to do : update tags
+router.put('/update', (req, res) => {
 
-// return all answers
-router.get('/', (req,res) =>{
-  answerModel.find({}, function(err,query){
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
+  var token  = authorizationHeader.split(' ')[1];
+
+  // check token
+  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
     if (err){
-      return res.status(500).send(err);
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
 
-     // format the query
-    result = {};
-    for (var i = 0; i < query.length; i++) {
-      result[query[i]._id] = query[i];
-    }
-    return res.status(200).json(result);
-  })
-});
-
-// return answer by id
-router.get('/:id_answer', async (req,res) =>{
-  answerModel.findOne({ _id : req.params.id_answer}, function(err,query){
-    if (err){
-      return res.status(500).send(err);
+    // check if update is own answer
+    const user = decoded.user._id;
+    if(user != req.body.ownerAnswer){
+      return res.status(403).send({ errors: 'Forbidden' });
     }
 
-    console.log(query.length)
-    // no proposition found
-    if(!query) {
-      return res.status(204).send({errors : "No answers found"});
+    // format the changed field
+    answer = {
+      "dateAnswer" : Date.now(),
+      "contentAnswer" : req.body.contentAnswer,
+      "isAnonymous" : req.body.isAnonymous,
     }
-     // format the query
-     result = {};
-     result[query._id] = query;
-     return res.status(200).json(result);
-  })
+
+    // save change
+    answerModel.findOneAndUpdate({ _id : req.body._id},answer,{new: true}, function(err,answer){
+      if(err){
+        console.log(err);
+        return res.status(500).send({ errors: 'update fail' });
+      }
+
+      console.log("answer updated")
+      return res.status(200).json(answer);
+    })
+  });
 });
 
 router.post('/delete', async (req, res) => {
@@ -337,6 +343,41 @@ router.post('/newAnswer', (req, res) => {
         })
       }
     });
+  })
+});
+
+// return answer by id
+router.get('/:id_answer', async (req,res) =>{
+  answerModel.findOne({ _id : req.params.id_answer}, function(err,query){
+    if (err){
+      return res.status(500).send(err);
+    }
+
+    console.log(query.length)
+    // no proposition found
+    if(!query) {
+      return res.status(204).send({errors : "No answers found"});
+    }
+     // format the query
+     result = {};
+     result[query._id] = query;
+     return res.status(200).json(result);
+  })
+});
+
+// return all answers
+router.get('/', (req,res) =>{
+  answerModel.find({}, function(err,query){
+    if (err){
+      return res.status(500).send(err);
+    }
+
+     // format the query
+    result = {};
+    for (var i = 0; i < query.length; i++) {
+      result[query[i]._id] = query[i];
+    }
+    return res.status(200).json(result);
   })
 });
 

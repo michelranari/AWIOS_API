@@ -88,17 +88,71 @@ router.post('/delete', (req, res) => {
   var token  = authorizationHeader.split(' ')[1];
 
   // check token
-  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
+  jwt.verify(token, process.env.JWT_KEY , async function(err, decoded) {
     if (err){
       console.log(err)
       return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
 
     // check if delete is own propostion
-    const user = decoded.result._id;
-    if(user != req.body.ownerProp){
-      return res.status(403).send({ errors: 'Forbidden' });
-    }
+    await propositionModel.findById(req.body.id_proposition, async function (err, prop) {
+      if(err){
+        console.log(err);
+        return res.status(500).json(err);
+      }
+
+      console.log(prop)
+      const user = decoded.user._id;
+      if(user != prop.ownerProp){
+        return res.status(403).send({ errors: 'Forbidden' });
+      }
+
+      // delete all answer in proposition
+      var myHeaders = new Headers();
+      myHeaders.append('Content-Type','application/json');
+      myHeaders.append('Authorization',authorizationHeader);
+      myHeaders.append('Accept','application/json');
+      for (var i = 0; i < prop.idAnswers.length; i++) {
+        var myInit = { method: 'POST',
+                       headers: myHeaders,
+                       body : JSON.stringify({ id_answer: prop.idAnswers[i]})
+                     };
+        try{
+          await fetch("http://localhost:3001/answers/delete",myInit).then(response => console.log(response)).catch(function(error) {console.log(error)});
+          console.log("delete answer done")
+        //return res.status(200).json("answer deleted succesfuly");
+        }catch(error){
+          console.log(error)
+        }
+      }
+    })
+
+    await propositionModel.findByIdAndRemove(req.body.id_proposition,function(err,prop1){
+      if(err){
+        console.log(err);
+        return res.status(500).json(err);
+      }
+
+      // delete idProp in User Model
+      console.log(typeof decoded.user._id)
+      userModel.findById(decoded.user._id,function(err,user){
+        if(err){
+          console.log(err);
+          return res.status(500).json(err);
+        }
+        var idUser = user.idPropositions.filter(id => id != decoded.user._id);
+        var update = {"idPropositions" : idUser }
+        userModel.findOneAndUpdate({_id : decoded.user._id},update,{new: true},function(err1,user1){
+          if(err1){
+            console.log(err1);
+            return res.status(500).json(err3);
+          }
+          console.log("field idPropositions in User model modified")
+          console.log("delete proposition done")
+          return res.status(200).json("proposition deleted succesfuly");
+        });
+      });
+    });
 
   });
 });
@@ -120,7 +174,7 @@ router.put('/update', (req, res) => {
     }
 
     // check if update is own propostion
-    const user = decoded.result._id;
+    const user = decoded.user._id;
     if(user != req.body.ownerProp){
       return res.status(403).send({ errors: 'Forbidden' });
     }
@@ -138,10 +192,8 @@ router.put('/update', (req, res) => {
         console.log(err);
         return res.status(500).send({ errors: 'update fail' });
       }
-
       console.log("proposition updated")
       return res.status(200).json(prop);
-
     })
   });
 });
@@ -361,21 +413,5 @@ router.get('/', (req,res) =>{
   })
 });
 
-// return proposition by id
-router.get('/:id_proposition', (req,res) =>{
-  propositionModel.findOne({ _id : req.params.id_proposition}, function(err,query){
-    if (err){
-      return res.status(500).send(err);
-    }
-    // no proposition found
-    if(query.length === 0) {
-      return res.status(204).send({errors : "No proposition found"});
-    }
-     // format the query
-     result = {};
-     result[query._id] = query;
-     return res.status(200).json(result);
-  })
-});
 
 module.exports = router

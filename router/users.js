@@ -7,40 +7,44 @@ var bcrypt = require('bcryptjs');
 const dotenv = require('dotenv')
 dotenv.config();
 
-// get all user
-router.get('/', (req,res) =>{
-  userModel.find({}, function(err,query){
-    if (err){
-      return res.status(500).send(err);
-    }
-     // format the query
-    result = {};
-    for (var i = 0; i < query.length; i++) {
-      query[i].password = "";
-      result[query[i]._id] = query[i];
-    }
-    res.status(200).json(result);
-  })
-});
 
-// get user by id
-router.get('/:id_user', async (req,res) =>{
-  userModel.findById(req.params.id_user, function(err,query){
+// Ban an user
+router.post('/admin/ban', (req, res) => {
+
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: "Error. No connected" });
+  var token  = authorizationHeader.split(' ')[1];
+
+  // check token
+  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
     if (err){
-      return res.status(500).send(err);
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
-    // no proposition found
-    if(query) {
-      // format the query
-      query.password = "";
-      result = {};
-      result[query._id] = query;
-      res.status(200).json(result);
-    }else{
-      res.status(204).send({errors : "No user found"});
+
+    // if form is filled
+    if(!req.body.id_user){
+      return res.status(422).json({errors: "Id user required !"});
     }
-  })
-});
+
+    // if not admin
+    if(!decoded.user.isAdmin){
+      return res.status(403).send({ errors: 'Forbidden' });
+    }
+
+    // update state user
+    userModel.findOneAndUpdate({"_id": req.body.id_user},{"isBanned" : true},{new: true}, function(err){
+      if(err){
+        console.log(err);
+        return res.status(500).json(err);
+      }
+      console.log("user banned");
+      res.status(200).send("user banned");
+    });
+
+  });
+})
 
 // Login
 // return a token with user info inside
@@ -162,25 +166,39 @@ router.put('/logout', (req, res) => {
   });
 })
 
-
-// fonction inachevé
-router.get('/userinfo', async (req,res) =>{
-  var authorizationHeader = req.headers.authorization;
-  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
-
-  var token  = authorizationHeader.split(' ')[1];
-  console.log(token);
-  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
+// get user by id
+router.get('/:id_user', async (req,res) =>{
+  userModel.findById(req.params.id_user, function(err,query){
     if (err){
-      return res.status(500).send({ errors: 'Failed to authenticate token.' });
+      return res.status(500).send(err);
     }
+    // no proposition found
+    if(query) {
+      // format the query
+      query.password = "";
+      result = {};
+      result[query._id] = query;
+      res.status(200).json(result);
+    }else{
+      res.status(204).send({errors : "No user found"});
+    }
+  })
+});
 
-    console.log(decoded);
-
-    res.status(200).send(decoded);
-  });
-
-
+// get all user
+router.get('/', (req,res) =>{
+  userModel.find({}, function(err,query){
+    if (err){
+      return res.status(500).send(err);
+    }
+     // format the query
+    result = {};
+    for (var i = 0; i < query.length; i++) {
+      query[i].password = "";
+      result[query[i]._id] = query[i];
+    }
+    res.status(200).json(result);
+  })
 });
 
 module.exports = router
