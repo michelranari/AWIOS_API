@@ -10,8 +10,25 @@ var bcrypt = require('bcryptjs');
 const dotenv = require('dotenv')
 dotenv.config();
 
-// all proposition sorted by like with tag
-router.get('/sort/byLike', async (req,res) =>{
+/**
+ * @api {get} /propositions/sort/like sort proposition by like
+ * @apiName GetPropositionSortLike
+ * @apiGroup Proposition
+ * @apiPermission none
+ * @apiDescription get and sort all propositions by like and tags if it contains.
+ *
+ * @apiParam {String} tag all tag in insered the parameters of the url. Example : tag=internet. Exemple of url : localhost:3001/propositions/sort/like?tag=internet&tag1=soiree
+ *
+ * @apiSuccess {String} titleProp title of the proposition
+ * @apiSuccess {String} dateProp date of the proposition
+ * @apiSuccess {String} contentProp content of the proposition
+ * @apiSuccess {Boolean} isAnonymous indicates if the proposition is published anonymously or not
+ * @apiSuccess {String} ownerProp id of the user who wrote the proposition
+ * @apiSuccess {String[]} idLikesProp Array of id of users who liked the propositions
+ * @apiSuccess {String[]} tagsProp Array of id of tags attached to the proposition
+ * @apiSuccess {String[]} idAnswers Array of id of answers of to the proposition
+ */
+router.get('/sort/like', async (req,res) =>{
   try {
 
     var tags = req.query; // {} when empty
@@ -36,7 +53,26 @@ router.get('/sort/byLike', async (req,res) =>{
   }
 });
 
-// all proposition sorted by ascending or descending date with tag
+/**
+ * @api {get} /propositions/sort/:sort sort propostion by date
+ * @apiName GetPropositionSortDate
+ * @apiGroup Proposition
+ * @apiPermission none
+ * @apiDescription sort all propositions by ascending or descending date and tags if it contains.
+ * Exemple of url : localhost:3001/propositions/sort/desc?tag=internet&tag1=soiree
+ *
+ * @apiParam {String="asc","desc"} sort sort propostion by ascending "asc" or descending "desc"
+ * @apiParam {String} tag all tag in insered the parameters of the url. Example : tag=internet. Exemple of url : localhost:3001/propositions/sort/like?tag=internet&tag1=soiree
+ *
+ * @apiSuccess {String} title title of the proposition
+ * @apiSuccess {String} dateProp date of the proposition
+ * @apiSuccess {String} contentProp content of the proposition
+ * @apiSuccess {Boolean} isAnonymous indicates if the proposition is published anonymously or not
+ * @apiSuccess {String} ownerProp id of the user who wrote the proposition
+ * @apiSuccess {String[]} idLikesProp Array of id of users who liked the propositions
+ * @apiSuccess {String[]} tagsProp Array of id of tags attached to the proposition
+ * @apiSuccess {String[]} idAnswers Array of id of answers of to the proposition
+ */
 router.get('/sort/:sort', async (req,res) =>{
   try {
 
@@ -62,9 +98,28 @@ router.get('/sort/:sort', async (req,res) =>{
   }
 });
 
-// return proposition by id
-router.get('/:id_proposition', (req,res) =>{
-  propositionModel.findOne({ _id : req.params.id_proposition}, function(err,query){
+/**
+ * @api {get} /propositions/:id get proposition by id
+ * @apiName GetPropositionById
+ * @apiGroup Proposition
+ * @apiPermission none
+ * @apiDescription get data of proposition by is id
+ *
+ * @apiParam {String} id id of the propostion
+ *
+ * @apiSuccess {String} title title of the proposition
+ * @apiSuccess {String} dateProp date of the proposition
+ * @apiSuccess {String} contentProp content of the proposition
+ * @apiSuccess {Boolean} isAnonymous indicates if the proposition is published anonymously or not
+ * @apiSuccess {String} ownerProp id of the user who wrote the proposition
+ * @apiSuccess {String[]} idLikesProp Array of id of users who liked the proposition
+ * @apiSuccess {String[]} tagsProp Array of id of tags attached to the proposition
+ * @apiSuccess {String[]} idAnswers Array of id of answers of to the proposition
+ *
+ * @apiError (204) PropositonNotFound Proposition not found
+ */
+router.get('/:id', (req,res) =>{
+  propositionModel.findOne({ _id : req.params.id}, function(err,query){
     if (err){
       return res.status(500).send(err);
     }
@@ -79,8 +134,25 @@ router.get('/:id_proposition', (req,res) =>{
   })
 });
 
-// delete proposition
-router.post('/delete', (req, res) => {
+/**
+ * @api {delete} /propositions/ delete a proposition
+ * @apiName DeleteProposition
+ * @apiGroup Proposition
+ * @apiPermission connected
+ * @apiDescription delete a proposition by is id.
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the propostion to delete
+ *
+ * @apiError (403) ForbiddenAcces unauthorized to delete this proposition
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
+router.delete('/', (req, res) => {
 
   // get the token
   var authorizationHeader = req.headers.authorization;
@@ -95,7 +167,7 @@ router.post('/delete', (req, res) => {
     }
 
     // check if delete is own propostion
-    await propositionModel.findById(req.body.id_proposition, async function (err, prop) {
+    await propositionModel.findById(req.body.id, async function (err, prop) {
       if(err){
         console.log(err);
         return res.status(500).json(err);
@@ -127,7 +199,7 @@ router.post('/delete', (req, res) => {
       }
     })
 
-    await propositionModel.findByIdAndRemove(req.body.id_proposition,function(err,prop1){
+    await propositionModel.findByIdAndRemove(req.body.id,function(err,prop1){
       if(err){
         console.log(err);
         return res.status(500).json(err);
@@ -157,9 +229,29 @@ router.post('/delete', (req, res) => {
   });
 });
 
-// update propositions
-// to do : update tags
-router.put('/update', (req, res) => {
+/**
+ * @api {put} /propositions/ update a proposition
+ * @apiName PutPropositionUpdate
+ * @apiGroup Proposition
+ * @apiPermission connected
+ * @apiDescription update a proposition by is id
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the propostion
+ * @apiParam {String} contentProp content of the propostion
+ * @apiParam {String} isAnonymous indicates if the proposition is published anonymously or not
+ * @apiParam {String} ownerProp id of the user who wrote the proposition
+ *
+ * @apiError (403) ForbiddenAcces unauthorized to update this proposition
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
+router.put('/', (req, res) => {
 
   // get the token
   var authorizationHeader = req.headers.authorization;
@@ -187,7 +279,7 @@ router.put('/update', (req, res) => {
     }
 
     // save change
-    propositionModel.findOneAndUpdate({ _id : req.body._id},proposition,{new: true}, function(err,prop){
+    propositionModel.findOneAndUpdate({ _id : req.body.id},proposition,{new: true}, function(err,prop){
       if(err){
         console.log(err);
         return res.status(500).send({ errors: 'update fail' });
@@ -198,8 +290,25 @@ router.put('/update', (req, res) => {
   });
 });
 
-// increment like of a proposition
-// return the proposition liked
+/**
+ * @api {put} /propositions/like like a proposition
+ * @apiName PutPropositionLike
+ * @apiGroup Proposition
+ * @apiPermission connected
+ * @apiDescription like a proposition by is id. insert id of user who like the proposition in array of idLikesProp and return the proposition liked
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the propostion to like
+ *
+ * @apiError (403) ForbiddenAccesLike Proposition already like
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
 router.put('/like', (req, res) => {
 
   // get the token
@@ -214,7 +323,7 @@ router.put('/like', (req, res) => {
       return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
 
-    propositionModel.findById(req.body._id,function (err, prop) {
+    propositionModel.findById(req.body.id,function (err, prop) {
       if(err){
         console.log(err);
         return res.status(500).json(err);
@@ -226,7 +335,7 @@ router.put('/like', (req, res) => {
 
         //update tag in proposition collection
         var update = {$push : { "idLikesProp" : decoded.user._id}}
-        propositionModel.findOneAndUpdate({"_id" : req.body._id},update,{new: true}, function(err,prop1){
+        propositionModel.findOneAndUpdate({"_id" : req.body.id},update,{new: true}, function(err,prop1){
           if(err){
             console.log(err);
             return res.status(500).json(err);
@@ -247,8 +356,25 @@ router.put('/like', (req, res) => {
 });
 
 
-// decrement like
-// return the proposition disliked
+/**
+ * @api {put} /propositions/dislike dislike a proposition
+ * @apiName PutPropositionDislike
+ * @apiGroup Proposition
+ * @apiPermission connected
+ * @apiDescription dislike a proposition by is id. delete id of user who like the proposition in array of idLikesProp
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the propostion to dislike
+ *
+ * @apiError (403) ForbiddenAccesDislike Proposition is not liked or number like equal to 0
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
 router.put('/dislike', (req, res) => {
 
   // get the token
@@ -263,7 +389,7 @@ router.put('/dislike', (req, res) => {
       return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
 
-    propositionModel.findById(req.body._id,function (err, prop) {
+    propositionModel.findById(req.body.id,function (err, prop) {
       if(err){
         console.log(err);
         return res.status(500).json(err);
@@ -276,7 +402,7 @@ router.put('/dislike', (req, res) => {
         //update tag in proposition collection
         var content = prop.idLikesProp.filter(id => id != decoded.user._id);
         var update = {"idLikesProp" : content};
-        propositionModel.findOneAndUpdate({"_id" : req.body._id},update,{new: true}, function(err,prop1){
+        propositionModel.findOneAndUpdate({"_id" : req.body.id},update,{new: true}, function(err,prop1){
           if(err){
             console.log(err);
             return res.status(500).json(err);
@@ -297,10 +423,29 @@ router.put('/dislike', (req, res) => {
   });
 });
 
-// add new proposition
-// return the proposition added ( warning = resultat not updated for the tags )
-// to do : cas ou tags vide
-router.post('/newProposition', (req, res) => {
+/**
+ * @api {post} /propositions/ create a proposition
+ * @apiName PostProposition
+ * @apiGroup Proposition
+ * @apiPermission connected
+ * @apiDescription create a proposition with tag if it has.
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} titleProp title of the proposition
+ * @apiParam {String} contentProp content of the propostion
+ * @apiParam {String} isAnonymous indicates if the proposition is published anonymously or not
+ * @apiParam {String} tagsProp tags of the proposition. Each tag is separed by a space
+ *
+ * @apiError (422) FieldMissing title or content is missing
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
+router.post('/', (req, res) => {
 
   // get the token
   var authorizationHeader = req.headers.authorization;
@@ -315,13 +460,14 @@ router.post('/newProposition', (req, res) => {
     }
 
     // check if field is filled
-    if(!req.body.contentProp){
+    if(!req.body.contentProp || !req.body.titleProp){
       console.log(" fields are not filled !")
       return res.status(422).json({errors: " fields are not filled !"});
     }
 
     // save field in model
     var proposition = new propositionModel();
+    proposition.titleProp = req.body.titleProp;
     proposition.contentProp = req.body.contentProp;
     proposition.isAnonymous = req.body.isAnonymous;
     proposition.ownerProp = decoded.user._id;
@@ -390,16 +536,33 @@ router.post('/newProposition', (req, res) => {
           });
         }
       }else{
-        return res.status(201).json(prop);
+        result = {};
+        result[user._id] = user;
+        return res.status(201).json(result);
       }
     });
   });
 });
 
 
-// Return all propositions
+/**
+ * @api {get} /propositions/ get all proposition
+ * @apiGroup Proposition
+ * @apiPermission none
+ * @apiDescription get data of all proposition
+ *
+ * @apiSuccess {String} title title of the proposition
+ * @apiSuccess {String} dateProp date of the proposition
+ * @apiSuccess {String} contentProp content of the proposition
+ * @apiSuccess {Boolean} isAnonymous indicates if the proposition is published anonymously or not
+ * @apiSuccess {String} ownerProp id of the user who wrote the proposition
+ * @apiSuccess {String[]} idLikesProp Array of id of users who liked the propositions
+ * @apiSuccess {String[]} tagsProp Array of id of tags attached to the proposition
+ * @apiSuccess {String[]} idAnswers Array of id of answers of to the proposition
+ *
+ */
 router.get('/', (req,res) =>{
-  propositionModel.find({}, function(err,query){
+  propositionModel.find({"ownerProp.isBanned" : "false"}, function(err,query){
     if (err){
       return res.status(500).send(err);
     }

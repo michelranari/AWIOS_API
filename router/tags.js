@@ -11,8 +11,20 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 
-// get 9 best tags
-router.get('/bestTags', (req,res) =>{
+/**
+ * @api {get} /answers/best 9 frequent tags
+ * @apiName GetTagsBest
+ * @apiGroup Tag
+ * @apiPermission none
+ * @apiDescription get 9 most frequent tags. Frequency is define by the number of occurence of the tag
+ *
+ * @apiSuccess {String} label label of the tag
+ * @apiSuccess {Number} nbOccurence number of occurence of the tag
+ * @apiSuccess {String[]} idProps Array of id of propositions that contains the tag
+ * @apiSuccess {String[]} idAnswers Array of id of that contains the tag
+ *
+ */
+router.get('/best', (req,res) =>{
   tagModel.find({}).sort({"nbOccurence" : "desc"}).limit(9).exec(function(err, tags) {
     if (err){
       console.log(err)
@@ -34,8 +46,20 @@ router.get('/bestTags', (req,res) =>{
   })
 })
 
-// delete a tag / called from a proposition or answer
-router.post('/delete', (req,res) =>{
+/**
+ * @api {delete} /answers/ delete a tag
+ * @apiName DeleteTag
+ * @apiGroup Tag
+ * @apiPermission connected
+ * @apiDescription delete a tag by is id
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the tag to delete
+ * @apiParam {String} toDelete id of the proposition or answer that contains th tag to delete
+ *
+ */
+router.delete('/', (req,res) =>{
   // get the token
   var authorizationHeader = req.headers.authorization;
   if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
@@ -48,13 +72,13 @@ router.post('/delete', (req,res) =>{
       return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
 
-    tagModel.findById(req.body.id_tag, function(err1,tag){
+    tagModel.findById(req.body.id, function(err1,tag){
       if (err1){
         return res.status(500).send(err1);
       }
 
       // check if a tag is in proposition or answer
-      var toDelete = req.body.id_toDelete;
+      var toDelete = req.body.toDelete;
       var prop = tag.idProps.includes(toDelete);
 
       // if appear more than 1 time
@@ -79,7 +103,7 @@ router.post('/delete', (req,res) =>{
                 return res.status(500).json(err3);
               }
 
-              var contentProp = prop1.tagsProp.filter(id => id != req.body.id_tag);
+              var contentProp = prop1.tagsProp.filter(id => id != req.body.id);
               var update = {"tagsProp" : contentProp }
               propositionModel.findOneAndUpdate({_id : toDelete},update,{new: true},function(err4,prop2){
                 if(err4){
@@ -116,7 +140,7 @@ router.post('/delete', (req,res) =>{
             }
             console.log(prop3)
             console.log(toDelete)
-            var contentProp = prop3.tagsAnswer.filter(id => id != req.body.id_tag);
+            var contentProp = prop3.tagsAnswer.filter(id => id != req.body.id);
             var update = {"tagsAnswer" : contentProp }
             answerModel.findOneAndUpdate({_id : toDelete},update,{new: true},function(err7,prop4){
               if(err7){
@@ -124,14 +148,14 @@ router.post('/delete', (req,res) =>{
                 return res.status(500).json(err7);
               }
               console.log("field tagsAnswer in Answer model modified")
-              return res.status(200).json("tag deleted succesfuly");
+              return res.status(204).json("tag deleted succesfuly");
             });
           });
         }
 
       // if appear 1 time : delete the tag
       }else{
-        tagModel.findByIdAndRemove(req.body.id_tag,function(err8,deleted){
+        tagModel.findByIdAndRemove(req.body.id,function(err8,deleted){
           if(err8){
             console.log(err8);
             return res.status(500).json(err8);
@@ -143,7 +167,7 @@ router.post('/delete', (req,res) =>{
                 console.log(err9);
                 return res.status(500).json(err9);
               }
-              var contentProp = prop5.tagsProp.filter(id => id != req.body.id_tag);
+              var contentProp = prop5.tagsProp.filter(id => id != req.body.id);
               var update = {"tagsProp" : contentProp }
               propositionModel.findOneAndUpdate({_id : toDelete},update,{new: true},function(err10,prop6){
                 if(err10){
@@ -161,7 +185,7 @@ router.post('/delete', (req,res) =>{
                 console.log(err11);
                 return res.status(500).json(err11);
               }
-              var contentProp = prop7.tagsAnswer.filter(id => id != req.body.id_tag);
+              var contentProp = prop7.tagsAnswer.filter(id => id != req.body.id);
               var update = {"tagsAnswer" : contentProp }
               answerModel.findOneAndUpdate({_id : toDelete},update,{new: true},function(err12,prop7){
                 if(err12){
@@ -169,7 +193,7 @@ router.post('/delete', (req,res) =>{
                   return res.status(500).json(err12);
                 }
                 console.log("field tagsAnswer in Answer model modified")
-                return res.status(200).json("tag deleted succesfuly");
+                return res.status(204).json("tag deleted succesfuly");
               });
             });
           }
@@ -179,9 +203,22 @@ router.post('/delete', (req,res) =>{
   })
 })
 
-// get tag by id
-router.get('/:id_tag', (req,res) =>{
-  tagModel.findById(req.params.id_tag, function(err,query){
+/**
+ * @api {get} /answers/:id get tag by id
+ * @apiName GetTagById
+ * @apiGroup Tag
+ * @apiPermission none
+ * @apiDescription get tag by id
+ *
+ * @apiSuccess {String} label label of the tag
+ * @apiSuccess {Number} nbOccurence number of occurence of the tag
+ * @apiSuccess {String[]} idProps Array of id of propositions that contains the tag
+ * @apiSuccess {String[]} idAnswers Array of id of that contains the tag
+ *
+ * @apiError (204) TagNotFound Tag not found
+ */
+router.get('/:id', (req,res) =>{
+  tagModel.findById(req.params.id, function(err,query){
     if (err){
       return res.status(500).send(err);
     }
@@ -196,7 +233,19 @@ router.get('/:id_tag', (req,res) =>{
   })
 });
 
-// Return all tags
+/**
+ * @api {get} /answers/ get all tag
+ * @apiName GetTagAll
+ * @apiGroup Tag
+ * @apiPermission none
+ * @apiDescription get data of all tag
+ *
+ * @apiSuccess {String} label label of the tag
+ * @apiSuccess {Number} nbOccurence number of occurence of the tag
+ * @apiSuccess {String[]} idProps Array of id of propositions that contains the tag
+ * @apiSuccess {String[]} idAnswers Array of id of that contains the tag
+ *
+ */
 router.get('/', (req,res) =>{
   tagModel.find({}, function(err,query){
     if (err){
@@ -211,8 +260,5 @@ router.get('/', (req,res) =>{
     return res.status(200).json(result);
   })
 });
-
-
-
 
 module.exports = router

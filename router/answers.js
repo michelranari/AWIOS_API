@@ -12,8 +12,25 @@ const tagModel = require('../models/tag')
 dotenv.config();
 global.Headers = fetch.Headers;
 
-// increment like of a answer
-// return the answer liked
+/**
+ * @api {put} /answers/like like an answers
+ * @apiName PutAnswerLike
+ * @apiGroup Answer
+ * @apiPermission connected
+ * @apiDescription like an answer by is id. insert id of user who like the answer in array of idLikesProp and return thr answer liked
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the answer to like
+ *
+ * @apiError (403) ForbiddenAccesLike Answer already like
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
 router.put('/like', (req, res) => {
 
   // get the token
@@ -28,7 +45,7 @@ router.put('/like', (req, res) => {
       return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
 
-    answerModel.findById(req.body._id,function (err, answer) {
+    answerModel.findById(req.body.id,function (err, answer) {
       if(err){
         console.log(err);
         return res.status(500).json(err);
@@ -38,15 +55,15 @@ router.put('/like', (req, res) => {
       var find = answer.idLikesAnswer.includes(decoded.user._id)
       if(!find){
 
-        //update tag in answosition collection
+        //update tag in answer collection
         var update = {$push : { "idLikesAnswer" : decoded.user._id}}
-        answerModel.findOneAndUpdate({"_id" : req.body._id},update,{new: true}, function(err,answ1){
+        answerModel.findOneAndUpdate({"_id" : req.body.id},update,{new: true}, function(err,answ1){
           if(err){
             console.log(err);
             return res.status(500).json(err);
           }
 
-          console.log("osition like updated")
+          console.log("answer like updated")
           result = {};
           result[answ1._id] = answ1;
           return res.status(200).json(result);
@@ -60,8 +77,25 @@ router.put('/like', (req, res) => {
   });
 });
 
-// decrement like
-// return the answer disliked
+/**
+ * @api {put} /answers/dislike dislike an answer
+ * @apiName PutAnswerdislike
+ * @apiGroup Answer
+ * @apiPermission connected
+ * @apiDescription dislike an answer by is id. insert id of user who dislike the answer in array of idLikesProp and return the answer disliked
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the answer to dislike
+ *
+ * @apiError (403) ForbiddenAccesLike Answer already dislike
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
 router.put('/dislike', (req, res) => {
 
   // get the token
@@ -76,7 +110,7 @@ router.put('/dislike', (req, res) => {
       return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
 
-    answerModel.findById(req.body._id,function (err, answer) {
+    answerModel.findById(req.body.id,function (err, answer) {
       if(err){
         console.log(err);
         return res.status(500).json(err);
@@ -89,7 +123,7 @@ router.put('/dislike', (req, res) => {
         //update tag in answer collection
         var content = answer.idLikesAnswer.filter(id => id != decoded.user._id);
         var update = {"idLikesAnswer" : content};
-        answerModel.findOneAndUpdate({"_id" : req.body._id},update,{new: true}, function(err,answ1){
+        answerModel.findOneAndUpdate({"_id" : req.body.id},update,{new: true}, function(err,answ1){
           if(err){
             console.log(err);
             return res.status(500).json(err);
@@ -110,9 +144,60 @@ router.put('/dislike', (req, res) => {
   });
 });
 
-// update answer
-// to do : update tags
-router.put('/update', (req, res) => {
+
+/**
+ * @api {get} /answers/:id get answer by id
+ * @apiName GetAnswerById
+ * @apiGroup Answer
+ * @apiPermission none
+ * @apiDescription get data of answer by is id
+ *
+ * @apiParam {String} id id of the answer
+ *
+ * @apiSuccess {String} dateAnswer date of the answer
+ * @apiSuccess {String} contentAnswer content of the answer
+ * @apiSuccess {Boolean} isAnonymous indicates if the answer is published anonymously or not
+ * @apiSuccess {String} ownerAnswer id of the user who wrote the answer
+ * @apiSuccess {String[]} idLikesAnswer Array of id of users who liked the answer
+ * @apiSuccess {String[]} tagsAnswer Array of id of tags attached to the answer
+ * @apiSuccess {String} idProp id of the proposition linked to the answer
+ *
+ */
+router.get('/:id', async (req,res) =>{
+  answerModel.findOne({ _id : req.params.id_answer}, function(err,query){
+    if (err){
+      return res.status(500).send(err);
+    }
+
+    console.log(query.length)
+    // no proposition found
+    if(!query) {
+      return res.status(204).send({errors : "No answers found"});
+    }
+     // format the query
+     result = {};
+     result[query._id] = query;
+     return res.status(200).json(result);
+  })
+});
+
+/**
+ * @api {put} /answers/ update a answer
+ * @apiName PutAnswerUpdate
+ * @apiGroup Answer
+ * @apiPermission connected
+ * @apiDescription update a answer by is id
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the answer to update
+ * @apiParam {String} contentAnswer content of the answer
+ * @apiParam {String} isAnonymous indicates if the answer is published anonymously or not
+ * @apiParam {String} ownerAnswer id of the user who wrote the answer
+ *
+ * @apiError (403) ForbiddenAcces unauthorized to update this answer
+ */
+router.put('/', (req, res) => {
 
   // get the token
   var authorizationHeader = req.headers.authorization;
@@ -140,7 +225,7 @@ router.put('/update', (req, res) => {
     }
 
     // save change
-    answerModel.findOneAndUpdate({ _id : req.body._id},answer,{new: true}, function(err,answer){
+    answerModel.findOneAndUpdate({ _id : req.body.id},answer,{new: true}, function(err,answer){
       if(err){
         console.log(err);
         return res.status(500).send({ errors: 'update fail' });
@@ -152,7 +237,21 @@ router.put('/update', (req, res) => {
   });
 });
 
-router.post('/delete', async (req, res) => {
+
+/**
+ * @api {delete} /answers/ delete an answer
+ * @apiName DeleteAnswer
+ * @apiGroup Answer
+ * @apiPermission connected
+ * @apiDescription delete an answer by is id.
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the answer to delete
+ *
+ *
+ */
+router.delete('/', async (req, res) => {
   // get the token
   var authorizationHeader = req.headers.authorization;
   if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
@@ -245,8 +344,29 @@ router.post('/delete', async (req, res) => {
   })
 })
 
-
-router.post('/newAnswer', (req, res) => {
+/**
+ * @api {post} /answers/ create an answer
+ * @apiName PostAnswer
+ * @apiGroup Answer
+ * @apiPermission connected
+ * @apiDescription create an answer with tag if it has and return the answer created.
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} contentAnswer content of the answer
+ * @apiParam {String} isAnonymous indicates if the answer is published anonymously or not
+ * @apiParam {String} idProp id of the proposition where
+ * @apiParam {String} tagsAnswer tags of the answer. Each tag is separed by a space
+ *
+ * @apiError (422) FieldMissing content field missing
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
+router.post('/', (req, res) => {
 
   // get the token
   var authorizationHeader = req.headers.authorization;
@@ -346,26 +466,22 @@ router.post('/newAnswer', (req, res) => {
   })
 });
 
-// return answer by id
-router.get('/:id_answer', async (req,res) =>{
-  answerModel.findOne({ _id : req.params.id_answer}, function(err,query){
-    if (err){
-      return res.status(500).send(err);
-    }
-
-    console.log(query.length)
-    // no proposition found
-    if(!query) {
-      return res.status(204).send({errors : "No answers found"});
-    }
-     // format the query
-     result = {};
-     result[query._id] = query;
-     return res.status(200).json(result);
-  })
-});
-
-// return all answers
+/**
+ * @api {get} /answers/ get all answer
+ * @apiName GetAnswerAll
+ * @apiGroup Answer
+ * @apiPermission none
+ * @apiDescription get data of all answer
+ *
+ * @apiSuccess {String} dateAnswer date of the answer
+ * @apiSuccess {String} contentAnswer content of the answer
+ * @apiSuccess {Boolean} isAnonymous indicates if the answer is published anonymously or not
+ * @apiSuccess {String} ownerAnswer id of the user who wrote the answer
+ * @apiSuccess {String[]} idLikesAnswer Array of id of users who liked the answer
+ * @apiSuccess {String[]} tagsAnswer Array of id of tags attached to the answer
+ * @apiSuccess {String} idProp id of the proposition linked to the answer
+ *
+ */
 router.get('/', (req,res) =>{
   answerModel.find({}, function(err,query){
     if (err){

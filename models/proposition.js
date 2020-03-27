@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const PropositionSchema = new mongoose.Schema({
+  titleProp:{
+    type:String,
+    required: true
+  },
   dateProp:{
     type: Date,
     default : Date.now

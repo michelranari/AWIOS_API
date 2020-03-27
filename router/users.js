@@ -7,8 +7,27 @@ var bcrypt = require('bcryptjs');
 const dotenv = require('dotenv')
 dotenv.config();
 
-
-// Ban an user
+/**
+ * @api {post} /users/admin/ban banned a user
+ * @apiName PostUserAdminBan
+ * @apiGroup User
+ * @apiPermission admin
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiDescription Banned a user
+ *
+ * @apiParam {String} id The Users-ID.
+ *
+ * @apiError (422) FiedMissing The Users-ID is required
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ *
+ */
 router.post('/admin/ban', (req, res) => {
 
   // get the token
@@ -24,7 +43,7 @@ router.post('/admin/ban', (req, res) => {
     }
 
     // if form is filled
-    if(!req.body.id_user){
+    if(!req.body.id){
       return res.status(422).json({errors: "Id user required !"});
     }
 
@@ -34,7 +53,7 @@ router.post('/admin/ban', (req, res) => {
     }
 
     // update state user
-    userModel.findOneAndUpdate({"_id": req.body.id_user},{"isBanned" : true},{new: true}, function(err){
+    userModel.findOneAndUpdate({"_id": req.body.id},{"isBanned" : true},{new: true}, function(err){
       if(err){
         console.log(err);
         return res.status(500).json(err);
@@ -46,8 +65,23 @@ router.post('/admin/ban', (req, res) => {
   });
 })
 
-// Login
-// return a token with user info inside
+/**
+ * @api {post} /users/authenticate authenticate
+ * @apiName PostUserAuthenticate
+ * @apiGroup User
+ * @apiPermission none
+ * @apiDescription authenticates a user and change set isConnected to true
+ *
+ * @apiParam {String} pseudo pseudo of user
+ * @apiParam {String} password password of user
+ *
+ * @apiSuccess {String} token token for authentication with user information in it
+ *
+ * @apiError (422) FiedMissing field pseudo or password is not filled
+ * @apiError (400) InvalidPassword Invalid password
+ * @apiError (400) InvalidPseudo Invalid pseudo
+ *
+ */
 router.post('/authenticate', (req, res) => {
   const pseudo = req.body.pseudo
   const password = req.body.password
@@ -95,8 +129,23 @@ router.post('/authenticate', (req, res) => {
   });
 });
 
-// register a new user
-router.post('/register', (req, res) => {
+/**
+ * @api {post} /users/ register
+ * @apiName PostUser
+ * @apiGroup User
+ * @apiPermission none
+ * @apiDescription register a user and save it in database
+ *
+ * @apiParam {String} pseudo pseudo of user
+ * @apiParam {String} password password of user
+ * @apiParam {String} mail mail of user
+ *
+ *
+ * @apiError (422) FiedMissing field pseudo,password or mail is not filled
+ * @apiError (400) InvalidPorM Pseudo or mail already exist
+ *
+ */
+router.post('/', (req, res) => {
 
   const pseudo = req.body.pseudo;
   const password = req.body.password;
@@ -138,7 +187,20 @@ router.post('/register', (req, res) => {
   });
 });
 
-// logout
+/**
+ * @api {put} /users/logout logout
+ * @apiName PutUserLogout
+ * @apiGroup User
+ * @apiPermission connected
+ * @apiDescription logout a user
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} pseudo pseudo of user
+ * @apiParam {String} password password of user
+ * @apiParam {String} mail mail of user
+ *
+ */
 router.put('/logout', (req, res) => {
 
   // get the token
@@ -166,9 +228,30 @@ router.put('/logout', (req, res) => {
   });
 })
 
-// get user by id
-router.get('/:id_user', async (req,res) =>{
-  userModel.findById(req.params.id_user, function(err,query){
+/**
+ * @api {get} /users/:id get by id
+ * @apiName GetUserbyId
+ * @apiGroup User
+ * @apiPermission none
+ * @apiDescription get data of user by is id.
+ *
+ * @apiParam {String} id id of user
+ *
+ * @apiSuccess {String} pseudo pseudo of the user
+ * @apiSuccess {String} mail mail of the user
+ * @apiSuccess {String} password empty password of the user
+ * @apiSuccess {String} city city of the user
+ * @apiSuccess {Boolean} isAdmin indicates if user is admin or not
+ * @apiSuccess {Boolean} isConnected pseudo indicates if user is connected or not
+ * @apiSuccess {Boolean} isBanned  indicates if user is banned or not
+ * @apiSuccess {String[]} idPropositions Array of id of the user s propositions
+ * @apiSuccess {String[]} Array of id of the user s answer
+ *
+ * @apiError (204) UserNotFound User not found
+ *
+ */
+router.get('/:id', async (req,res) =>{
+  userModel.findById(req.params.id, function(err,query){
     if (err){
       return res.status(500).send(err);
     }
@@ -185,7 +268,24 @@ router.get('/:id_user', async (req,res) =>{
   })
 });
 
-// get all user
+/**
+ * @api {get} /users/ get all
+ * @apiName GetUser
+ * @apiGroup User
+ * @apiPermission none
+ * @apiDescription get all user
+ *
+ * @apiSuccess {String} pseudo pseudo of the user
+ * @apiSuccess {String} mail mail of the user
+ * @apiSuccess {String} password empty password of the user
+ * @apiSuccess {String} city city of the user
+ * @apiSuccess {Boolean} isAdmin indicates if user is admin or not
+ * @apiSuccess {Boolean} isConnected indicates if user is connected or not
+ * @apiSuccess {Boolean} isBanned indicates if user is banned or not
+ * @apiSuccess {String[]} idPropositions Array of id of the user s propositions
+ * @apiSuccess {String[]} Array of id of the user s answer
+ *
+ */
 router.get('/', (req,res) =>{
   userModel.find({}, function(err,query){
     if (err){
