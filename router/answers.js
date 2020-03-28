@@ -349,7 +349,7 @@ router.delete('/', async (req, res) => {
  * @apiName PostAnswer
  * @apiGroup Answer
  * @apiPermission connected
- * @apiDescription create an answer with tag if it has and return the answer created.
+ * @apiDescription create an answer with tag if it has and return the answer created. Return the answer created
  * @apiUse TokenMissingError
  * @apiUse AuthenticateTokenFailed
  *

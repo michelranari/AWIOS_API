@@ -283,7 +283,7 @@ router.get('/:id', async (req,res) =>{
  * @apiSuccess {Boolean} isConnected indicates if user is connected or not
  * @apiSuccess {Boolean} isBanned indicates if user is banned or not
  * @apiSuccess {String[]} idPropositions Array of id of the user s propositions
- * @apiSuccess {String[]} Array of id of the user s answer
+ * @apiSuccess {String[]} idAnswers Array of id of the user s answer
  *
  */
 router.get('/', (req,res) =>{

@@ -59,7 +59,6 @@ router.get('/sort/like', async (req,res) =>{
  * @apiGroup Proposition
  * @apiPermission none
  * @apiDescription sort all propositions by ascending or descending date and tags if it contains.
- * Exemple of url : localhost:3001/propositions/sort/desc?tag=internet&tag1=soiree
  *
  * @apiParam {String="asc","desc"} sort sort propostion by ascending "asc" or descending "desc"
  * @apiParam {String} tag all tag in insered the parameters of the url. Example : tag=internet. Exemple of url : localhost:3001/propositions/sort/like?tag=internet&tag1=soiree
@@ -562,7 +561,7 @@ router.post('/', (req, res) => {
  *
  */
 router.get('/', (req,res) =>{
-  propositionModel.find({"ownerProp.isBanned" : "false"}, function(err,query){
+  propositionModel.find({}, function(err,query){
     if (err){
       return res.status(500).send(err);
     }
@@ -574,6 +573,10 @@ router.get('/', (req,res) =>{
     }
     return res.status(200).json(result);
   })
+});
+
+router.get('/docApi', (req,res) =>{
+  res.sendFile('../apidoc/index.html');
 });
 
 
