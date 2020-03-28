@@ -164,12 +164,11 @@ router.put('/dislike', (req, res) => {
  *
  */
 router.get('/:id', async (req,res) =>{
-  answerModel.findOne({ _id : req.params.id_answer}, function(err,query){
+  answerModel.findOne({ _id : req.params.id}, function(err,query){
     if (err){
       return res.status(500).send(err);
     }
 
-    console.log(query.length)
     // no proposition found
     if(!query) {
       return res.status(204).send({errors : "No answers found"});
@@ -354,7 +353,7 @@ router.delete('/', async (req, res) => {
  * @apiUse AuthenticateTokenFailed
  *
  * @apiParam {String} contentAnswer content of the answer
- * @apiParam {String} isAnonymous indicates if the answer is published anonymously or not
+ * @apiParam {Boolean} isAnonymous indicates if the answer is published anonymously or not
  * @apiParam {String} idProp id of the proposition where
  * @apiParam {String} tagsAnswer tags of the answer. Each tag is separed by a space
  *

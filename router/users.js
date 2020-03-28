@@ -196,9 +196,11 @@ router.post('/', (req, res) => {
  * @apiUse TokenMissingError
  * @apiUse AuthenticateTokenFailed
  *
- * @apiParam {String} pseudo pseudo of user
- * @apiParam {String} password password of user
- * @apiParam {String} mail mail of user
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
  *
  */
 router.put('/logout', (req, res) => {

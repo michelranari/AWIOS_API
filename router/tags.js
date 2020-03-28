@@ -12,7 +12,7 @@ dotenv.config();
 
 
 /**
- * @api {get} /answers/best 9 frequent tags
+ * @api {get} /tags/best 9 frequent tags
  * @apiName GetTagsBest
  * @apiGroup Tag
  * @apiPermission none
@@ -47,7 +47,7 @@ router.get('/best', (req,res) =>{
 })
 
 /**
- * @api {delete} /answers/ delete a tag
+ * @api {delete} /tags/ delete a tag
  * @apiName DeleteTag
  * @apiGroup Tag
  * @apiPermission connected
@@ -204,7 +204,7 @@ router.delete('/', (req,res) =>{
 })
 
 /**
- * @api {get} /answers/:id get tag by id
+ * @api {get} /tags/:id get tag by id
  * @apiName GetTagById
  * @apiGroup Tag
  * @apiPermission none
@@ -234,7 +234,7 @@ router.get('/:id', (req,res) =>{
 });
 
 /**
- * @api {get} /answers/ get all tag
+ * @api {get} /tags/ get all tag
  * @apiName GetTagAll
  * @apiGroup Tag
  * @apiPermission none
