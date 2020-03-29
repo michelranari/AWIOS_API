@@ -65,6 +65,68 @@ router.post('/admin/ban', (req, res) => {
   });
 })
 
+router.put('/password/change', (req, res) => {
+
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: "Error. No connected" });
+  var token  = authorizationHeader.split(' ')[1];
+
+  // check token
+  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
+    if (err){
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
+    }
+
+    //check if any field is missing
+    if(!req.body.oldPassword || !req.body.newPassword || !req.body.confirmPassword){
+      return res.status(422).json({errors: " fields are not filled !"});
+    }
+
+    //check if newPassword and confirmPassword match
+    if(!(req.body.newPassword === req.body.confirmPassword)){
+      return res.status(400).json({errors: " confirmed and new password don't match !"});
+    }
+
+    userModel.findById(decoded.user._id, function(err,user){
+      if (err){
+        console.log(err)
+        return res.status(500).send({ errors: 'Internal error' });
+      }
+
+      if(user){
+        bcrypt.compare(req.body.oldPassword, user.password, function(err, result) {
+          if (err){
+            console.log(err)
+            return res.status(500).send({ errors: 'Internal error' });
+          }
+
+          if(result){
+            pwd = bcrypt.hashSync(req.body.newPassword, bcrypt.genSaltSync(10));
+            update = {"password" : pwd};
+
+            userModel.findOneAndUpdate({"_id": decoded.user._id},update,{new: true}, function(err){
+              if(err){
+                console.log(err);
+                return res.status(500).json(err);
+              }
+              console.log("password changed succesfuly");
+              res.status(200).json("password changed succesfuly");
+            });
+          }else{
+              return res.status(400).json({errors: "password is invalid !"});
+          }
+        })
+      }else{
+        return res.status(500);
+      }
+
+    })
+
+  });
+})
+
 /**
  * @api {post} /users/authenticate authenticate
  * @apiName PostUserAuthenticate
