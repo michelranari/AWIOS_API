@@ -224,7 +224,7 @@
         "description": "<p>Need to be connected</p>"
       }
     ],
-    "description": "<p>create an answer with tag if it has and return the answer created.</p>",
+    "description": "<p>create an answer with tag if it has and return the answer created. Return the answer created</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -237,7 +237,7 @@
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Boolean",
             "optional": false,
             "field": "isAnonymous",
             "description": "<p>indicates if the answer is published anonymously or not</p>"
@@ -728,7 +728,7 @@
         "name": "none"
       }
     ],
-    "description": "<p>sort all propositions by ascending or descending date and tags if it contains. Exemple of url : localhost:3001/propositions/sort/desc?tag=internet&amp;tag1=soiree</p>",
+    "description": "<p>sort all propositions by ascending or descending date and tags if it contains.</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -1328,7 +1328,7 @@
   },
   {
     "type": "delete",
-    "url": "/answers/",
+    "url": "/tags/",
     "title": "delete a tag",
     "name": "DeleteTag",
     "group": "Tag",
@@ -1392,7 +1392,7 @@
   },
   {
     "type": "get",
-    "url": "/answers/",
+    "url": "/tags/",
     "title": "get all tag",
     "name": "GetTagAll",
     "group": "Tag",
@@ -1442,7 +1442,7 @@
   },
   {
     "type": "get",
-    "url": "/answers/:id",
+    "url": "/tags/:id",
     "title": "get tag by id",
     "name": "GetTagById",
     "group": "Tag",
@@ -1504,7 +1504,7 @@
   },
   {
     "type": "get",
-    "url": "/answers/best",
+    "url": "/tags/best",
     "title": "9 frequent tags",
     "name": "GetTagsBest",
     "group": "Tag",
@@ -1627,8 +1627,8 @@
             "group": "Success 200",
             "type": "String[]",
             "optional": false,
-            "field": "Array",
-            "description": "<p>of id of the user s answer</p>"
+            "field": "idAnswers",
+            "description": "<p>Array of id of the user s answer</p>"
           }
         ]
       }
@@ -1961,6 +1961,108 @@
   },
   {
     "type": "put",
+    "url": "/users/password/change",
+    "title": "change password",
+    "name": "PutUserChangePassword",
+    "group": "User",
+    "permission": [
+      {
+        "name": "connected",
+        "title": "user need to be connected to have permision",
+        "description": "<p>Need to be connected</p>"
+      }
+    ],
+    "description": "<p>change password of the connected user</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "oldPassword",
+            "description": "<p>the old password</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "newPassword",
+            "description": "<p>the new password</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "confirmPassword",
+            "description": "<p>the confirmed password. Need to be exactly the same than the new password</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "optional": false,
+            "field": "InvalidPassword",
+            "description": "<p>Invalid password</p>"
+          },
+          {
+            "group": "400",
+            "optional": false,
+            "field": "PasswordNotMatch",
+            "description": "<p>new and confirm password don't match</p>"
+          }
+        ],
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "422": [
+          {
+            "group": "422",
+            "optional": false,
+            "field": "FiedMissing",
+            "description": "<p>field oldPassword, newPassword or confirmPassword is not filled</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "put",
     "url": "/users/logout",
     "title": "logout",
     "name": "PutUserLogout",
@@ -1973,32 +2075,14 @@
       }
     ],
     "description": "<p>logout a user</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "pseudo",
-            "description": "<p>pseudo of user</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>password of user</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "mail",
-            "description": "<p>mail of user</p>"
-          }
-        ]
-      }
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
+          "type": "json"
+        }
+      ]
     },
     "version": "0.0.0",
     "filename": "router/users.js",
