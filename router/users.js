@@ -65,6 +65,31 @@ router.post('/admin/ban', (req, res) => {
   });
 })
 
+
+/**
+ * @api {put} /users/password/change change password
+ * @apiName PutUserChangePassword
+ * @apiGroup User
+ * @apiPermission connected
+ * @apiDescription change password of the connected user
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} oldPassword  the old password
+ * @apiParam {String} newPassword  the new password
+ * @apiParam {String} confirmPassword the confirmed password. Need to be exactly the same than the new password
+ *
+ * @apiError (422) FiedMissing field oldPassword, newPassword or confirmPassword is not filled
+ * @apiError (400) InvalidPassword Invalid password
+ * @apiError (400) PasswordNotMatch new and confirm password don't match
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ *
+ */
 router.put('/password/change', (req, res) => {
 
   // get the token
@@ -111,6 +136,7 @@ router.put('/password/change', (req, res) => {
                 console.log(err);
                 return res.status(500).json(err);
               }
+
               console.log("password changed succesfuly");
               res.status(200).json("password changed succesfuly");
             });
