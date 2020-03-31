@@ -142,6 +142,133 @@ router.put('/dislike', (req, res) => {
   });
 });
 
+/**
+ * @api {put} /answers/report report a proposition
+ * @apiName PutAnswerReport
+ * @apiGroup Answer
+ * @apiPermission connected
+ * @apiDescription report an answer by is id. insert id of user who report the answer in array of idReport and return the id of the proposition.
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the answer to report
+ *
+ * @apiError (403) ForbiddenAccesReport answer already reported
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
+router.put('/report', (req, res) => {
+
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
+  var token  = authorizationHeader.split(' ')[1];
+
+  // verify token
+  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
+    if (err){
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
+    }
+
+    answerModel.findById(req.body.id,function (err, prop) {
+      if(err){
+        console.log(err);
+        return res.status(500).json(err);
+      }
+
+      // check if answer is already reported
+      var find = prop.idReport.includes(decoded.user._id)
+      if(!find){
+
+        //update report in answer collection
+        var update = {$push : { "idReport" : decoded.user._id}}
+        answerModel.findOneAndUpdate({"_id" : req.body.id},update,{new: true}, function(err,prop1){
+          if(err){
+            console.log(err);
+            return res.status(500).json(err);
+          }
+
+          console.log("answer report updated")
+          return res.status(200).json({id: prop1._id});
+
+        });
+      }else{
+        console.log("already report")
+        return res.status(403).send({ errors: 'Already report' })
+      }
+    })
+  });
+});
+
+/**
+ * @api {put} /answers/cancel-report cancel report answer
+ * @apiName PutAnswerCancelReport
+ * @apiGroup Answer
+ * @apiPermission connected
+ * @apiDescription cancel report of an answer by is id. delete id of user who report the answer in array of idReport
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the answer to cancel the report
+ *
+ * @apiError (403) ForbiddenAccesDislike answer is not reported or number number of report equal to 0
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
+router.put('/cancel-report', (req, res) => {
+
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
+  var token  = authorizationHeader.split(' ')[1];
+
+  // verify token
+  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
+    if (err){
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
+    }
+
+    answerModel.findById(req.body.id,function (err, prop) {
+      if(err){
+        console.log(err);
+        return res.status(500).json(err);
+      }
+
+      // check if answer is not reported or if it has 0 report
+      var find = prop.idReport.includes(decoded.user._id)
+      if(find && (prop.idReport.length != 0)){
+
+        //update report in answer collection
+        var content = prop.idReport.filter(id => id != decoded.user._id);
+        var update = {"idReport" : content};
+        answerModel.findOneAndUpdate({"_id" : req.body.id},update,{new: true}, function(err,prop1){
+          if(err){
+            console.log(err);
+            return res.status(500).json(err);
+          }
+
+          console.log("answer report updated")
+          return res.status(200).json({id: prop1._id});
+
+        });
+      }else{
+        console.log("can't cancel report if is not reported or nb report = 0")
+        return res.status(403).send({ errors: "can't cancel report if is not reported or nb report = 0" })
+      }
+    })
+
+  });
+});
 
 /**
  * @api {get} /answers/:id get answer by id
@@ -384,6 +511,8 @@ router.delete('/', async (req, res) => {
       return res.status(500).send({ errors: 'Failed to authenticate token.' });
     }
 
+
+
     //delete tag
     var query1 = answerModel.findById(req.body.id)
     var result1 = await query1.exec( async function(err1,answer){
@@ -392,14 +521,18 @@ router.delete('/', async (req, res) => {
         console.log(err1)
         return res.status(500).send(err1);
       }
+
+      // check if delete is own answer or if is not admin
+      if(decoded.user._id != answer.ownerAnswer){
+        if(!decoded.user.isAdmin){
+          return res.status(403).send({ errors: 'Forbidden' });
+        }
+      }
+
       // delete all tag in answers
       for (var i = 0; i < answer.tagsAnswer.length; i++) {
         try{
-          var resDel = await deleteTagAnswer(answer.tagsAnswer[i],req.body.id);
-          console.log(resDel)
-          if(!resDel[0]){
-            return res.status(500).send(resDel[1]);
-          }
+          await deleteTagAnswer(answer.tagsAnswer[i],req.body.id);
           console.log("delete tag in answer done");
         }catch(error){
           console.log(error)
@@ -528,5 +661,4 @@ function deleteTagAnswer(identifiant,del){
   })
 };
 
-module.exports.del = deleteTagAnswer;
 module.exports = router;

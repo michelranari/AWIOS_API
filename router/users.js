@@ -8,65 +8,6 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 /**
- * @api {post} /users/admin/ban banned a user
- * @apiName PostUserAdminBan
- * @apiGroup User
- * @apiPermission admin
- * @apiUse TokenMissingError
- * @apiUse AuthenticateTokenFailed
- *
- * @apiDescription Banned a user
- *
- * @apiParam {String} id The Users-ID.
- *
- * @apiError (422) FiedMissing The Users-ID is required
- *
- * @apiHeaderExample {json} Header-Example:
- *     {
- *       "Content-Type": "application/json",
- *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
- *     }
- *
- */
-router.post('/admin/ban', (req, res) => {
-
-  // get the token
-  var authorizationHeader = req.headers.authorization;
-  if (!authorizationHeader) return res.status(401).send({ errors: "Error. No connected" });
-  var token  = authorizationHeader.split(' ')[1];
-
-  // check token
-  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
-    if (err){
-      console.log(err)
-      return res.status(500).send({ errors: 'Failed to authenticate token.' });
-    }
-
-    // if form is filled
-    if(!req.body.id){
-      return res.status(422).json({errors: "Id user required !"});
-    }
-
-    // if not admin
-    if(!decoded.user.isAdmin){
-      return res.status(403).send({ errors: 'Forbidden' });
-    }
-
-    // update state user
-    userModel.findOneAndUpdate({"_id": req.body.id},{"isBanned" : true},{new: true}, function(err){
-      if(err){
-        console.log(err);
-        return res.status(500).json(err);
-      }
-      console.log("user banned");
-      res.status(200).send("user banned");
-    });
-
-  });
-})
-
-
-/**
  * @api {put} /users/password/change change password
  * @apiName PutUserChangePassword
  * @apiGroup User

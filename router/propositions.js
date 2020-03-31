@@ -12,6 +12,26 @@ var bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 dotenv.config();
 
+
+/**
+ * @api {get} /:id/answers/best get best answer of a proposition
+ * @apiName GetBestAnswerById
+ * @apiGroup Proposition
+ * @apiPermission none
+ * @apiDescription get the best answer of a proposition by is id. Exemple of url : localhost:3001/propositions/5e7b5c847cbb262ef84ab042/answers/best
+ *
+ * @apiParam {String} id id of the propostion
+ *
+ * @apiSuccess {String} dateAnswer date of the answer
+ * @apiSuccess {String} contentAnswer content of the answer
+ * @apiSuccess {Boolean} isAnonymous indicates if the answer is published anonymously or not
+ * @apiSuccess {String} ownerAnswer id of the user who wrote the answer
+ * @apiSuccess {String[]} idLikesAnswer Array of id of users who liked the answer
+ * @apiSuccess {String[]} tagsAnswer Array of id of tags attached to the answer
+ * @apiSuccess {String} idProp id of the proposition linked to the answer
+ *
+ * @apiError (204) PropositonNotFound Proposition not found
+ */
 router.get('/:id/answers/best',(req, res) => {
   propositionModel.findById(req.params.id, async function(err,prop){
     if (err){
@@ -211,7 +231,9 @@ router.delete('/', (req, res) => {
       // to do : admin delete
       const user = decoded.user._id;
       if(user != prop.ownerProp){
-        return res.status(403).send({ errors: 'Forbidden' });
+        if(!decoded.user.isAdmin){
+          return res.status(403).send({ errors: 'Forbidden' });
+        }
       }
 
       // delete all answer of the proposition
@@ -325,6 +347,134 @@ router.put('/', (req, res) => {
       console.log("proposition updated")
       return res.status(200).json(prop);
     })
+  });
+});
+
+/**
+ * @api {put} /propositions/report report a proposition
+ * @apiName PutPropositionReport
+ * @apiGroup Proposition
+ * @apiPermission connected
+ * @apiDescription report a proposition by is id. insert id of user who report the proposition in array of idReport and return the id of the proposition.
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the propostion to report
+ *
+ * @apiError (403) ForbiddenAccesReport Proposition already reported
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
+router.put('/report', (req, res) => {
+
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
+  var token  = authorizationHeader.split(' ')[1];
+
+  // verify token
+  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
+    if (err){
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
+    }
+
+    propositionModel.findById(req.body.id,function (err, prop) {
+      if(err){
+        console.log(err);
+        return res.status(500).json(err);
+      }
+
+      // check if proposition is already reported
+      var find = prop.idReport.includes(decoded.user._id)
+      if(!find){
+
+        //update report in proposition collection
+        var update = {$push : { "idReport" : decoded.user._id}}
+        propositionModel.findOneAndUpdate({"_id" : req.body.id},update,{new: true}, function(err,prop1){
+          if(err){
+            console.log(err);
+            return res.status(500).json(err);
+          }
+
+          console.log("proposition report updated")
+          return res.status(200).json({id: prop1._id});
+
+        });
+      }else{
+        console.log("already report")
+        return res.status(403).send({ errors: 'Already report' })
+      }
+    })
+  });
+});
+
+/**
+ * @api {put} /propositions/cancel-report cancel report proposition
+ * @apiName PutPropositionCancelReport
+ * @apiGroup Proposition
+ * @apiPermission connected
+ * @apiDescription cancel report of a proposition by is id. delete id of user who report the proposition in array of idReport
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the propostion to cancel the report
+ *
+ * @apiError (403) ForbiddenAccesDislike Proposition is not reported or number number of report equal to 0
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
+router.put('/cancel-report', (req, res) => {
+
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
+  var token  = authorizationHeader.split(' ')[1];
+
+  // verify token
+  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
+    if (err){
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
+    }
+
+    propositionModel.findById(req.body.id,function (err, prop) {
+      if(err){
+        console.log(err);
+        return res.status(500).json(err);
+      }
+
+      // check if proposition is not reported or if it has 0 report
+      var find = prop.idReport.includes(decoded.user._id)
+      if(find && (prop.idReport.length != 0)){
+
+        //update report in proposition collection
+        var content = prop.idReport.filter(id => id != decoded.user._id);
+        var update = {"idReport" : content};
+        propositionModel.findOneAndUpdate({"_id" : req.body.id},update,{new: true}, function(err,prop1){
+          if(err){
+            console.log(err);
+            return res.status(500).json(err);
+          }
+
+          console.log("proposition report updated")
+          return res.status(200).json({id: prop1._id});
+
+        });
+      }else{
+        console.log("can't cancel report if is not reported or nb report = 0")
+        return res.status(403).send({ errors: "can't cancel report if is not reported or nb report = 0" })
+      }
+    })
+
   });
 });
 

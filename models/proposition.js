@@ -33,6 +33,10 @@ const PropositionSchema = new mongoose.Schema({
   idAnswers:{
     type: [mongoose.Schema.Types.ObjectId],
     ref : 'Answer'
+  },
+  idReport:{
+    type: [ mongoose.ObjectId],
+    ref : 'User'
   }
 });
 

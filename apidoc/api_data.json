@@ -1,5 +1,227 @@
 [
   {
+    "type": "put",
+    "url": "/admin/ban",
+    "title": "banned an user",
+    "name": "PostUserAdminBan",
+    "group": "Admin",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>A admin connected and with the right</p>"
+      }
+    ],
+    "description": "<p>Ban an user by is id</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Users-ID.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "422": [
+          {
+            "group": "422",
+            "optional": false,
+            "field": "FiedMissing",
+            "description": "<p>The Users-ID is required</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/admin.js",
+    "groupTitle": "Admin"
+  },
+  {
+    "type": "put",
+    "url": "/admin/answers/clean-report",
+    "title": "clean report of a answer",
+    "name": "PutAdminAnswerCleanReport",
+    "group": "Admin",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>A admin connected and with the right</p>"
+      }
+    ],
+    "description": "<p>clean/empty reports of an answer by is id</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the answer to clean array of reports</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAccesClean",
+            "description": "<p>Admin right needed</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/admin.js",
+    "groupTitle": "Admin"
+  },
+  {
+    "type": "put",
+    "url": "/admin/propositions/clean-report",
+    "title": "clean report of a proposition",
+    "name": "PutAdminPropositionCleanReport",
+    "group": "Admin",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>A admin connected and with the right</p>"
+      }
+    ],
+    "description": "<p>clean/empty reports of a proposition by is id</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the propostion to clean array of reports</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAccesClean",
+            "description": "<p>Admin right needed</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/admin.js",
+    "groupTitle": "Admin"
+  },
+  {
     "type": "delete",
     "url": "/answers/",
     "title": "delete an answer",
@@ -321,6 +543,80 @@
   },
   {
     "type": "put",
+    "url": "/answers/cancel-report",
+    "title": "cancel report answer",
+    "name": "PutAnswerCancelReport",
+    "group": "Answer",
+    "permission": [
+      {
+        "name": "connected",
+        "title": "user need to be connected to have permision",
+        "description": "<p>Need to be connected</p>"
+      }
+    ],
+    "description": "<p>cancel report of an answer by is id. delete id of user who report the answer in array of idReport</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the answer to cancel the report</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAccesDislike",
+            "description": "<p>answer is not reported or number number of report equal to 0</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/answers.js",
+    "groupTitle": "Answer"
+  },
+  {
+    "type": "put",
     "url": "/answers/like",
     "title": "like an answers",
     "name": "PutAnswerLike",
@@ -362,6 +658,80 @@
             "optional": false,
             "field": "ForbiddenAccesLike",
             "description": "<p>Answer already like</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/answers.js",
+    "groupTitle": "Answer"
+  },
+  {
+    "type": "put",
+    "url": "/answers/report",
+    "title": "report a proposition",
+    "name": "PutAnswerReport",
+    "group": "Answer",
+    "permission": [
+      {
+        "name": "connected",
+        "title": "user need to be connected to have permision",
+        "description": "<p>Need to be connected</p>"
+      }
+    ],
+    "description": "<p>report an answer by is id. insert id of user who report the answer in array of idReport and return the id of the proposition.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the answer to report</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAccesReport",
+            "description": "<p>answer already reported</p>"
           }
         ],
         "500": [
@@ -622,6 +992,102 @@
           "type": "json"
         }
       ]
+    },
+    "version": "0.0.0",
+    "filename": "router/propositions.js",
+    "groupTitle": "Proposition"
+  },
+  {
+    "type": "get",
+    "url": "/:id/answers/best",
+    "title": "get best answer of a proposition",
+    "name": "GetBestAnswerById",
+    "group": "Proposition",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>get the best answer of a proposition by is id. Exemple of url : localhost:3001/propositions/5e7b5c847cbb262ef84ab042/answers/best</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the propostion</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dateAnswer",
+            "description": "<p>date of the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "contentAnswer",
+            "description": "<p>content of the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isAnonymous",
+            "description": "<p>indicates if the answer is published anonymously or not</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "ownerAnswer",
+            "description": "<p>id of the user who wrote the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idLikesAnswer",
+            "description": "<p>Array of id of users who liked the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "tagsAnswer",
+            "description": "<p>Array of id of tags attached to the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "idProp",
+            "description": "<p>id of the proposition linked to the answer</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "204": [
+          {
+            "group": "204",
+            "optional": false,
+            "field": "PropositonNotFound",
+            "description": "<p>Proposition not found</p>"
+          }
+        ]
+      }
     },
     "version": "0.0.0",
     "filename": "router/propositions.js",
@@ -1111,6 +1577,80 @@
   },
   {
     "type": "put",
+    "url": "/propositions/cancel-report",
+    "title": "cancel report proposition",
+    "name": "PutPropositionCancelReport",
+    "group": "Proposition",
+    "permission": [
+      {
+        "name": "connected",
+        "title": "user need to be connected to have permision",
+        "description": "<p>Need to be connected</p>"
+      }
+    ],
+    "description": "<p>cancel report of a proposition by is id. delete id of user who report the proposition in array of idReport</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the propostion to cancel the report</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAccesDislike",
+            "description": "<p>Proposition is not reported or number number of report equal to 0</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/propositions.js",
+    "groupTitle": "Proposition"
+  },
+  {
+    "type": "put",
     "url": "/propositions/dislike",
     "title": "dislike a proposition",
     "name": "PutPropositionDislike",
@@ -1226,6 +1766,80 @@
             "optional": false,
             "field": "ForbiddenAccesLike",
             "description": "<p>Proposition already like</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/propositions.js",
+    "groupTitle": "Proposition"
+  },
+  {
+    "type": "put",
+    "url": "/propositions/report",
+    "title": "report a proposition",
+    "name": "PutPropositionReport",
+    "group": "Proposition",
+    "permission": [
+      {
+        "name": "connected",
+        "title": "user need to be connected to have permision",
+        "description": "<p>Need to be connected</p>"
+      }
+    ],
+    "description": "<p>report a proposition by is id. insert id of user who report the proposition in array of idReport and return the id of the proposition.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the propostion to report</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAccesReport",
+            "description": "<p>Proposition already reported</p>"
           }
         ],
         "500": [
@@ -1831,80 +2445,6 @@
           }
         ]
       }
-    },
-    "version": "0.0.0",
-    "filename": "router/users.js",
-    "groupTitle": "User"
-  },
-  {
-    "type": "post",
-    "url": "/users/admin/ban",
-    "title": "banned a user",
-    "name": "PostUserAdminBan",
-    "group": "User",
-    "permission": [
-      {
-        "name": "admin",
-        "title": "Admin access rights needed.",
-        "description": "<p>A admin connected and with the right</p>"
-      }
-    ],
-    "description": "<p>Banned a user</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Users-ID.</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "401": [
-          {
-            "group": "401",
-            "optional": false,
-            "field": "TokenMissing",
-            "description": "<p>Token not found in header</p>"
-          }
-        ],
-        "422": [
-          {
-            "group": "422",
-            "optional": false,
-            "field": "FiedMissing",
-            "description": "<p>The Users-ID is required</p>"
-          }
-        ],
-        "500": [
-          {
-            "group": "500",
-            "optional": false,
-            "field": "AuthenticateTokenFail",
-            "description": "<p>Failed to authenticate token</p>"
-          },
-          {
-            "group": "500",
-            "optional": false,
-            "field": "TokenExpired",
-            "description": "<p>Token provided is expired</p>"
-          }
-        ]
-      }
-    },
-    "header": {
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
-          "type": "json"
-        }
-      ]
     },
     "version": "0.0.0",
     "filename": "router/users.js",

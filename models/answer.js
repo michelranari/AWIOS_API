@@ -27,6 +27,10 @@ const AnswerSchema = new mongoose.Schema({
   idProp:{
     type: mongoose.ObjectId,
     ref : 'Proposition'
+  },
+  idReport:{
+    type: [ mongoose.ObjectId],
+    ref : 'User'
   }
 });
 
