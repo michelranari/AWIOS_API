@@ -1,14 +1,45 @@
 const express = require('express');
 const mongoose = require('mongoose')
+//const deleteTagAnswer = require('./answers')
 const router = express.Router();
 const propositionModel = require('../models/proposition')
+const answerModel = require('../models/answer')
 const userModel = require('../models/user')
 const tagModel = require('../models/tag')
 const database = require('../database')
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 dotenv.config();
+
+router.get('/:id/answers/best',(req, res) => {
+  propositionModel.findById(req.params.id, async function(err,prop){
+    if (err){
+      return res.status(500).send(err);
+    }
+    // no answer found
+    if(!prop) {
+      return res.status(204).send({errors : "No answers found"});
+    }
+
+    var answerArray = [];
+    try{
+       for(var i = 0; i < prop.idAnswers.length; i++){
+         // var id = JSON.stringify(a);
+         // console.log(id)
+         answer = await answerModel.findById(prop.idAnswers[i]).exec();
+         answerArray.push(answer);
+       }
+       await answerArray.sort(compare);
+       result = {};
+       result[answerArray[0]._id] = answerArray[0];
+       return res.status(200).json(result);
+
+    }catch(error){
+      console.log(error);
+    }
+  })
+})
 
 /**
  * @api {get} /propositions/sort/like sort proposition by like
@@ -40,10 +71,10 @@ router.get('/sort/like', async (req,res) =>{
       for (t in tags){
         tagsArray.push(new mongoose.Types.ObjectId(tags[t]))
       }
-      prop = await propositionModel.find({tagsProp : {"$in" : tagsArray}}).sort({nbLikes : "desc"}).exec();
+      prop = await propositionModel.find({tagsProp : {"$in" : tagsArray}}).sort({"nbLikes" : "desc"}).exec();
     }
     else{
-      prop = await propositionModel.find({}).sort({"dateProp" : req.params.sort}).exec();
+      prop = await propositionModel.find({}).sort({"nbLikes" : "desc"}).exec();
     }
 
     return res.status(200).json(prop);
@@ -133,6 +164,11 @@ router.get('/:id', (req,res) =>{
   })
 });
 
+router.delete('/test', (req, res) => {
+  const [first, second] = test();
+  console.log(first)
+})
+
 /**
  * @api {delete} /propositions/ delete a proposition
  * @apiName DeleteProposition
@@ -172,32 +208,37 @@ router.delete('/', (req, res) => {
         return res.status(500).json(err);
       }
 
-      console.log(prop)
+      // to do : admin delete
       const user = decoded.user._id;
       if(user != prop.ownerProp){
         return res.status(403).send({ errors: 'Forbidden' });
       }
 
-      // delete all answer in proposition
-      var myHeaders = new Headers();
-      myHeaders.append('Content-Type','application/json');
-      myHeaders.append('Authorization',authorizationHeader);
-      myHeaders.append('Accept','application/json');
+      // delete all answer of the proposition
       for (var i = 0; i < prop.idAnswers.length; i++) {
-        var myInit = { method: 'POST',
-                       headers: myHeaders,
-                       body : JSON.stringify({ id_answer: prop.idAnswers[i]})
-                     };
         try{
-          await fetch("http://localhost:3001/answers/delete",myInit).then(response => console.log(response)).catch(function(error) {console.log(error)});
+          //var answer_id = JSON.stringify(prop.idAnswers[i]);
+          await deleteAnswer(prop.idAnswers[i]);
           console.log("delete answer done")
-        //return res.status(200).json("answer deleted succesfuly");
+        }catch(error){
+          console.log(error)
+          return res.status(500).json(error);
+        }
+      }
+
+      // delete all tag of the proposition
+      for (var i = 0; i < prop.tagsProp.length; i++) {
+        try{
+          await deleteTagProp(prop.tagsProp[i],req.body.id);
+          console.log("delete tag done")
         }catch(error){
           console.log(error)
         }
       }
+
     })
 
+    // delete proposition
     await propositionModel.findByIdAndRemove(req.body.id,function(err,prop1){
       if(err){
         console.log(err);
@@ -205,15 +246,14 @@ router.delete('/', (req, res) => {
       }
 
       // delete idProp in User Model
-      console.log(typeof decoded.user._id)
-      userModel.findById(decoded.user._id,function(err,user){
+      userModel.findById(prop1.ownerProp,function(err,user){
         if(err){
           console.log(err);
           return res.status(500).json(err);
         }
-        var idUser = user.idPropositions.filter(id => id != decoded.user._id);
-        var update = {"idPropositions" : idUser }
-        userModel.findOneAndUpdate({_id : decoded.user._id},update,{new: true},function(err1,user1){
+        var idProp = user.idPropositions.filter(id => id != req.body.id);
+        var update = {"idPropositions" : idProp }
+        userModel.findOneAndUpdate({_id : prop1.ownerProp},update,{new: true},function(err1,user1){
           if(err1){
             console.log(err1);
             return res.status(500).json(err3);
@@ -224,7 +264,6 @@ router.delete('/', (req, res) => {
         });
       });
     });
-
   });
 });
 
@@ -436,6 +475,8 @@ router.put('/dislike', (req, res) => {
  * @apiParam {String} isAnonymous indicates if the proposition is published anonymously or not
  * @apiParam {String} tagsProp tags of the proposition. Each tag is separed by a space
  *
+ * @apiSuccess (201) {String} id  id of proposition added.
+ *
  * @apiError (422) FieldMissing title or content is missing
  *
  * @apiHeaderExample {json} Header-Example:
@@ -527,17 +568,13 @@ router.post('/', (req, res) => {
 
               // return the added proposition at the end of the loop
               if(counter == tagsArray.length){
-                result = {};
-                result[propU._id] = propU;
-                return res.status(201).json(result);
+                return res.status(201).json({id : prop._id});
               }
             })
           });
         }
       }else{
-        result = {};
-        result[user._id] = user;
-        return res.status(201).json(result);
+        return res.status(201).json({id : prop._id});
       }
     });
   });
@@ -579,5 +616,143 @@ router.get('/docApi', (req,res) =>{
   res.sendFile('../apidoc/index.html');
 });
 
+async function deleteAnswer(id){
+
+  var string_id = JSON.stringify(id);
+  var result_s = string_id.substring(1, string_id.length-1);
+  console.log(result_s)
+  console.log(result_s)
+
+  //delete tag
+  var query1 = answerModel.findById(id)
+  var result1 = await query1.exec( async function(err1,answer){
+
+    if (err1){
+      console.log(err1)
+      return[false,err1]
+    }
+    // delete all tag in answers
+    for (var i = 0; i < answer.tagsAnswer.length; i++) {
+      try{
+        await deleteTagAnswer(answer.tagsAnswer[i],result_s);
+        console.log("delete tag in answer done");
+      }catch(error){
+        console.log(error)
+      }
+    }
+  })
+
+
+  var query2 = answerModel.findByIdAndRemove(id)
+  var result2 = await query2.exec(function(err1,deleted){
+    if (err1){
+      console.log(err1)
+      return res.status(500).send(err1);
+    }
+
+    if(deleted){
+
+      // update array of idAnswers in user model
+      userModel.findById(deleted.ownerAnswer,function(err2,user){
+        if(err2){
+          console.log(err2);
+          return[false,err2]
+        }
+        var contentProp = user.idAnswers.filter(id => id != result_s);
+        var update = {"idAnswers" : contentProp }
+        userModel.findOneAndUpdate({_id : deleted.ownerAnswer},update,{new: true},function(err3,user1){
+          if(err3){
+            console.log(err3);
+            return[false,err3]
+          }
+          console.log("field idAnswers in user model modified")
+        });
+      });
+
+    // if delete fail
+    }else{
+      return[false,"delete answer fail"]
+    }
+  })
+}
+
+async function deleteTagProp(identifiant,del){
+  tagModel.findById(identifiant, function(err1,tag){
+    if (err1){
+      console.log(err1)
+      return [false,err1];
+    }
+    // if appear more than 1 time
+    if(tag.nbOccurence > 1){
+      // delete the id in idProps array and decrement nbOccurence
+      var content = tag.idProps.filter(id => id != del);
+      var update = {"idProps" : content,
+                    $inc : { "nbOccurence" : -1}}
+      tagModel.findOneAndUpdate({"_id" : tag._id},update,{new: true}, function(err5,tag1){
+        if(err5){
+          console.log(err5);
+          return [false,err5]
+        }
+        console.log("field idProps in tag modified");
+        return [true,"succes"];
+      });
+
+    // if appear 1 time : delete the tag
+    }else{
+      tagModel.findByIdAndRemove(identifiant,function(err8,deleted){
+        if(err8){
+          console.log(err8);
+          return [false,err8];
+        }
+        return [true,"succes"];
+      })
+    }
+  })
+}
+
+// delete tag in answer
+// return [true, succes]
+function deleteTagAnswer(identifiant,del){
+  tagModel.findById(identifiant, function(err1,tag){
+    if (err1){
+      console.log(err1)
+      return [false,err1];
+    }
+    // if appear more than 1 time
+    if(tag.nbOccurence > 1){
+      // delete the id in idAnswers field and decrement nbOccurence
+      var content = tag.idAnswers.filter(id => id != del);
+      var update = {"idAnswers" : content,
+                    $inc : { "nbOccurence" : -1}}
+      tagModel.findOneAndUpdate({"_id" : tag._id},update,{new: true}, function(err5,tag1){
+        if(err5){
+          console.log(err5);
+          return [false,err5]
+        }
+        console.log("field idAnswers in tag modified");
+        return [true,"succes"];
+      });
+
+    // if appear 1 time : delete the tag
+    }else{
+      tagModel.findByIdAndRemove(identifiant,function(err8,deleted){
+        if(err8){
+          console.log(err8);
+          return [false,err8];
+        }
+        return [true,"succes"];
+      })
+    }
+  })
+};
+
+// compare for sort function
+function compare(a,b){
+  var al = a.idLikesAnswer.length;
+  var bl = b.idLikesAnswer.length;
+  if(al > bl) return -1;
+  if(bl > al) return 1;
+  return 0;
+}
 
 module.exports = router

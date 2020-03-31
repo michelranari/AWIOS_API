@@ -259,6 +259,19 @@
         ]
       }
     },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of answer added.</p>"
+          }
+        ]
+      }
+    },
     "error": {
       "fields": {
         "401": [
@@ -1032,6 +1045,19 @@
             "optional": false,
             "field": "tagsProp",
             "description": "<p>tags of the proposition. Each tag is separed by a space</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "201": [
+          {
+            "group": "201",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of proposition added.</p>"
           }
         ]
       }

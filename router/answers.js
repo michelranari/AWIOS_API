@@ -1,5 +1,4 @@
 const express = require('express');
-const fetch = require('node-fetch');
 const router = express.Router();
 const database = require('../database')
 const jwt = require('jsonwebtoken');
@@ -10,7 +9,6 @@ const propositionModel = require('../models/proposition')
 const userModel = require('../models/user')
 const tagModel = require('../models/tag')
 dotenv.config();
-global.Headers = fetch.Headers;
 
 /**
  * @api {put} /answers/like like an answers
@@ -236,113 +234,6 @@ router.put('/', (req, res) => {
   });
 });
 
-
-/**
- * @api {delete} /answers/ delete an answer
- * @apiName DeleteAnswer
- * @apiGroup Answer
- * @apiPermission connected
- * @apiDescription delete an answer by is id.
- * @apiUse TokenMissingError
- * @apiUse AuthenticateTokenFailed
- *
- * @apiParam {String} id id of the answer to delete
- *
- *
- */
-router.delete('/', async (req, res) => {
-  // get the token
-  var authorizationHeader = req.headers.authorization;
-  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
-  var token  = authorizationHeader.split(' ')[1];
-
-  jwt.verify(token, process.env.JWT_KEY , async function(err, decoded) {
-    if (err){
-      console.log(err)
-      return res.status(500).send({ errors: 'Failed to authenticate token.' });
-    }
-
-    //delete tag
-    // var query1 = answerModel.findById(req.body.id_answer)
-    // var result1 = await query1.exec( async function(err1,answer){
-    //
-    //   if (err1){
-    //     console.log(err1)
-    //     return res.status(500).send(err1);
-    //   }
-    //   // delete all tag in answers
-    //   var myHeaders = new Headers();
-    //   myHeaders.append('Content-Type','application/json');
-    //   myHeaders.append('Authorization',authorizationHeader);
-    //   myHeaders.append('Accept','application/json');
-    //   for (var i = 0; i < answer.tagsAnswer.length; i++) {
-    //     console.log(typeof answer._id)
-    //     var myInit = { method: 'POST',
-    //                    headers: myHeaders,
-    //                    body : JSON.stringify({ id_tag: answer.tagsAnswer[i],id_toDelete : answer._id})
-    //                  };
-    //     console.log(answer._id)
-    //     try{
-    //     await fetch("http://localhost:3001/tags/delete",myInit).then(response => console.log(response)).catch(function(error) {console.log(error)});
-    //     console.log("delete answer done")
-    //     //return res.status(200).json("answer deleted succesfuly");
-    //   }catch(error){console.log(error)}
-    //
-    //   }
-    // })
-
-    var query2 = answerModel.findByIdAndRemove(req.body.id_answer)
-    var result2 = await query2.exec(function(err1,deleted){
-      if (err1){
-        console.log(err1)
-        return res.status(500).send(err1);
-      }
-
-      if(deleted){
-        // update array of idAnswers in user model
-        userModel.findById(deleted.ownerAnswer,function(err2,user){
-          if(err2){
-            console.log(err2);
-            return res.status(500).json(err2);
-          }
-          var contentProp = user.idAnswers.filter(id => id != req.body.id_answer);
-          var update = {"idAnswers" : contentProp }
-          userModel.findOneAndUpdate({_id : deleted.ownerAnswer},update,{new: true},function(err3,user1){
-            if(err3){
-              console.log(err3);
-              return res.status(500).json(err3);
-            }
-            console.log("field idAnswers in Answer model modified")
-          });
-        });
-
-        //update array of idAnswers in proposition model
-        propositionModel.findById(deleted.idProp,function(err4,prop){
-          if(err4){
-            console.log(err2);
-            return res.status(500).json(err4);
-          }
-          var contentProp = prop.idAnswers.filter(id => id != req.body.id_answer);
-          var update = {"idAnswers" : contentProp }
-          propositionModel.findOneAndUpdate({_id : deleted.idProp},update,{new: true},function(err5,prop1){
-            if(err5){
-              console.log(err5);
-              return res.status(500).json(err5);
-            }
-            console.log("field idAnswers in proposition model modified")
-            console.log("delete answer done")
-            return res.status(200).json("answer deleted succesfuly");
-          });
-        });
-
-      // if delete fail
-      }else{
-        return res.status(500)
-      }
-    })
-  })
-})
-
 /**
  * @api {post} /answers/ create an answer
  * @apiName PostAnswer
@@ -356,6 +247,8 @@ router.delete('/', async (req, res) => {
  * @apiParam {Boolean} isAnonymous indicates if the answer is published anonymously or not
  * @apiParam {String} idProp id of the proposition where
  * @apiParam {String} tagsAnswer tags of the answer. Each tag is separed by a space
+ *
+ * @apiSuccess {String} id  id of answer added.
  *
  * @apiError (422) FieldMissing content field missing
  *
@@ -391,10 +284,6 @@ router.post('/', (req, res) => {
     answer.ownerAnswer = decoded.user._id;
     answer.idProp = req.body.idProp;
 
-    // prepare tag for insert
-    var tagsReq = req.body.tagsAnswer;
-    var tagsArray = tagsReq.split(' ');
-
     //save proposition in database collection
     answer.save(function (err, answer1) {
       if(err){
@@ -422,48 +311,154 @@ router.post('/', (req, res) => {
         console.log("user answer id update in proposition");
       })
 
-      // counter for tag
-      var counter = 0;
+      if(req.body.tagsAnswer){
+        // prepare tag for insert
+        var tagsReq = req.body.tagsAnswer;
+        var tagsArray = tagsReq.split(' ');
+        // counter for tag
+        var counter = 0;
 
-      // insert each tags or update if exist
-      for (var i = 0; i < tagsArray.length; i++) {
-        var query = {"label" : tagsArray[i]},
-        update = { "label": tagsArray[i],
-                    $inc : { "nbOccurence" : 1},
-                    $push : { "idAnswers" : answer._id}},
-        options = { upsert: true, new: true, setDefaultsOnInsert: true };
+        // insert each tags or update if exist
+        for (var i = 0; i < tagsArray.length; i++) {
+          var query = {"label" : tagsArray[i]},
+          update = { "label": tagsArray[i],
+                      $inc : { "nbOccurence" : 1},
+                      $push : { "idAnswers" : answer._id}},
+          options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-        //insert tag in database
-        tagModel.findOneAndUpdate(query,update,options, function(err,tagRes){
-          if(err){
-            console.log(err);
-            return res.status(500).json(err);
-          }
-
-          console.log("tags insered !");
-
-          // update tag array in answer collection
-          answerModel.findOneAndUpdate({ _id : answer1.id},{$push : { "tagsAnswer" : tagRes._id}},{new: true}, function(err,propU){
+          //insert tag in database
+          tagModel.findOneAndUpdate(query,update,options, function(err,tagRes){
             if(err){
               console.log(err);
               return res.status(500).json(err);
             }
 
-            console.log("Array of tag ID updated in answer collection")
-            counter++;
+            console.log("tags insered !");
 
-            // return the added proposition at the end of the loop
-            if(counter == tagsArray.length){
-              result = {};
-              result[propU._id] = propU;
-              return res.status(201).json(result);
-            }
-          });
-        })
+            // update tag array in answer collection
+            answerModel.findOneAndUpdate({ _id : answer1.id},{$push : { "tagsAnswer" : tagRes._id}},{new: true}, function(err,propU){
+              if(err){
+                console.log(err);
+                return res.status(500).json(err);
+              }
+
+              console.log("Array of tag ID updated in answer collection")
+              counter++;
+
+              // return the added proposition at the end of the loop
+              if(counter == tagsArray.length){
+                return res.status(201).json({id: propU._id});
+              }
+            });
+          })
+        }
+      }else{
+        return res.status(201).json({id: answer1._id});
       }
     });
   })
 });
+
+/**
+ * @api {delete} /answers/ delete an answer
+ * @apiName DeleteAnswer
+ * @apiGroup Answer
+ * @apiPermission connected
+ * @apiDescription delete an answer by is id.
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the answer to delete
+ *
+ *
+ */
+router.delete('/', async (req, res) => {
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
+  var token  = authorizationHeader.split(' ')[1];
+
+  jwt.verify(token, process.env.JWT_KEY , async function(err, decoded) {
+    if (err){
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
+    }
+
+    //delete tag
+    var query1 = answerModel.findById(req.body.id)
+    var result1 = await query1.exec( async function(err1,answer){
+
+      if (err1){
+        console.log(err1)
+        return res.status(500).send(err1);
+      }
+      // delete all tag in answers
+      for (var i = 0; i < answer.tagsAnswer.length; i++) {
+        try{
+          var resDel = await deleteTagAnswer(answer.tagsAnswer[i],req.body.id);
+          console.log(resDel)
+          if(!resDel[0]){
+            return res.status(500).send(resDel[1]);
+          }
+          console.log("delete tag in answer done");
+        }catch(error){
+          console.log(error)
+        }
+      }
+    })
+
+    var query2 = answerModel.findByIdAndRemove(req.body.id)
+    var result2 = await query2.exec(function(err1,deleted){
+      if (err1){
+        console.log(err1)
+        return res.status(500).send(err1);
+      }
+
+      if(deleted){
+
+        // update array of idAnswers in user model
+        userModel.findById(deleted.ownerAnswer,function(err2,user){
+          if(err2){
+            console.log(err2);
+            return res.status(500).json(err2);
+          }
+          var contentProp = user.idAnswers.filter(id => id != req.body.id);
+          var update = {"idAnswers" : contentProp }
+          userModel.findOneAndUpdate({_id : deleted.ownerAnswer},update,{new: true},function(err3,user1){
+            if(err3){
+              console.log(err3);
+              return res.status(500).json(err3);
+            }
+            console.log("field idAnswers in user model modified")
+          });
+        });
+
+        //update array of idAnswers in proposition model
+        propositionModel.findById(deleted.idProp,function(err4,prop){
+          if(err4){
+            console.log(err2);
+            return res.status(500).json(err4);
+          }
+          var contentProp = prop.idAnswers.filter(id => id != req.body.id);
+          var update = {"idAnswers" : contentProp }
+          propositionModel.findOneAndUpdate({_id : deleted.idProp},update,{new: true},function(err5,prop1){
+            if(err5){
+              console.log(err5);
+              return res.status(500).json(err5);
+            }
+            console.log("field idAnswers in proposition model modified")
+            console.log("delete answer done")
+            return res.status(200).json("answer deleted succesfuly");
+          });
+        });
+
+      // if delete fail
+      }else{
+        return res.status(500)
+      }
+    })
+  })
+})
 
 /**
  * @api {get} /answers/ get all answer
@@ -496,4 +491,42 @@ router.get('/', (req,res) =>{
   })
 });
 
-module.exports = router
+
+// delete tag in answer
+// return [true, succes]
+function deleteTagAnswer(identifiant,del){
+  tagModel.findById(identifiant, function(err1,tag){
+    if (err1){
+      console.log(err1)
+      return [false,err1];
+    }
+    // if appear more than 1 time
+    if(tag.nbOccurence > 1){
+      // delete the id in idAnswers field and decrement nbOccurence
+      var content = tag.idAnswers.filter(id => id != del);
+      var update = {"idAnswers" : content,
+                    $inc : { "nbOccurence" : -1}}
+      tagModel.findOneAndUpdate({"_id" : tag._id},update,{new: true}, function(err5,tag1){
+        if(err5){
+          console.log(err5);
+          return [false,err5]
+        }
+        console.log("field idAnswers in tag modified");
+        return [true,"succes"];
+      });
+
+    // if appear 1 time : delete the tag
+    }else{
+      tagModel.findByIdAndRemove(identifiant,function(err8,deleted){
+        if(err8){
+          console.log(err8);
+          return [false,err8];
+        }
+        return [true,"succes"];
+      })
+    }
+  })
+};
+
+module.exports.del = deleteTagAnswer;
+module.exports = router;

@@ -30,7 +30,10 @@ const AnswerSchema = new mongoose.Schema({
   }
 });
 
-
+// Create a virtual property like to sort by like
+AnswerSchema.virtual('nbLikes').get(function() {
+  return idLikesAnswer.length;
+});
 
 // le 3eme parametre est le nom de la collection dans la base
 const Answer =  mongoose.model('Answer',AnswerSchema,'Answer');
