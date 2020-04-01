@@ -300,7 +300,26 @@ router.delete('/', (req, res) => {
   });
 });
 
-
+/**
+ * @api {put} /propositions/ update a proposition
+ * @apiName PutPropositionUpdate
+ * @apiGroup Proposition
+ * @apiPermission connected
+ * @apiDescription update a proposition by is id
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the propostion
+ * @apiParam {String} isAnonymous indicates if the proposition is published anonymously or not
+ *
+ * @apiError (403) ForbiddenAcces unauthorized to update this proposition
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ */
 router.put('/', (req, res) => {
 
   // get the token
@@ -324,7 +343,6 @@ router.put('/', (req, res) => {
     // format the changed field
     proposition = {
       "dateProp" : Date.now(),
-      "contentProp" : req.body.contentProp,
       "isAnonymous" : req.body.isAnonymous,
     }
 
@@ -335,7 +353,7 @@ router.put('/', (req, res) => {
         return res.status(500).send({ errors: 'update fail' });
       }
       console.log("proposition updated")
-      return res.status(200).json(prop);
+      return res.status(200).json({id : prop_id});
     })
   });
 });
@@ -730,7 +748,7 @@ router.post('/', (req, res) => {
  * @apiGroup Proposition
  * @apiPermission none
  * @apiDescription get data of all proposition
- 
+
  * @apiSuccess {String} _id id of the proposition
  * @apiSuccess {String} title title of the proposition
  * @apiSuccess {String} dateProp date of the proposition

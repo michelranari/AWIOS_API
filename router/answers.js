@@ -313,6 +313,20 @@ router.get('/:id', async (req,res) =>{
   })
 });
 
+/**
+ * @api {put} /answers/ update a answer
+ * @apiName PutAnswerUpdate
+ * @apiGroup Answer
+ * @apiPermission connected
+ * @apiDescription update a answer by is id
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiParam {String} id id of the answer to update
+ * @apiParam {String} isAnonymous indicates if the answer is published anonymously or not
+ *
+ * @apiError (403) ForbiddenAcces unauthorized to update this answer
+ */
 router.put('/', (req, res) => {
 
   // get the token
@@ -336,7 +350,6 @@ router.put('/', (req, res) => {
     // format the changed field
     answer = {
       "dateAnswer" : Date.now(),
-      "contentAnswer" : req.body.contentAnswer,
       "isAnonymous" : req.body.isAnonymous,
     }
 

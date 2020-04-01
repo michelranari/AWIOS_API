@@ -882,6 +882,78 @@ define({ "api": [
   },
   {
     "type": "put",
+    "url": "/answers/",
+    "title": "update a answer",
+    "name": "PutAnswerUpdate",
+    "group": "Answer",
+    "permission": [
+      {
+        "name": "connected",
+        "title": "user need to be connected to have permision",
+        "description": "<p>Need to be connected</p>"
+      }
+    ],
+    "description": "<p>update a answer by is id</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the answer to update</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "isAnonymous",
+            "description": "<p>indicates if the answer is published anonymously or not</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAcces",
+            "description": "<p>unauthorized to update this answer</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "router/answers.js",
+    "groupTitle": "Answer"
+  },
+  {
+    "type": "put",
     "url": "/answers/dislike",
     "title": "dislike an answer",
     "name": "PutAnswerdislike",
@@ -2018,6 +2090,87 @@ define({ "api": [
             "optional": false,
             "field": "ForbiddenAccesReport",
             "description": "<p>Proposition already reported</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/propositions.js",
+    "groupTitle": "Proposition"
+  },
+  {
+    "type": "put",
+    "url": "/propositions/",
+    "title": "update a proposition",
+    "name": "PutPropositionUpdate",
+    "group": "Proposition",
+    "permission": [
+      {
+        "name": "connected",
+        "title": "user need to be connected to have permision",
+        "description": "<p>Need to be connected</p>"
+      }
+    ],
+    "description": "<p>update a proposition by is id</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the propostion</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "isAnonymous",
+            "description": "<p>indicates if the proposition is published anonymously or not</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAcces",
+            "description": "<p>unauthorized to update this proposition</p>"
           }
         ],
         "500": [
