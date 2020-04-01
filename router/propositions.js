@@ -301,7 +301,7 @@ router.delete('/', (req, res) => {
 });
 
 /**
- * @api {put} /propositions/ update a proposition
+ * @api {put} /propositions/ update anonym
  * @apiName PutPropositionUpdate
  * @apiGroup Proposition
  * @apiPermission connected
@@ -354,7 +354,7 @@ router.put('/', (req, res) => {
         return res.status(500).send({ errors: 'update fail' });
       }
       console.log("proposition updated")
-      return res.status(200).json({id : prop_id});
+      return res.status(200).json({id : prop._id});
     })
   });
 });

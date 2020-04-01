@@ -362,7 +362,7 @@ router.put('/', (req, res) => {
       }
 
       console.log("answer updated")
-      return res.status(200).json(answer);
+      return res.status(200).json({id: answer._id});
     })
   });
 });
