@@ -347,6 +347,13 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "_id",
+            "description": "<p>id of the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "dateAnswer",
             "description": "<p>date of the answer</p>"
           },
@@ -391,6 +398,13 @@ define({ "api": [
             "optional": false,
             "field": "idProp",
             "description": "<p>id of the proposition linked to the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idReport",
+            "description": "<p>Array of id of user who report the proposition</p>"
           }
         ]
       }
@@ -427,6 +441,13 @@ define({ "api": [
     "success": {
       "fields": {
         "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>id of the answer</p>"
+          },
           {
             "group": "Success 200",
             "type": "String",
@@ -468,6 +489,13 @@ define({ "api": [
             "optional": false,
             "field": "tagsAnswer",
             "description": "<p>Array of id of tags attached to the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idReport",
+            "description": "<p>Array of id of user who report the proposition</p>"
           },
           {
             "group": "Success 200",
@@ -768,7 +796,7 @@ define({ "api": [
   {
     "type": "put",
     "url": "/answers/report",
-    "title": "report a proposition",
+    "title": "report an answer",
     "name": "PutAnswerReport",
     "group": "Answer",
     "permission": [
@@ -1057,6 +1085,13 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "_id",
+            "description": "<p>id of the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "dateAnswer",
             "description": "<p>date of the answer</p>"
           },
@@ -1094,6 +1129,13 @@ define({ "api": [
             "optional": false,
             "field": "tagsAnswer",
             "description": "<p>Array of id of tags attached to the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idReport",
+            "description": "<p>Array of id of user who report the answer</p>"
           },
           {
             "group": "Success 200",
@@ -1153,6 +1195,13 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "_id",
+            "description": "<p>id of the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "title",
             "description": "<p>title of the proposition</p>"
           },
@@ -1204,6 +1253,13 @@ define({ "api": [
             "optional": false,
             "field": "idAnswers",
             "description": "<p>Array of id of answers of to the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idReport",
+            "description": "<p>Array of id of user who report the proposition</p>"
           }
         ]
       }
@@ -1267,6 +1323,13 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "_id",
+            "description": "<p>id of the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "title",
             "description": "<p>title of the proposition</p>"
           },
@@ -1318,6 +1381,13 @@ define({ "api": [
             "optional": false,
             "field": "idAnswers",
             "description": "<p>Array of id of answers of to the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idReport",
+            "description": "<p>Array of id of user who report the proposition</p>"
           }
         ]
       }
@@ -1354,6 +1424,13 @@ define({ "api": [
     "success": {
       "fields": {
         "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>id of the proposition</p>"
+          },
           {
             "group": "Success 200",
             "type": "String",
@@ -1409,6 +1486,13 @@ define({ "api": [
             "optional": false,
             "field": "idAnswers",
             "description": "<p>Array of id of answers of to the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idReport",
+            "description": "<p>Array of id of user who report the proposition</p>"
           }
         ]
       }
@@ -1431,6 +1515,13 @@ define({ "api": [
     "success": {
       "fields": {
         "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>id of the proposition</p>"
+          },
           {
             "group": "Success 200",
             "type": "String",
@@ -1486,6 +1577,13 @@ define({ "api": [
             "optional": false,
             "field": "idAnswers",
             "description": "<p>Array of id of answers of to the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idReport",
+            "description": "<p>Array of id of user who report the proposition</p>"
           }
         ]
       }

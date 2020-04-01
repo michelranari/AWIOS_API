@@ -22,12 +22,14 @@ dotenv.config();
  *
  * @apiParam {String} id id of the propostion
  *
+ * @apiSuccess {String} _id id of the proposition
  * @apiSuccess {String} dateAnswer date of the answer
  * @apiSuccess {String} contentAnswer content of the answer
  * @apiSuccess {Boolean} isAnonymous indicates if the answer is published anonymously or not
  * @apiSuccess {String} ownerAnswer id of the user who wrote the answer
  * @apiSuccess {String[]} idLikesAnswer Array of id of users who liked the answer
  * @apiSuccess {String[]} tagsAnswer Array of id of tags attached to the answer
+ * @apiSuccess {String[]} idReport Array of id of user who report the answer
  * @apiSuccess {String} idProp id of the proposition linked to the answer
  *
  * @apiError (204) PropositonNotFound Proposition not found
@@ -70,6 +72,7 @@ router.get('/:id/answers/best',(req, res) => {
  *
  * @apiParam {String} tag all tag in insered the parameters of the url. Example : tag=internet. Exemple of url : localhost:3001/propositions/sort/like?tag=internet&tag1=soiree
  *
+ * @apiSuccess {String} _id id of the proposition
  * @apiSuccess {String} titleProp title of the proposition
  * @apiSuccess {String} dateProp date of the proposition
  * @apiSuccess {String} contentProp content of the proposition
@@ -78,6 +81,7 @@ router.get('/:id/answers/best',(req, res) => {
  * @apiSuccess {String[]} idLikesProp Array of id of users who liked the propositions
  * @apiSuccess {String[]} tagsProp Array of id of tags attached to the proposition
  * @apiSuccess {String[]} idAnswers Array of id of answers of to the proposition
+ * @apiSuccess {String[]} idReport Array of id of user who report the proposition
  */
 router.get('/sort/like', async (req,res) =>{
   try {
@@ -115,6 +119,7 @@ router.get('/sort/like', async (req,res) =>{
  * @apiParam {String="asc","desc"} sort sort propostion by ascending "asc" or descending "desc"
  * @apiParam {String} tag all tag in insered the parameters of the url. Example : tag=internet. Exemple of url : localhost:3001/propositions/sort/like?tag=internet&tag1=soiree
  *
+ * @apiSuccess {String} _id id of the proposition
  * @apiSuccess {String} title title of the proposition
  * @apiSuccess {String} dateProp date of the proposition
  * @apiSuccess {String} contentProp content of the proposition
@@ -123,6 +128,7 @@ router.get('/sort/like', async (req,res) =>{
  * @apiSuccess {String[]} idLikesProp Array of id of users who liked the propositions
  * @apiSuccess {String[]} tagsProp Array of id of tags attached to the proposition
  * @apiSuccess {String[]} idAnswers Array of id of answers of to the proposition
+ * @apiSuccess {String[]} idReport Array of id of user who report the proposition
  */
 router.get('/sort/:sort', async (req,res) =>{
   try {
@@ -158,6 +164,7 @@ router.get('/sort/:sort', async (req,res) =>{
  *
  * @apiParam {String} id id of the propostion
  *
+ * @apiSuccess {String} _id id of the proposition
  * @apiSuccess {String} title title of the proposition
  * @apiSuccess {String} dateProp date of the proposition
  * @apiSuccess {String} contentProp content of the proposition
@@ -166,6 +173,7 @@ router.get('/sort/:sort', async (req,res) =>{
  * @apiSuccess {String[]} idLikesProp Array of id of users who liked the proposition
  * @apiSuccess {String[]} tagsProp Array of id of tags attached to the proposition
  * @apiSuccess {String[]} idAnswers Array of id of answers of to the proposition
+ * @apiSuccess {String[]} idReport Array of id of user who report the proposition
  *
  * @apiError (204) PropositonNotFound Proposition not found
  */
@@ -722,7 +730,8 @@ router.post('/', (req, res) => {
  * @apiGroup Proposition
  * @apiPermission none
  * @apiDescription get data of all proposition
- *
+ 
+ * @apiSuccess {String} _id id of the proposition
  * @apiSuccess {String} title title of the proposition
  * @apiSuccess {String} dateProp date of the proposition
  * @apiSuccess {String} contentProp content of the proposition
@@ -731,6 +740,7 @@ router.post('/', (req, res) => {
  * @apiSuccess {String[]} idLikesProp Array of id of users who liked the propositions
  * @apiSuccess {String[]} tagsProp Array of id of tags attached to the proposition
  * @apiSuccess {String[]} idAnswers Array of id of answers of to the proposition
+ * @apiSuccess {String[]} idReport Array of id of user who report the proposition
  *
  */
 router.get('/', (req,res) =>{

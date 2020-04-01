@@ -145,7 +145,7 @@ router.put('/dislike', (req, res) => {
 });
 
 /**
- * @api {put} /answers/report report a proposition
+ * @api {put} /answers/report report an answer
  * @apiName PutAnswerReport
  * @apiGroup Answer
  * @apiPermission connected
@@ -285,12 +285,14 @@ router.put('/cancel-report', (req, res) => {
  *
  * @apiParam {String} id id of the answer
  *
+ * @apiSuccess {String} _id id of the answer
  * @apiSuccess {String} dateAnswer date of the answer
  * @apiSuccess {String} contentAnswer content of the answer
  * @apiSuccess {Boolean} isAnonymous indicates if the answer is published anonymously or not
  * @apiSuccess {String} ownerAnswer id of the user who wrote the answer
  * @apiSuccess {String[]} idLikesAnswer Array of id of users who liked the answer
  * @apiSuccess {String[]} tagsAnswer Array of id of tags attached to the answer
+ * @apiSuccess {String[]} idReport Array of id of user who report the proposition
  * @apiSuccess {String} idProp id of the proposition linked to the answer
  *
  */
@@ -591,6 +593,7 @@ router.delete('/', async (req, res) => {
  * @apiPermission none
  * @apiDescription get data of all answer
  *
+ * @apiSuccess {String} _id id of the answer
  * @apiSuccess {String} dateAnswer date of the answer
  * @apiSuccess {String} contentAnswer content of the answer
  * @apiSuccess {Boolean} isAnonymous indicates if the answer is published anonymously or not
@@ -598,6 +601,7 @@ router.delete('/', async (req, res) => {
  * @apiSuccess {String[]} idLikesAnswer Array of id of users who liked the answer
  * @apiSuccess {String[]} tagsAnswer Array of id of tags attached to the answer
  * @apiSuccess {String} idProp id of the proposition linked to the answer
+ * @apiSuccess {String[]} idReport Array of id of user who report the proposition
  *
  */
 router.get('/', (req,res) =>{
