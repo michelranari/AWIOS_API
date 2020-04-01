@@ -31,7 +31,6 @@ router.get('/best', (req,res) =>{
       return res.status(500).send(err);
     }
 
-    console.log("here")
     // if resource exist
     if(tags){
     //format the query

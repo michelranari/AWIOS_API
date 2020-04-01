@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const AnswerSchema = new mongoose.Schema({
   dateAnswer:{
     type: Date,
-    default : Date.now()
+    default : Date.now
   },
   contentAnswer:{
     type:String

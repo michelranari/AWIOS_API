@@ -84,19 +84,20 @@ router.get('/sort/like', async (req,res) =>{
 
     var tags = req.query; // {} when empty
     var tagsArray = []
-    var prop = await propositionModel.find({}).sort({nbLikes : "desc"}).exec();
+    var prop;
 
     // if the tags are not empty
     if(!(Object.keys(tags).length === 0 && tags.constructor === Object)){
       for (t in tags){
         tagsArray.push(new mongoose.Types.ObjectId(tags[t]))
       }
-      prop = await propositionModel.find({tagsProp : {"$in" : tagsArray}}).sort({"nbLikes" : "desc"}).exec();
+      prop = await propositionModel.find({tagsProp : {"$in" : tagsArray}}).exec();
     }
     else{
       prop = await propositionModel.find({}).sort({"nbLikes" : "desc"}).exec();
     }
 
+    await prop.sort(compareLike);
     return res.status(200).json(prop);
 
   }catch(error){
@@ -900,6 +901,15 @@ function deleteTagAnswer(identifiant,del){
 function compare(a,b){
   var al = a.idLikesAnswer.length;
   var bl = b.idLikesAnswer.length;
+  if(al > bl) return -1;
+  if(bl > al) return 1;
+  return 0;
+}
+
+// compare for sort function
+function compareLike(a,b){
+  var al = a.idLikesProp.length;
+  var bl = b.idLikesProp.length;
   if(al > bl) return -1;
   if(bl > al) return 1;
   return 0;
