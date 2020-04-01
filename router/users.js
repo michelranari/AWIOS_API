@@ -176,6 +176,7 @@ router.post('/authenticate', (req, res) => {
  * @apiParam {String} password password of user
  * @apiParam {String} mail mail of user
  *
+ * @apiSuccess (201) NoContent NoContent
  *
  * @apiError (422) FiedMissing field pseudo,password or mail is not filled
  * @apiError (400) InvalidPorM Pseudo or mail already exist

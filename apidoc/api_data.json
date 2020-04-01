@@ -1,6 +1,271 @@
 [
   {
     "type": "put",
+    "url": "/admin/answers/reported",
+    "title": "get answers reported",
+    "name": "GetAdminAnswersReported",
+    "group": "Admin",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>A admin connected and with the right</p>"
+      }
+    ],
+    "description": "<p>get all answers reported</p>",
+    "success": {
+      "fields": {
+        "204": [
+          {
+            "group": "204",
+            "optional": false,
+            "field": "NoContent",
+            "description": "<p>No proposition reported found</p>"
+          }
+        ],
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>id of the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dateAnswer",
+            "description": "<p>date of the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "contentAnswer",
+            "description": "<p>content of the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isAnonymous",
+            "description": "<p>indicates if the answer is published anonymously or not</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "ownerAnswer",
+            "description": "<p>id of the user who wrote the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idLikesAnswer",
+            "description": "<p>Array of id of users who liked the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "tagsAnswer",
+            "description": "<p>Array of id of tags attached to the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "idProp",
+            "description": "<p>id of the proposition linked to the answer</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idReport",
+            "description": "<p>Array of id of user who report the proposition</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAccesClean",
+            "description": "<p>Admin right needed</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "router/admin.js",
+    "groupTitle": "Admin"
+  },
+  {
+    "type": "put",
+    "url": "/admin/propositions/reported",
+    "title": "get propositions reported",
+    "name": "GetAdminPropositionsReported",
+    "group": "Admin",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>A admin connected and with the right</p>"
+      }
+    ],
+    "description": "<p>get all propositions reported</p>",
+    "success": {
+      "fields": {
+        "204": [
+          {
+            "group": "204",
+            "optional": false,
+            "field": "NoContent",
+            "description": "<p>No proposition reported found</p>"
+          }
+        ],
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>id of the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "titleProp",
+            "description": "<p>title of the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dateProp",
+            "description": "<p>date of the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "contentProp",
+            "description": "<p>content of the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isAnonymous",
+            "description": "<p>indicates if the proposition is published anonymously or not</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "ownerProp",
+            "description": "<p>id of the user who wrote the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idLikesProp",
+            "description": "<p>Array of id of users who liked the propositions</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "tagsProp",
+            "description": "<p>Array of id of tags attached to the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idAnswers",
+            "description": "<p>Array of id of answers of to the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "idReport",
+            "description": "<p>Array of id of user who report the proposition</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAccesClean",
+            "description": "<p>Admin right needed</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "router/admin.js",
+    "groupTitle": "Admin"
+  },
+  {
+    "type": "put",
     "url": "/admin/ban",
     "title": "banned an user",
     "name": "PostUserAdminBan",
@@ -2819,6 +3084,18 @@
             "optional": false,
             "field": "mail",
             "description": "<p>mail of user</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "201": [
+          {
+            "group": "201",
+            "optional": false,
+            "field": "NoContent",
+            "description": "<p>NoContent</p>"
           }
         ]
       }

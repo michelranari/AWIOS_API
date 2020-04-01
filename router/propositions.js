@@ -33,7 +33,7 @@ dotenv.config();
  * @apiSuccess {String[]} idReport Array of id of user who report the answer
  * @apiSuccess {String} idProp id of the proposition linked to the answer
  *
- * @apiError (204) PropositonNotFound Proposition not found
+ * @apiSucess (204) PropositonNotFound Proposition not found
  */
 router.get('/:id/answers/best',(req, res) => {
   propositionModel.findById(req.params.id, async function(err,prop){
@@ -778,10 +778,6 @@ router.get('/', (req,res) =>{
     }
     return res.status(200).json(result);
   })
-});
-
-router.get('/docApi', (req,res) =>{
-  res.sendFile('../apidoc/index.html');
 });
 
 async function deleteAnswer(id){

@@ -8,6 +8,7 @@ const answerModel = require('../models/answer')
 const propositionModel = require('../models/proposition')
 const userModel = require('../models/user')
 const tagModel = require('../models/tag')
+var fs = require('fs');
 dotenv.config();
 
 /**
@@ -240,6 +241,142 @@ router.put('/answers/clean-report', (req, res) => {
   });
 });
 
+/**
+ * @api {put} /admin/propositions/reported get propositions reported
+ * @apiName GetAdminPropositionsReported
+ * @apiGroup Admin
+ * @apiPermission admin
+ * @apiDescription get all propositions reported
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiSuccess {String} _id id of the proposition
+ * @apiSuccess {String} titleProp title of the proposition
+ * @apiSuccess {String} dateProp date of the proposition
+ * @apiSuccess {String} contentProp content of the proposition
+ * @apiSuccess {Boolean} isAnonymous indicates if the proposition is published anonymously or not
+ * @apiSuccess {String} ownerProp id of the user who wrote the proposition
+ * @apiSuccess {String[]} idLikesProp Array of id of users who liked the propositions
+ * @apiSuccess {String[]} tagsProp Array of id of tags attached to the proposition
+ * @apiSuccess {String[]} idAnswers Array of id of answers of to the proposition
+ * @apiSuccess {String[]} idReport Array of id of user who report the proposition
+ *
+ * @apiSuccess (204) NoContent No proposition reported found
+ *
+ * @apiError (403) ForbiddenAccesClean Admin right needed
+ *
+ */
+router.get('/propositions/reported', (req, res) => {
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
+  var token  = authorizationHeader.split(' ')[1];
+
+  // verify token
+  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
+    if (err){
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
+    }
+
+    // if not admin
+    if(!decoded.user.isAdmin){
+      return res.status(403).send({ errors: 'Forbidden' });
+    }
+
+    propositionModel.find({"idReport.0" : { "$exists": true }}, function(err,prop){
+      if (err){
+        console.log(err)
+        return res.status(500).send(err);
+      }
+
+      if(!prop){
+        return res.status(204).send("no proposition found")
+      }
+
+      result = {}
+      for (var i = 0; i < prop.length; i++) {
+        result[prop[i]._id] = prop[i];
+      }
+
+      return res.status(200).send(result);
+    })
+  })
+})
+
+/**
+ * @api {put} /admin/answers/reported get answers reported
+ * @apiName GetAdminAnswersReported
+ * @apiGroup Admin
+ * @apiPermission admin
+ * @apiDescription get all answers reported
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiSuccess {String} _id id of the answer
+ * @apiSuccess {String} dateAnswer date of the answer
+ * @apiSuccess {String} contentAnswer content of the answer
+ * @apiSuccess {Boolean} isAnonymous indicates if the answer is published anonymously or not
+ * @apiSuccess {String} ownerAnswer id of the user who wrote the answer
+ * @apiSuccess {String[]} idLikesAnswer Array of id of users who liked the answer
+ * @apiSuccess {String[]} tagsAnswer Array of id of tags attached to the answer
+ * @apiSuccess {String} idProp id of the proposition linked to the answer
+ * @apiSuccess {String[]} idReport Array of id of user who report the proposition
+ *
+ * @apiSuccess (204) NoContent No proposition reported found
+ *
+ * @apiError (403) ForbiddenAccesClean Admin right needed
+ *
+ */
+router.get('/answers/reported', (req, res) => {
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
+  var token  = authorizationHeader.split(' ')[1];
+
+  // verify token
+  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
+    if (err){
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
+    }
+
+    // if not admin
+    if(!decoded.user.isAdmin){
+      return res.status(403).send({ errors: 'Forbidden' });
+    }
+
+    answerModel.find({"idReport.0" : { "$exists": true }}, function(err,answer){
+      if (err){
+        console.log(err)
+        return res.status(500).send(err);
+      }
+
+      if(!answer){
+        return res.status(204).send("no answer found")
+      }
+
+      result = {}
+      for (var i = 0; i < answer.length; i++) {
+        result[answer[i]._id] = answer[i];
+      }
+
+      return res.status(200).send(result);
+    })
+  })
+})
+
+router.get('/apidoc', (req, res) => {
+  fs.readFile('../apidoc/index.html', function(err, data) {
+    if(err){
+      console.log(err)
+      return res.status(500).send(err);
+    }
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(data);
+    res.end();
+  });
+})
 
 
 module.exports = router;
