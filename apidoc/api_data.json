@@ -96,7 +96,7 @@
   {
     "type": "put",
     "url": "/admin/cancel-ban",
-    "title": "banned an user",
+    "title": "cancel ban of user",
     "name": "PostUserAdminCancelBan",
     "group": "Admin",
     "permission": [
@@ -1286,6 +1286,13 @@
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "titleProp",
+            "description": "<p>title of the proposition</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "dateAnswer",
             "description": "<p>date of the answer</p>"
           },
@@ -1720,7 +1727,7 @@
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "title",
+            "field": "titleProp",
             "description": "<p>title of the proposition</p>"
           },
           {
