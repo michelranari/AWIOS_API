@@ -201,6 +201,8 @@ router.delete('/test', (req, res) => {
  *
  * @apiParam {String} id id of the propostion to delete
  *
+ * @apiSuccess (204) 204 No content
+ *
  * @apiError (403) ForbiddenAcces unauthorized to delete this proposition
  * @apiHeaderExample {json} Header-Example:
  *     {
@@ -283,35 +285,14 @@ router.delete('/', (req, res) => {
           }
           console.log("field idPropositions in User model modified")
           console.log("delete proposition done")
-          return res.status(200).json("proposition deleted succesfuly");
+          return res.status(204).send("delete proposition done");;
         });
       });
     });
   });
 });
 
-/**
- * @api {put} /propositions/ update a proposition
- * @apiName PutPropositionUpdate
- * @apiGroup Proposition
- * @apiPermission connected
- * @apiDescription update a proposition by is id
- * @apiUse TokenMissingError
- * @apiUse AuthenticateTokenFailed
- *
- * @apiParam {String} id id of the propostion
- * @apiParam {String} contentProp content of the propostion
- * @apiParam {String} isAnonymous indicates if the proposition is published anonymously or not
- * @apiParam {String} ownerProp id of the user who wrote the proposition
- *
- * @apiError (403) ForbiddenAcces unauthorized to update this proposition
- *
- * @apiHeaderExample {json} Header-Example:
- *     {
- *       "Content-Type": "application/json",
- *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
- *     }
- */
+
 router.put('/', (req, res) => {
 
   // get the token
@@ -361,6 +342,8 @@ router.put('/', (req, res) => {
  * @apiUse AuthenticateTokenFailed
  *
  * @apiParam {String} id id of the propostion to report
+ *
+ * @apiSuccess {String} id id of the propostion reported
  *
  * @apiError (403) ForbiddenAccesReport Proposition already reported
  *
@@ -427,6 +410,8 @@ router.put('/report', (req, res) => {
  *
  * @apiError (403) ForbiddenAccesDislike Proposition is not reported or number number of report equal to 0
  *
+ * @apiSuccess {String} id id of the propostion who the report is canceled
+ *
  * @apiHeaderExample {json} Header-Example:
  *     {
  *       "Content-Type": "application/json",
@@ -490,6 +475,8 @@ router.put('/cancel-report', (req, res) => {
  *
  * @apiParam {String} id id of the propostion to like
  *
+ * @apiSuccess {String} id id of the propostion liked
+ *
  * @apiError (403) ForbiddenAccesLike Proposition already like
  *
  * @apiHeaderExample {json} Header-Example:
@@ -531,9 +518,7 @@ router.put('/like', (req, res) => {
           }
 
           console.log("proposition like updated")
-          result = {};
-          result[prop1._id] = prop1;
-          return res.status(200).json(result);
+          return res.status(200).json({id : prop1._id});
 
         });
       }else{
@@ -555,6 +540,8 @@ router.put('/like', (req, res) => {
  * @apiUse AuthenticateTokenFailed
  *
  * @apiParam {String} id id of the propostion to dislike
+ *
+ * @apiSuccess {String} id id of the propostion disliked
  *
  * @apiError (403) ForbiddenAccesDislike Proposition is not liked or number like equal to 0
  *
@@ -598,9 +585,7 @@ router.put('/dislike', (req, res) => {
           }
 
           console.log("proposition like updated")
-          result = {};
-          result[prop1._id] = prop1;
-          return res.status(200).json(result);
+          return res.status(200).json({id : prop1._id});
 
         });
       }else{

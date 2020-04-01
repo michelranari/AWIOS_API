@@ -57,6 +57,8 @@ router.get('/best', (req,res) =>{
  * @apiParam {String} id id of the tag to delete
  * @apiParam {String} toDelete id of the proposition or answer that contains th tag to delete
  *
+ * @apiSuccess (204) 204 No content
+ *
  */
 router.delete('/', (req,res) =>{
   // get the token
@@ -177,7 +179,7 @@ function del(identifiant,del,res){
               }
               console.log("here 2")
               console.log("field tagsProps in proposition model modified")
-              return res.status(200).json("tag deleted succesfuly");
+              return res.status(204).json("tag deleted succesfuly");
             });
           });
 
@@ -213,7 +215,7 @@ function del(identifiant,del,res){
               return res.status(500).json(err7);
             }
             console.log("field tagsAnswer in Answer model modified")
-            return res.status(200).json("tag deleted succesfuly");
+            return res.status(204).json("tag deleted succesfuly");
           });
         });
       }
@@ -240,7 +242,7 @@ function del(identifiant,del,res){
                 return res.status(500).json(err10);
               }
               console.log("field tagsProps in proposition model modified")
-              return res.status(200).json("tag deleted succesfuly");
+              return res.status(204).json("tag deleted succesfuly");
             });
           });
         }else{
@@ -258,7 +260,7 @@ function del(identifiant,del,res){
                 return res.status(500).json(err12);
               }
               console.log("field tagsAnswer in Answer model modified")
-              return res.status(200).json("tag deleted succesfuly");
+              return res.status(204).json("tag deleted succesfuly");
             });
           });
         }

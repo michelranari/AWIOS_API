@@ -21,6 +21,8 @@ dotenv.config();
  *
  * @apiParam {String} id id of the answer to like
  *
+ * @apiSuccess {String} id id of the answer liked
+ *
  * @apiError (403) ForbiddenAccesLike Answer already like
  *
  * @apiHeaderExample {json} Header-Example:
@@ -62,9 +64,7 @@ router.put('/like', (req, res) => {
           }
 
           console.log("answer like updated")
-          result = {};
-          result[answ1._id] = answ1;
-          return res.status(200).json(result);
+          return res.status(200).json({id : answ1._id});
 
         });
       }else{
@@ -85,6 +85,8 @@ router.put('/like', (req, res) => {
  * @apiUse AuthenticateTokenFailed
  *
  * @apiParam {String} id id of the answer to dislike
+ *
+ * @apiSuccess {String} id id of the answer disliked
  *
  * @apiError (403) ForbiddenAccesLike Answer already dislike
  *
@@ -153,6 +155,8 @@ router.put('/dislike', (req, res) => {
  *
  * @apiParam {String} id id of the answer to report
  *
+ * @apiSuccess {String} id id of the answer reported
+ *
  * @apiError (403) ForbiddenAccesReport answer already reported
  *
  * @apiHeaderExample {json} Header-Example:
@@ -215,6 +219,8 @@ router.put('/report', (req, res) => {
  * @apiUse AuthenticateTokenFailed
  *
  * @apiParam {String} id id of the answer to cancel the report
+ *
+ * @apiSuccess {String} id id of the answer who the report is canceled
  *
  * @apiError (403) ForbiddenAccesDislike answer is not reported or number number of report equal to 0
  *
@@ -305,22 +311,6 @@ router.get('/:id', async (req,res) =>{
   })
 });
 
-/**
- * @api {put} /answers/ update a answer
- * @apiName PutAnswerUpdate
- * @apiGroup Answer
- * @apiPermission connected
- * @apiDescription update a answer by is id
- * @apiUse TokenMissingError
- * @apiUse AuthenticateTokenFailed
- *
- * @apiParam {String} id id of the answer to update
- * @apiParam {String} contentAnswer content of the answer
- * @apiParam {String} isAnonymous indicates if the answer is published anonymously or not
- * @apiParam {String} ownerAnswer id of the user who wrote the answer
- *
- * @apiError (403) ForbiddenAcces unauthorized to update this answer
- */
 router.put('/', (req, res) => {
 
   // get the token
@@ -495,8 +485,9 @@ router.post('/', (req, res) => {
  * @apiUse TokenMissingError
  * @apiUse AuthenticateTokenFailed
  *
- * @apiParam {String} id id of the answer to delete
+ * @apiParam {String} id id of the answer to delet
  *
+ * @apiSuccess (204) 204 No content
  *
  */
 router.delete('/', async (req, res) => {
@@ -581,7 +572,7 @@ router.delete('/', async (req, res) => {
             }
             console.log("field idAnswers in proposition model modified")
             console.log("delete answer done")
-            return res.status(200).json("answer deleted succesfuly");
+            return res.status(204).json("answer deleted succesfuly");
           });
         });
 

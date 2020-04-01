@@ -20,6 +20,8 @@ dotenv.config();
  * @apiParam {String} newPassword  the new password
  * @apiParam {String} confirmPassword the confirmed password. Need to be exactly the same than the new password
  *
+ * @apiSuccess (204) 204 No content
+ *
  * @apiError (422) FiedMissing field oldPassword, newPassword or confirmPassword is not filled
  * @apiError (400) InvalidPassword Invalid password
  * @apiError (400) PasswordNotMatch new and confirm password don't match
@@ -79,7 +81,7 @@ router.put('/password/change', (req, res) => {
               }
 
               console.log("password changed succesfuly");
-              res.status(200).json("password changed succesfuly");
+              res.status(204).json("password changed succesfuly");
             });
           }else{
               return res.status(400).json({errors: "password is invalid !"});
@@ -225,6 +227,8 @@ router.post('/', (req, res) => {
  * @apiUse TokenMissingError
  * @apiUse AuthenticateTokenFailed
  *
+ * @apiSuccess (204) 204 No content
+ *
  * @apiHeaderExample {json} Header-Example:
  *     {
  *       "Content-Type": "application/json",
@@ -253,7 +257,7 @@ router.put('/logout', (req, res) => {
         return res.status(500).json(err);
       }
       console.log("user update and logout");
-      res.status(200).send({ token: null });
+      res.status(204).send({ token: null });
     });
 
   });

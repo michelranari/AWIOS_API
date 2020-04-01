@@ -22,6 +22,8 @@ dotenv.config();
  *
  * @apiParam {String} id The Users-ID.
  *
+ * @apiSuccess (204) 204 No content
+ *
  * @apiError (422) FiedMissing The Users-ID is required
  *
  * @apiHeaderExample {json} Header-Example:
@@ -62,7 +64,7 @@ router.put('/ban', (req, res) => {
         return res.status(500).json(err);
       }
       console.log("user banned");
-      res.status(200).send("user banned");
+      res.status(204).send("user banned");
     });
 
   });
@@ -78,6 +80,8 @@ router.put('/ban', (req, res) => {
  * @apiUse AuthenticateTokenFailed
  *
  * @apiParam {String} id id of the propostion to clean array of reports
+ *
+ * @apiSuccess {String} id id of the propostion who the reports are cleaned
  *
  * @apiError (403) ForbiddenAccesClean Admin right needed
  *
@@ -130,6 +134,8 @@ router.put('/propositions/clean-report', (req, res) => {
  * @apiUse AuthenticateTokenFailed
  *
  * @apiParam {String} id id of the answer to clean array of reports
+ *
+ * @apiSuccess {String} id id of the answer who the reports are cleaned
  *
  * @apiError (403) ForbiddenAccesClean Admin right needed
  *
