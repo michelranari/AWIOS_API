@@ -26,6 +26,18 @@
         ]
       }
     },
+    "success": {
+      "fields": {
+        "204": [
+          {
+            "group": "204",
+            "optional": false,
+            "field": "204",
+            "description": "<p>No content</p>"
+          }
+        ]
+      }
+    },
     "error": {
       "fields": {
         "401": [
@@ -96,6 +108,19 @@
             "optional": false,
             "field": "id",
             "description": "<p>id of the answer to clean array of reports</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the answer who the reports are cleaned</p>"
           }
         ]
       }
@@ -174,6 +199,19 @@
         ]
       }
     },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the propostion who the reports are cleaned</p>"
+          }
+        ]
+      }
+    },
     "error": {
       "fields": {
         "401": [
@@ -243,7 +281,19 @@
             "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>id of the answer to delete</p>"
+            "description": "<p>id of the answer to delet</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "204": [
+          {
+            "group": "204",
+            "optional": false,
+            "field": "204",
+            "description": "<p>No content</p>"
           }
         ]
       }
@@ -568,6 +618,19 @@
         ]
       }
     },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the answer who the report is canceled</p>"
+          }
+        ]
+      }
+    },
     "error": {
       "fields": {
         "401": [
@@ -638,6 +701,19 @@
             "optional": false,
             "field": "id",
             "description": "<p>id of the answer to like</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the answer liked</p>"
           }
         ]
       }
@@ -716,6 +792,19 @@
         ]
       }
     },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the answer reported</p>"
+          }
+        ]
+      }
+    },
     "error": {
       "fields": {
         "401": [
@@ -765,92 +854,6 @@
   },
   {
     "type": "put",
-    "url": "/answers/",
-    "title": "update a answer",
-    "name": "PutAnswerUpdate",
-    "group": "Answer",
-    "permission": [
-      {
-        "name": "connected",
-        "title": "user need to be connected to have permision",
-        "description": "<p>Need to be connected</p>"
-      }
-    ],
-    "description": "<p>update a answer by is id</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the answer to update</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "contentAnswer",
-            "description": "<p>content of the answer</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "isAnonymous",
-            "description": "<p>indicates if the answer is published anonymously or not</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "ownerAnswer",
-            "description": "<p>id of the user who wrote the answer</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "401": [
-          {
-            "group": "401",
-            "optional": false,
-            "field": "TokenMissing",
-            "description": "<p>Token not found in header</p>"
-          }
-        ],
-        "403": [
-          {
-            "group": "403",
-            "optional": false,
-            "field": "ForbiddenAcces",
-            "description": "<p>unauthorized to update this answer</p>"
-          }
-        ],
-        "500": [
-          {
-            "group": "500",
-            "optional": false,
-            "field": "AuthenticateTokenFail",
-            "description": "<p>Failed to authenticate token</p>"
-          },
-          {
-            "group": "500",
-            "optional": false,
-            "field": "TokenExpired",
-            "description": "<p>Token provided is expired</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "router/answers.js",
-    "groupTitle": "Answer"
-  },
-  {
-    "type": "put",
     "url": "/answers/dislike",
     "title": "dislike an answer",
     "name": "PutAnswerdislike",
@@ -872,6 +875,19 @@
             "optional": false,
             "field": "id",
             "description": "<p>id of the answer to dislike</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the answer disliked</p>"
           }
         ]
       }
@@ -946,6 +962,18 @@
             "optional": false,
             "field": "id",
             "description": "<p>id of the propostion to delete</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "204": [
+          {
+            "group": "204",
+            "optional": false,
+            "field": "204",
+            "description": "<p>No content</p>"
           }
         ]
       }
@@ -1636,6 +1664,19 @@
         ]
       }
     },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the propostion who the report is canceled</p>"
+          }
+        ]
+      }
+    },
     "header": {
       "examples": [
         {
@@ -1672,6 +1713,19 @@
             "optional": false,
             "field": "id",
             "description": "<p>id of the propostion to dislike</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the propostion disliked</p>"
           }
         ]
       }
@@ -1750,6 +1804,19 @@
         ]
       }
     },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the propostion liked</p>"
+          }
+        ]
+      }
+    },
     "error": {
       "fields": {
         "401": [
@@ -1824,6 +1891,19 @@
         ]
       }
     },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the propostion reported</p>"
+          }
+        ]
+      }
+    },
     "error": {
       "fields": {
         "401": [
@@ -1840,101 +1920,6 @@
             "optional": false,
             "field": "ForbiddenAccesReport",
             "description": "<p>Proposition already reported</p>"
-          }
-        ],
-        "500": [
-          {
-            "group": "500",
-            "optional": false,
-            "field": "AuthenticateTokenFail",
-            "description": "<p>Failed to authenticate token</p>"
-          },
-          {
-            "group": "500",
-            "optional": false,
-            "field": "TokenExpired",
-            "description": "<p>Token provided is expired</p>"
-          }
-        ]
-      }
-    },
-    "header": {
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "router/propositions.js",
-    "groupTitle": "Proposition"
-  },
-  {
-    "type": "put",
-    "url": "/propositions/",
-    "title": "update a proposition",
-    "name": "PutPropositionUpdate",
-    "group": "Proposition",
-    "permission": [
-      {
-        "name": "connected",
-        "title": "user need to be connected to have permision",
-        "description": "<p>Need to be connected</p>"
-      }
-    ],
-    "description": "<p>update a proposition by is id</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the propostion</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "contentProp",
-            "description": "<p>content of the propostion</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "isAnonymous",
-            "description": "<p>indicates if the proposition is published anonymously or not</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "ownerProp",
-            "description": "<p>id of the user who wrote the proposition</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "401": [
-          {
-            "group": "401",
-            "optional": false,
-            "field": "TokenMissing",
-            "description": "<p>Token not found in header</p>"
-          }
-        ],
-        "403": [
-          {
-            "group": "403",
-            "optional": false,
-            "field": "ForbiddenAcces",
-            "description": "<p>unauthorized to update this proposition</p>"
           }
         ],
         "500": [
@@ -1996,6 +1981,18 @@
             "optional": false,
             "field": "toDelete",
             "description": "<p>id of the proposition or answer that contains th tag to delete</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "204": [
+          {
+            "group": "204",
+            "optional": false,
+            "field": "204",
+            "description": "<p>No content</p>"
           }
         ]
       }
@@ -2566,6 +2563,18 @@
         ]
       }
     },
+    "success": {
+      "fields": {
+        "204": [
+          {
+            "group": "204",
+            "optional": false,
+            "field": "204",
+            "description": "<p>No content</p>"
+          }
+        ]
+      }
+    },
     "error": {
       "fields": {
         "400": [
@@ -2641,6 +2650,18 @@
       }
     ],
     "description": "<p>logout a user</p>",
+    "success": {
+      "fields": {
+        "204": [
+          {
+            "group": "204",
+            "optional": false,
+            "field": "204",
+            "description": "<p>No content</p>"
+          }
+        ]
+      }
+    },
     "header": {
       "examples": [
         {
