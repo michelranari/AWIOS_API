@@ -48,6 +48,108 @@ define({ "api": [
             "description": "<p>Token not found in header</p>"
           }
         ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAcces",
+            "description": "<p>Admin right required</p>"
+          }
+        ],
+        "422": [
+          {
+            "group": "422",
+            "optional": false,
+            "field": "FiedMissing",
+            "description": "<p>The Users-ID is required</p>"
+          }
+        ],
+        "500": [
+          {
+            "group": "500",
+            "optional": false,
+            "field": "AuthenticateTokenFail",
+            "description": "<p>Failed to authenticate token</p>"
+          },
+          {
+            "group": "500",
+            "optional": false,
+            "field": "TokenExpired",
+            "description": "<p>Token provided is expired</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/admin.js",
+    "groupTitle": "Admin"
+  },
+  {
+    "type": "put",
+    "url": "/admin/cancel-ban",
+    "title": "banned an user",
+    "name": "PostUserAdminCancelBan",
+    "group": "Admin",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>A admin connected and with the right</p>"
+      }
+    ],
+    "description": "<p>cancel the ban of a user by is id</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Users-ID.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "204": [
+          {
+            "group": "204",
+            "optional": false,
+            "field": "204",
+            "description": "<p>No content</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>Token not found in header</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenAcces",
+            "description": "<p>Admin right required</p>"
+          }
+        ],
         "422": [
           {
             "group": "422",
@@ -883,7 +985,7 @@ define({ "api": [
   {
     "type": "put",
     "url": "/answers/",
-    "title": "update a answer",
+    "title": "update anonymity",
     "name": "PutAnswerUpdate",
     "group": "Answer",
     "permission": [
@@ -893,7 +995,7 @@ define({ "api": [
         "description": "<p>Need to be connected</p>"
       }
     ],
-    "description": "<p>update a answer by is id</p>",
+    "description": "<p>update anonymity of a answer by is id</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -910,6 +1012,26 @@ define({ "api": [
             "optional": false,
             "field": "isAnonymous",
             "description": "<p>indicates if the answer is published anonymously or not</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "ownerAnswer",
+            "description": "<p>id of the user who write the answer</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the answer updated</p>"
           }
         ]
       }
@@ -2124,7 +2246,7 @@ define({ "api": [
   {
     "type": "put",
     "url": "/propositions/",
-    "title": "update a proposition",
+    "title": "update anonymity",
     "name": "PutPropositionUpdate",
     "group": "Proposition",
     "permission": [
@@ -2134,7 +2256,7 @@ define({ "api": [
         "description": "<p>Need to be connected</p>"
       }
     ],
-    "description": "<p>update a proposition by is id</p>",
+    "description": "<p>update anonimity of a proposition by is id</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -2151,6 +2273,26 @@ define({ "api": [
             "optional": false,
             "field": "isAnonymous",
             "description": "<p>indicates if the proposition is published anonymously or not</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "ownerProp",
+            "description": "<p>id of the user who write the proposition</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the proposition updated</p>"
           }
         ]
       }
@@ -2757,6 +2899,14 @@ define({ "api": [
             "optional": false,
             "field": "InvalidPseudo",
             "description": "<p>Invalid pseudo</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "ForbiddenBanned",
+            "description": "<p>User is banned</p>"
           }
         ],
         "422": [

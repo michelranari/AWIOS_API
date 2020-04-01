@@ -23,6 +23,7 @@ dotenv.config();
  * @apiParam {String} id id of the propostion
  *
  * @apiSuccess {String} _id id of the proposition
+ * @apiSuccess {String} titleProp title of the proposition
  * @apiSuccess {String} dateAnswer date of the answer
  * @apiSuccess {String} contentAnswer content of the answer
  * @apiSuccess {Boolean} isAnonymous indicates if the answer is published anonymously or not
@@ -301,17 +302,19 @@ router.delete('/', (req, res) => {
 });
 
 /**
- * @api {put} /propositions/ update anonym
+ * @api {put} /propositions/ update anonymity
  * @apiName PutPropositionUpdate
  * @apiGroup Proposition
  * @apiPermission connected
- * @apiDescription update a proposition by is id
+ * @apiDescription update anonimity of a proposition by is id
  * @apiUse TokenMissingError
  * @apiUse AuthenticateTokenFailed
  *
  * @apiParam {String} id id of the propostion
  * @apiParam {String} isAnonymous indicates if the proposition is published anonymously or not
  * @apiParam {String} ownerProp id of the user who write the proposition
+ *
+ * @apiSuccess {String} id id of the proposition updated
  *
  * @apiError (403) ForbiddenAcces unauthorized to update this proposition
  *
@@ -751,7 +754,7 @@ router.post('/', (req, res) => {
  * @apiDescription get data of all proposition
 
  * @apiSuccess {String} _id id of the proposition
- * @apiSuccess {String} title title of the proposition
+ * @apiSuccess {String} titleProp title of the proposition
  * @apiSuccess {String} dateProp date of the proposition
  * @apiSuccess {String} contentProp content of the proposition
  * @apiSuccess {Boolean} isAnonymous indicates if the proposition is published anonymously or not

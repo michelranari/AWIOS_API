@@ -314,17 +314,19 @@ router.get('/:id', async (req,res) =>{
 });
 
 /**
- * @api {put} /answers/ update a answer
+ * @api {put} /answers/ update anonymity
  * @apiName PutAnswerUpdate
  * @apiGroup Answer
  * @apiPermission connected
- * @apiDescription update a answer by is id
+ * @apiDescription update anonymity of a answer by is id
  * @apiUse TokenMissingError
  * @apiUse AuthenticateTokenFailed
  *
  * @apiParam {String} id id of the answer to update
  * @apiParam {String} isAnonymous indicates if the answer is published anonymously or not
  * @apiParam {String} ownerAnswer id of the user who write the answer
+ *
+ * @apiSuccess {String} id id of the answer updated
  *
  * @apiError (403) ForbiddenAcces unauthorized to update this answer
  */

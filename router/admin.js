@@ -25,6 +25,7 @@ dotenv.config();
  * @apiSuccess (204) 204 No content
  *
  * @apiError (422) FiedMissing The Users-ID is required
+ * @apiError (403) ForbiddenAcces Admin right required
  *
  * @apiHeaderExample {json} Header-Example:
  *     {
@@ -59,6 +60,67 @@ router.put('/ban', (req, res) => {
 
     // update state user
     userModel.findOneAndUpdate({"_id": req.body.id},{"isBanned" : true},{new: true}, function(err){
+      if(err){
+        console.log(err);
+        return res.status(500).json(err);
+      }
+      console.log("user banned");
+      res.status(204).send("user banned");
+    });
+
+  });
+})
+
+/**
+ * @api {put} /admin/cancel-ban cancel ban of user
+ * @apiName PostUserAdminCancelBan
+ * @apiGroup Admin
+ * @apiPermission admin
+ * @apiUse TokenMissingError
+ * @apiUse AuthenticateTokenFailed
+ *
+ * @apiDescription cancel the ban of a user by is id
+ *
+ * @apiParam {String} id The Users-ID.
+ *
+ * @apiSuccess (204) 204 No content
+ *
+ * @apiError (422) FiedMissing The Users-ID is required
+ * @apiError (403) ForbiddenAcces Admin right required
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Content-Type": "application/json",
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6I"
+ *     }
+ *
+ */
+router.put('/cancel-ban', (req, res) => {
+
+  // get the token
+  var authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) return res.status(401).send({ errors: "Error. No connected" });
+  var token  = authorizationHeader.split(' ')[1];
+
+  // check token
+  jwt.verify(token, process.env.JWT_KEY , function(err, decoded) {
+    if (err){
+      console.log(err)
+      return res.status(500).send({ errors: 'Failed to authenticate token.' });
+    }
+
+    // if form is filled
+    if(!req.body.id){
+      return res.status(422).json({errors: "Id user required !"});
+    }
+
+    // if not admin
+    if(!decoded.user.isAdmin){
+      return res.status(403).send({ errors: 'Forbidden' });
+    }
+
+    // update state user
+    userModel.findOneAndUpdate({"_id": req.body.id},{"isBanned" : false},{new: true}, function(err){
       if(err){
         console.log(err);
         return res.status(500).json(err);
@@ -177,5 +239,7 @@ router.put('/answers/clean-report', (req, res) => {
     });
   });
 });
+
+
 
 module.exports = router;
