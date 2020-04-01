@@ -311,6 +311,7 @@ router.delete('/', (req, res) => {
  *
  * @apiParam {String} id id of the propostion
  * @apiParam {String} isAnonymous indicates if the proposition is published anonymously or not
+ * @apiParam {String} ownerProp id of the user who write the proposition
  *
  * @apiError (403) ForbiddenAcces unauthorized to update this proposition
  *

@@ -111,6 +111,7 @@ router.put('/password/change', (req, res) => {
  * @apiError (422) FiedMissing field pseudo or password is not filled
  * @apiError (400) InvalidPassword Invalid password
  * @apiError (400) InvalidPseudo Invalid pseudo
+ * @apiError (403) ForbiddenBanned User is banned
  *
  */
 router.post('/authenticate', (req, res) => {
@@ -128,6 +129,10 @@ router.post('/authenticate', (req, res) => {
     }
 
     if(user){
+
+      if(user.isBanned){
+        return res.status(403).send({ errors: 'You are banned !' });
+      }
       // check poassword
       bcrypt.compare(password, user.password, function(err, result) {
         if (err){

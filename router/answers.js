@@ -324,6 +324,7 @@ router.get('/:id', async (req,res) =>{
  *
  * @apiParam {String} id id of the answer to update
  * @apiParam {String} isAnonymous indicates if the answer is published anonymously or not
+ * @apiParam {String} ownerAnswer id of the user who write the answer
  *
  * @apiError (403) ForbiddenAcces unauthorized to update this answer
  */
