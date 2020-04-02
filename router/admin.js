@@ -368,7 +368,7 @@ router.get('/answers/reported', (req, res) => {
 
 router.get('/apidoc', (req, res) => {
 
-  process.cwd()
+  console.log(process.cwd())
 
   fs.readFile('../apidoc/index.html', function(err, data) {
     if(err){
