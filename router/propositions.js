@@ -47,7 +47,7 @@ router.get('/:id/answers/best',(req, res) => {
     // no answer found
     if(!prop) {
       console.log("No proposition found");
-      return res.status(200).send({errors : "No proposition found"});
+      return res.status(204).send({errors : "No proposition found"});
     }
 
     var answerArray = [];
@@ -61,7 +61,7 @@ router.get('/:id/answers/best',(req, res) => {
 
        // if the answer don't have reponse
        if(answerArray.length == 0){
-         return res.status(202).send({prop._id : {}});
+         return res.status(202).json({id : {}});
        }
 
        await answerArray.sort(compare);
