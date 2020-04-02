@@ -42,7 +42,8 @@ router.get('/:id/answers/best',(req, res) => {
     }
     // no answer found
     if(!prop) {
-      return res.status(204).send({errors : "No answers found"});
+      console.log("No answers found");
+      return res.status(200).send({errors : "No answers found"});
     }
 
     var answerArray = [];
