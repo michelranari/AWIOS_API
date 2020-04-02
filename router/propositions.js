@@ -34,16 +34,20 @@ dotenv.config();
  * @apiSuccess {String} idProp id of the proposition linked to the answer
  *
  * @apiSucess (204) PropositonNotFound Proposition not found
+ *
+ * @apiSucess (202) {String} id the answer don't have reponse
+ *
  */
 router.get('/:id/answers/best',(req, res) => {
   propositionModel.findById(req.params.id, async function(err,prop){
     if (err){
       return res.status(500).send(err);
     }
+
     // no answer found
     if(!prop) {
-      console.log("No answers found");
-      return res.status(200).send({errors : "No answers found"});
+      console.log("No proposition found");
+      return res.status(200).send({errors : "No proposition found"});
     }
 
     var answerArray = [];
@@ -54,8 +58,15 @@ router.get('/:id/answers/best',(req, res) => {
          answer = await answerModel.findById(prop.idAnswers[i]).exec();
          answerArray.push(answer);
        }
+
+       // if the answer don't have reponse
+       if(answerArray.length == 0){
+         return res.status(202).send({prop._id : {}});
+       }
+
        await answerArray.sort(compare);
        result = {};
+
        result[answerArray[0]._id] = answerArray[0];
        return res.status(200).json(result);
 
