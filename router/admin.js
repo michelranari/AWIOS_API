@@ -242,7 +242,7 @@ router.put('/answers/clean-report', (req, res) => {
 });
 
 /**
- * @api {put} /admin/propositions/reported get propositions reported
+ * @api {get} /admin/propositions/reported get propositions reported
  * @apiName GetAdminPropositionsReported
  * @apiGroup Admin
  * @apiPermission admin
@@ -284,12 +284,14 @@ router.get('/propositions/reported', (req, res) => {
       return res.status(403).send({ errors: 'Forbidden' });
     }
 
+    // find all proposition where idReport is not empty
     propositionModel.find({"idReport.0" : { "$exists": true }}, function(err,prop){
       if (err){
         console.log(err)
         return res.status(500).send(err);
       }
 
+      // if empty
       if(!prop){
         return res.status(204).send("no proposition found")
       }
@@ -305,7 +307,7 @@ router.get('/propositions/reported', (req, res) => {
 })
 
 /**
- * @api {put} /admin/answers/reported get answers reported
+ * @api {get} /admin/answers/reported get answers reported
  * @apiName GetAdminAnswersReported
  * @apiGroup Admin
  * @apiPermission admin
@@ -346,6 +348,7 @@ router.get('/answers/reported', (req, res) => {
       return res.status(403).send({ errors: 'Forbidden' });
     }
 
+    // find all answer where idReport is not empty
     answerModel.find({"idReport.0" : { "$exists": true }}, function(err,answer){
       if (err){
         console.log(err)

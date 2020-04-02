@@ -16,7 +16,7 @@ dotenv.config();
  * @apiName GetTagsBest
  * @apiGroup Tag
  * @apiPermission none
- * @apiDescription get 9 most frequent tags. Frequency is define by the number of occurence of the tag
+ * @apiDescription get 9 most frequent tags used in propositions. Frequency is define by size of array of idProps
  *
  * @apiSuccess {String} label label of the tag
  * @apiSuccess {Number} nbOccurence number of occurence of the tag
@@ -25,7 +25,7 @@ dotenv.config();
  *
  */
 router.get('/best', (req,res) =>{
-  tagModel.find({}).sort({"nbOccurence" : "desc"}).limit(9).exec(function(err, tags) {
+  tagModel.find({"idProps.0" : { "$exists": true }},function(err, tags) {
     if (err){
       console.log(err)
       return res.status(500).send(err);
@@ -33,10 +33,17 @@ router.get('/best', (req,res) =>{
 
     // if resource exist
     if(tags){
+
+      console.log(tags)
+      var sorted = tags.sort(compare);
+
+      if(tags.length >9){
+        sorted = sorted.slice(0,9)
+      }
     //format the query
      result = {};
-     for (var i = 0; i < tags.length; i++) {
-       result[tags[i]._id] = tags[i];
+     for (var i = 0; i < sorted.length; i++) {
+       result[sorted[i]._id] = sorted[i];
      }
      res.status(200).json(result);
     }else{
@@ -267,7 +274,14 @@ function del(identifiant,del,res){
       })
     }
   });
+}
 
+function compare(a,b){
+  var al = a.idProps.length;
+  var bl = b.idProps.length;
+  if(al > bl) return -1;
+  if(bl > al) return 1;
+  return 0;
 }
 
 module.exports = router;
