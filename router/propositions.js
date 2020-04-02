@@ -14,7 +14,7 @@ dotenv.config();
 
 
 /**
- * @api {get} /:id/answers/best get best answer of a proposition
+ * @api {get} /propositions/:id/answers/best get best answer of a proposition
  * @apiName GetBestAnswerById
  * @apiGroup Proposition
  * @apiPermission none
