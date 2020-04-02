@@ -206,11 +206,6 @@ router.get('/:id', (req,res) =>{
   })
 });
 
-router.delete('/test', (req, res) => {
-  const [first, second] = test();
-  console.log(first)
-})
-
 /**
  * @api {delete} /propositions/ delete a proposition
  * @apiName DeleteProposition
@@ -818,7 +813,9 @@ async function deleteAnswer(id){
     }
   })
 
-
+  // delete answers in propositions
+  // params : id : id of the tag to delete
+  // return [true,succes] if succes and else return [false,error]
   var query2 = answerModel.findByIdAndRemove(id)
   var result2 = await query2.exec(function(err1,deleted){
     if (err1){
@@ -852,6 +849,10 @@ async function deleteAnswer(id){
   })
 }
 
+// delete tags in propositions
+// params : - identifiant : id of the tag to delete
+//          - del : id of the proposition that the tag is attached
+// return [true,succes] if succes and else return [false,error]
 async function deleteTagProp(identifiant,del){
   tagModel.findById(identifiant, function(err1,tag){
     if (err1){
@@ -887,7 +888,9 @@ async function deleteTagProp(identifiant,del){
 }
 
 // delete tag in answer
-// return [true, succes]
+// params : - identifiant : id of the tag to delete
+//          - del : id of the answer that the tag is attached
+// return [true,succes] if succes and else return [false,error]
 function deleteTagAnswer(identifiant,del){
   tagModel.findById(identifiant, function(err1,tag){
     if (err1){

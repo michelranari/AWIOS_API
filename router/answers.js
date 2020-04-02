@@ -637,7 +637,9 @@ router.get('/', (req,res) =>{
 
 
 // delete tag in answer
-// return [true, succes]
+// params : - identifiant : id of the tag to delete
+//          - del : id of the answer that the tag is attached
+// return [true,succes] if succes and else return [false,error]
 function deleteTagAnswer(identifiant,del){
   tagModel.findById(identifiant, function(err1,tag){
     if (err1){

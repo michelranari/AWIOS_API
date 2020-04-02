@@ -1,6 +1,6 @@
 [
   {
-    "type": "put",
+    "type": "get",
     "url": "/admin/answers/reported",
     "title": "get answers reported",
     "name": "GetAdminAnswersReported",
@@ -129,7 +129,7 @@
     "groupTitle": "Admin"
   },
   {
-    "type": "put",
+    "type": "get",
     "url": "/admin/propositions/reported",
     "title": "get propositions reported",
     "name": "GetAdminPropositionsReported",
@@ -1514,7 +1514,7 @@
   },
   {
     "type": "get",
-    "url": "/:id/answers/best",
+    "url": "/propositions/:id/answers/best",
     "title": "get best answer of a proposition",
     "name": "GetBestAnswerById",
     "group": "Proposition",
@@ -1609,18 +1609,6 @@
             "optional": false,
             "field": "idProp",
             "description": "<p>id of the proposition linked to the answer</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "204": [
-          {
-            "group": "204",
-            "optional": false,
-            "field": "PropositonNotFound",
-            "description": "<p>Proposition not found</p>"
           }
         ]
       }
@@ -2815,7 +2803,7 @@
         "name": "none"
       }
     ],
-    "description": "<p>get 9 most frequent tags. Frequency is define by the number of occurence of the tag</p>",
+    "description": "<p>get 9 most frequent tags used in propositions. Frequency is define by size of array of idProps</p>",
     "success": {
       "fields": {
         "Success 200": [

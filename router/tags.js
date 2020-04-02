@@ -34,7 +34,6 @@ router.get('/best', (req,res) =>{
     // if resource exist
     if(tags){
 
-      console.log(tags)
       var sorted = tags.sort(compare);
 
       if(tags.length >9){
@@ -276,6 +275,7 @@ function del(identifiant,del,res){
   });
 }
 
+// function to compare tag. Used in 9 best tags
 function compare(a,b){
   var al = a.idProps.length;
   var bl = b.idProps.length;
