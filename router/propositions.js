@@ -232,6 +232,7 @@ router.delete('/', (req, res) => {
   var authorizationHeader = req.headers.authorization;
   if (!authorizationHeader) return res.status(401).send({ errors: 'Authentication error. Token required' });
   var token  = authorizationHeader.split(' ')[1];
+  var owner;
 
   // check token
   jwt.verify(token, process.env.JWT_KEY , async function(err, decoded) {
@@ -279,32 +280,42 @@ router.delete('/', (req, res) => {
 
     })
 
-    // delete proposition
-    await propositionModel.findByIdAndRemove(req.body.id,function(err,prop1){
+
+    await propositionModel.findById(req.body.id,function (err, prop) {
       if(err){
         console.log(err);
         return res.status(500).json(err);
       }
 
       // delete idProp in User Model
-      userModel.findById(prop1.ownerProp,function(err,user){
+      userModel.findById(prop.ownerProp,function(err,user){
         if(err){
           console.log(err);
           return res.status(500).json(err);
         }
         var idProp = user.idPropositions.filter(id => id != req.body.id);
         var update = {"idPropositions" : idProp }
-        userModel.findOneAndUpdate({_id : prop1.ownerProp},update,{new: true},function(err1,user1){
+        userModel.findOneAndUpdate({_id : prop.ownerPropr},update,{new: true},function(err1,user1){
           if(err1){
             console.log(err1);
             return res.status(500).json(err3);
           }
           console.log("field idPropositions in User model modified")
-          console.log("delete proposition done")
-          return res.status(204).send("delete proposition done");;
         });
       });
+
+    })
+
+    // delete proposition
+    await propositionModel.findByIdAndRemove(req.body.id,function(err,prop1){
+      if(err){
+        console.log(err);
+        return res.status(500).json(err);
+      }
+      console.log("delete proposition done")
+      return res.status(204).send("delete proposition done");
     });
+    
   });
 });
 
